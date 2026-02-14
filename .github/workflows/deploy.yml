@@ -1,0 +1,159 @@
+name: Build and Deploy PDFLince
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Add concurrency control
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Validate code and dependencies
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Verify package-lock.json is in sync
+      run: |
+        if ! npm ci --dry-run; then
+          echo "::warning::package-lock.json seems out of sync. Attempting sync..."
+          npm i --package-lock-only
+          echo "::warning::Sync attempted. Please run 'npm install' locally and commit the updated package-lock.json."
+        fi
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Lint code (non-blocking)
+      run: npm run lint || echo "::warning::Linting found issues but continuing"
+      continue-on-error: true
+
+    - name: Type check (non-blocking)
+      run: npx tsc --noEmit || echo "::warning::Type checking found issues but continuing"
+      continue-on-error: true
+
+  # Run E2E tests
+  e2e-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [validate]
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      run: npm run test:e2e
+
+  # Build the Next.js application
+  build-pdflince:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [validate, e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build application
+      env:
+        NODE_OPTIONS: "--max-old-space-size=4096"
+        NEXT_TELEMETRY_DISABLED: "1"
+        NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
+      run: |
+        echo "Building PDFLince application..."
+        npm run build
+
+        echo "Verifying build output..."
+        if [ ! -d "out" ]; then
+          echo "::error::Build failed - 'out' directory not created."
+          exit 1
+        fi
+        if [ ! -f "out/index.html" ]; then
+          echo "::error::Build failed - 'out/index.html' not found."
+          exit 1
+        fi
+        echo "✅ Build successful!"
+        echo "Build output structure:"
+        ls -la out/
+
+    - name: Upload PDFLince build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: pdflince-build
+        path: out/
+        retention-days: 1
+
+  # Deployment section
+  deploy-pdflince:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [build-pdflince]
+    # Only run on main branch or manual trigger
+    if: (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch') && github.actor != 'dependabot[bot]'
+    environment: production
+    steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: pdflince-build
+        path: deploy-files/
+
+    - name: Validate artifacts
+      run: |
+        echo "Validating deployment artifacts..."
+        if [ ! -f "deploy-files/index.html" ]; then
+          echo "::error::Missing index.html in deployment artifacts."
+          exit 1
+        fi
+        echo "✅ Artifacts validation passed."
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Deploy to S3
+      run: |
+        echo "Deploying to S3 bucket: pdflince"
+        # Sync all files first with default caching (no-cache for HTML/others)
+        aws s3 sync deploy-files/ s3://pdflince/ --delete --no-progress --cache-control "public, max-age=0, must-revalidate"
+
+        # Sync immutable assets (hashed files) with long-term caching
+        # Next.js static assets
+        aws s3 sync deploy-files/_next/static/ s3://pdflince/_next/static/ --delete --no-progress --cache-control "public, max-age=31536000, immutable"
+
+    - name: Invalidate CloudFront cache
+      if: ${{ env.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+      env:
+        CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+      run: |
+        aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+        echo "CloudFront cache invalidation requested."

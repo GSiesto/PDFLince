@@ -1,0 +1,63 @@
+{
+  "name": "pdflince",
+  "version": "0.1.0",
+  "description": "Privacy-first client-side PDF toolkit running 100% in the browser.",
+  "keywords": [
+    "pdf",
+    "pdf-tools",
+    "privacy",
+    "client-side",
+    "nextjs",
+    "react",
+    "pdf-lib"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "cross-env STRICT_LINT=true next dev --turbo",
+    "lint": "cross-env STRICT_LINT=true next lint",
+    "lint:fix": "cross-env STRICT_LINT=true next lint --fix",
+    "preview": "npm run build && npx serve out --single",
+    "start": "npx serve out --single",
+    "test:e2e": "playwright test",
+    "postinstall": "node scripts/setup-pdf-worker.mjs"
+  },
+  "dependencies": {
+    "@t3-oss/env-nextjs": "^0.10.1",
+    "geist": "^1.3.0",
+    "lucide-react": "^0.563.0",
+    "next": "^15.5.12",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.4.296",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.0",
+    "server-only": "^0.0.1",
+    "zod": "^3.23.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/eslint": "^8.56.10",
+    "@types/jszip": "^3.4.0",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.1.0",
+    "@typescript-eslint/parser": "^8.1.0",
+    "autoprefixer": "^10.4.21",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.0.1",
+    "jszip": "^3.10.1",
+    "postcss": "^8.5.3",
+    "prettier": "^3.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "serve": "^14.2.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.5.3"
+  }
+}

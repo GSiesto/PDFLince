@@ -1,0 +1,64 @@
+{
+  "home": {
+    "es": "/",
+    "en": "/en",
+    "pt": "/pt",
+    "de": "/de"
+  },
+  "faq": {
+    "es": "/preguntas-frecuentes",
+    "en": "/en/faq",
+    "pt": "/pt/perguntas-frequentes",
+    "de": "/de/haeufige-fragen"
+  },
+  "support": {
+    "es": "/apoya",
+    "en": "/en/support",
+    "pt": "/pt/apoie",
+    "de": "/de/unterstuetzen"
+  },
+  "operations": {
+    "compress": {
+      "es": "/comprimir",
+      "en": "/en/compress",
+      "pt": "/pt/comprimir",
+      "de": "/de/komprimieren"
+    },
+    "merge": {
+      "es": "/unir",
+      "en": "/en/merge",
+      "pt": "/pt/juntar",
+      "de": "/de/zusammenfuehren"
+    },
+    "split": {
+      "es": "/dividir",
+      "en": "/en/split",
+      "pt": "/pt/dividir",
+      "de": "/de/teilen"
+    },
+    "extract": {
+      "es": "/extraer",
+      "en": "/en/extract",
+      "pt": "/pt/extrair",
+      "de": "/de/seiten-extrahieren"
+    },
+    "reorder": {
+      "es": "/reordenar",
+      "en": "/en/reorder",
+      "pt": "/pt/reordenar",
+      "de": "/de/seiten-sortieren"
+    },
+    "pdfToImages": {
+      "es": "/convertir-pdf-a-imagenes",
+      "en": "/en/pdf-to-images",
+      "pt": "/pt/pdf-para-imagens",
+      "de": "/de/pdf-zu-bildern"
+    },
+    "imagesToPdf": {
+      "es": "/crear-pdf-desde-imagenes",
+      "en": "/en/images-to-pdf",
+      "pt": "/pt/imagens-para-pdf",
+      "de": "/de/bilder-zu-pdf"
+    }
+  }
+}

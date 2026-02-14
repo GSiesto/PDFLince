@@ -1,0 +1,36 @@
+# PDFLince
+
+> PDFLince es una herramienta gratuita para procesar documentos PDF directamente en el navegador sin subir archivos a servidores. Ofrece compresión, unión, división, extracción y reordenamiento de páginas con procesamiento 100% local y privado.
+
+PDFLince se creó para la comunidad hispanohablante con énfasis en privacidad y rendimiento. La herramienta no requiere registro, no sube documentos a servidores externos y es compatible con todo tipo de PDFs.
+
+## Funcionalidades Principales
+
+- [Comprimir PDF](https://pdflince.com/comprimir): Reduce el tamaño de documentos manteniendo la mejor calidad posible
+- [Unir PDFs](https://pdflince.com/unir): Combina múltiples archivos PDF en uno solo
+- [Dividir PDF](https://pdflince.com/dividir): Separa un PDF en documentos independientes
+- [Extraer páginas](https://pdflince.com/extraer): Genera un nuevo PDF con las páginas seleccionadas
+- [Reordenar páginas](https://pdflince.com/reordenar): Cambia el orden de las páginas de un PDF sin perder información
+- [PDF a imágenes](https://pdflince.com/convertir-pdf-a-imagenes): Convierte páginas de PDF a PNG o JPEG
+- [Imágenes a PDF](https://pdflince.com/crear-pdf-desde-imagenes): Crea un PDF a partir de imágenes (JPG, PNG, WEBP)
+
+## Idiomas Disponibles / Available Languages
+
+PDFLince está disponible en 4 idiomas. Puedes acceder a la versión que prefieras:
+
+- [Español (Principal)](https://pdflince.com)
+- [English](https://pdflince.com/en)
+- [Deutsch](https://pdflince.com/de)
+- [Português](https://pdflince.com/pt)
+
+## English Summary
+
+PDFLince is a free, private, client-side PDF tool. It allows you to merge, compress, split, extract, and reorder PDF pages directly in your browser without uploading files to any server.
+
+## Información Técnica
+
+- [Preguntas Frecuentes](https://pdflince.com/preguntas-frecuentes): Respuestas a dudas comunes sobre PDFLince
+
+## Herramientas Relacionadas
+
+- [FotoLince](https://fotolince.com): Nuestra herramienta hermana para procesamiento de imágenes
