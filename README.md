@@ -30,7 +30,7 @@ Most online PDF tools require you to upload your sensitive documents to their cl
 - **Convert**: PDF to Image (JPG, PNG) and Image to PDF.
 - **Organize**: Extract pages, reorder pages, and delete pages visually.
 - **Secure**: 100% local processing verifiable via Network tab.
-- **Multilingual**: Native support for English, Spanish, German, Portuguese, and French.
+- **Multilingual**: Native support for English, Spanish, German, Portuguese.
 
 ## 🛠️ Architecture
 
