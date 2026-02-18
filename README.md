@@ -10,7 +10,7 @@
 
 | 🇬🇧 English | 🇪🇸 Español | 🇩🇪 Deutsch | 🇵🇹 Português |
 |:---:|:---:|:---:|:---:|
-| [pdflince.com](https://pdflince.com/en?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/es?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/de?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/pt?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) |
+| [pdflince.com](https://pdflince.com/en?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/de?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/pt?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) |
 
 ## 🚀 Why PDFLince?
 
