@@ -294,9 +294,11 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
       if (operation === 'merge' && processingOptions.metadata?.title) {
         const customTitle = processingOptions.metadata.title.trim();
         if (customTitle) {
-          // Sanitize the custom title to be safe for filenames
-          const sanitizedTitle = customTitle.replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '_');
-          return ensurePdfExtension(`${sanitizedTitle}_pdflince`);
+          // Sanitize the custom title to be safe for filenames but preserve spaces, accents, &, and ()
+          const sanitizedTitle = customTitle.replace(/[^\p{L}\p{N}\-_ &()]/gu, '').trim();
+          if (sanitizedTitle) {
+            return ensurePdfExtension(sanitizedTitle);
+          }
         }
       }
 
