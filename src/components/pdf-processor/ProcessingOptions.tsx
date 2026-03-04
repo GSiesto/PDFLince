@@ -196,8 +196,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
         [field]: value,
       };
       const cleanedEntries = Object.entries(nextMeta)
-        .map(([key, val]) => [key, typeof val === 'string' ? val.trim() : ''] as const)
-        .filter(([, val]) => val.length > 0);
+        .filter(([, val]) => typeof val === 'string' && val.length > 0);
 
       onOptionsChangeAction({
         ...options,
