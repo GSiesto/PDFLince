@@ -157,3 +157,9 @@ jobs:
       run: |
         aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
         echo "CloudFront cache invalidation requested."
+
+    - name: Ping IndexNow
+      run: |
+        echo "Notifying Bing and other search engines via IndexNow..."
+        curl -s "https://api.indexnow.org/indexnow?url=https://pdflince.com&key=7a258aaa2a9b472bb6e97935fe5e82ca"
+        echo "IndexNow pinged successfully."
