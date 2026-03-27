@@ -8,8 +8,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/GSiesto/pdflince/actions/workflows/deploy.yml/badge.svg?style=for-the-badge)](https://github.com/GSiesto/pdflince/actions)
 
-| 🇬🇧 English | 🇪🇸 Español | 🇩🇪 Deutsch | 🇵🇹 Português | 🇮🇹 Italiano
-|:---:|:---:|:---:|:---:|
+| 🇬🇧 English | 🇪🇸 Español | 🇩🇪 Deutsch | 🇵🇹 Português | 🇮🇹 Italiano |
+|:---:|:---:|:---:|:---:|:---:|
 | [pdflince.com](https://pdflince.com/en?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/de?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/pt?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public) | [pdflince.com](https://pdflince.com/it?utm_source=github&utm_medium=readme&utm_campaign=pdflince_public)
 
 ## 🚀 Why PDFLince?
