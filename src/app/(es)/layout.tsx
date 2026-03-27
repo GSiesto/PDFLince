@@ -38,6 +38,8 @@ export const metadata = {
       'pt-BR': 'https://pdflince.com/pt',
       'de': 'https://pdflince.com/de',
       'de-DE': 'https://pdflince.com/de',
+      'it': 'https://pdflince.com/it',
+      'it-IT': 'https://pdflince.com/it',
       'x-default': 'https://pdflince.com',
     },
   },

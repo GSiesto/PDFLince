@@ -3,62 +3,72 @@
     "es": "/",
     "en": "/en",
     "pt": "/pt",
-    "de": "/de"
+    "de": "/de",
+    "it": "/it"
   },
   "faq": {
     "es": "/preguntas-frecuentes",
     "en": "/en/faq",
     "pt": "/pt/perguntas-frequentes",
-    "de": "/de/haeufige-fragen"
+    "de": "/de/haeufige-fragen",
+    "it": "/it/faq"
   },
   "support": {
     "es": "/apoya",
     "en": "/en/support",
     "pt": "/pt/apoie",
-    "de": "/de/unterstuetzen"
+    "de": "/de/unterstuetzen",
+    "it": "/it/supporto"
   },
   "operations": {
     "compress": {
       "es": "/comprimir",
       "en": "/en/compress",
       "pt": "/pt/comprimir",
-      "de": "/de/komprimieren"
+      "de": "/de/komprimieren",
+      "it": "/it/comprimi"
     },
     "merge": {
       "es": "/unir",
       "en": "/en/merge",
       "pt": "/pt/juntar",
-      "de": "/de/zusammenfuehren"
+      "de": "/de/zusammenfuehren",
+      "it": "/it/unisci"
     },
     "split": {
       "es": "/dividir",
       "en": "/en/split",
       "pt": "/pt/dividir",
-      "de": "/de/teilen"
+      "de": "/de/teilen",
+      "it": "/it/dividi"
     },
     "extract": {
       "es": "/extraer",
       "en": "/en/extract",
       "pt": "/pt/extrair",
-      "de": "/de/seiten-extrahieren"
+      "de": "/de/seiten-extrahieren",
+      "it": "/it/estrai"
     },
     "reorder": {
       "es": "/reordenar",
       "en": "/en/reorder",
       "pt": "/pt/reordenar",
-      "de": "/de/seiten-sortieren"
+      "de": "/de/seiten-sortieren",
+      "it": "/it/riordina"
     },
     "pdfToImages": {
       "es": "/convertir-pdf-a-imagenes",
       "en": "/en/pdf-to-images",
       "pt": "/pt/pdf-para-imagens",
-      "de": "/de/pdf-zu-bildern"
+      "de": "/de/pdf-zu-bildern",
+      "it": "/it/da-pdf-a-immagini"
     },
     "imagesToPdf": {
       "es": "/crear-pdf-desde-imagenes",
       "en": "/en/images-to-pdf",
       "pt": "/pt/imagens-para-pdf",
-      "de": "/de/bilder-zu-pdf"
+      "de": "/de/bilder-zu-pdf",
+      "it": "/it/da-immagini-a-pdf"
     }
   }
 }
