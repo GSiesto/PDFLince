@@ -15,6 +15,7 @@ const operationsRoutes: Record<OperationKey, string> = {
   compress: getOperationPath(locale, "compress"),
   split: getOperationPath(locale, "split"),
   extract: getOperationPath(locale, "extract"),
+  rotate: getOperationPath(locale, "rotate"),
   reorder: getOperationPath(locale, "reorder"),
   pdfToImages: getOperationPath(locale, "pdfToImages"),
   imagesToPdf: getOperationPath(locale, "imagesToPdf"),
@@ -36,12 +37,13 @@ export const enDictionary: Dictionary = {
     site: {
       title: "PDFLince – Merge, compress and convert PDFs for free | No uploads",
       description:
-        "PDFLince is a privacy-first toolkit that merges, compresses, splits, extracts, reorders and converts PDFs to and from images directly in your browser. All processing stays on-device, so your files never leave you.",
+        "PDFLince is a privacy-first toolkit that merges, compresses, splits, extracts, rotates, reorders and converts PDFs to and from images directly in your browser. All processing stays on-device, so your files never leave you.",
       keywords: [
         "merge pdf",
         "compress pdf",
         "split pdf",
         "extract pdf pages",
+        "rotate pdf pages",
         "reorder pdf",
         "pdf to images",
         "images to pdf",
@@ -68,7 +70,7 @@ export const enDictionary: Dictionary = {
     faq: {
       title: "FAQ | PDFLince – Free PDF processing toolkit",
       description:
-        "Answers to frequent questions about PDFLince. Learn how to merge, compress, split, extract and reorder PDFs without uploading your files.",
+        "Answers to frequent questions about PDFLince. Learn how to merge, compress, split, extract, rotate and reorder PDFs without uploading your files.",
       keywords: [
         "pdflince faq",
         "pdf questions",
@@ -76,6 +78,7 @@ export const enDictionary: Dictionary = {
         "merge pdf help",
         "compress pdf help",
         "split pdf help",
+        "rotate pdf pages",
         "reorder pdf",
       ],
       canonical: `${siteUrl}${getRoutePath(locale, "faq")}`,
@@ -124,6 +127,7 @@ export const enDictionary: Dictionary = {
         compress: "Compress PDF",
         split: "Split PDF",
         extract: "Extract Pages",
+        rotate: "Rotate Pages",
         reorder: "Reorder Pages",
         pdfToImages: "PDF to images",
         imagesToPdf: "Images to PDF",
@@ -174,6 +178,10 @@ export const enDictionary: Dictionary = {
           label: "Extract Pages",
           helper: "Choose specific pages to create a new document.",
         },
+        rotate: {
+          label: "Rotate Pages",
+          helper: "Select the pages that need a new orientation and rotate only those pages.",
+        },
         reorder: {
           label: "Reorder Pages",
           helper: "Change the order of pages inside a PDF.",
@@ -193,6 +201,7 @@ export const enDictionary: Dictionary = {
         listHeadings: {
           merge: "Files to merge (reorder to define the final sequence):",
           extract: "Select a file to work with its pages:",
+          rotate: "Select a file to work with its pages:",
           reorder: "Select a file to work with its pages:",
           pdfToImages: "PDFs to convert (processed one by one):",
           imagesToPdf: "Images to combine (reorder for the final sequence):",
@@ -210,6 +219,7 @@ export const enDictionary: Dictionary = {
         merge: "merged_PDFLince",
         split: "part_PDFLince",
         extract: "extracted_PDFLince",
+        rotate: "rotated_PDFLince",
         reorder: "reordered_PDFLince",
         pdfToImages: "images_PDFLince",
         imagesToPdf: "images_to_pdf_PDFLince",
@@ -219,6 +229,8 @@ export const enDictionary: Dictionary = {
         idleMultiple: (count: number) => `Process ${count} files`,
         processing: "Processing...",
         extract: (count: number) => `Extract ${count} ${count === 1 ? "page" : "pages"}`,
+        rotate: (count: number) =>
+          count > 0 ? `Rotate ${count} ${count === 1 ? "page" : "pages"}` : "Rotate PDF",
         reorder: "Save new order",
         pdfToImages: {
           single: "Export images",
@@ -239,6 +251,7 @@ export const enDictionary: Dictionary = {
             ? `Generated ${count} files. Downloading the first one...`
             : "Split complete",
         extracted: (count: number) => `Extracted ${count} ${count === 1 ? "page" : "pages"}`,
+        rotated: (count: number) => `Rotated ${count} ${count === 1 ? "page" : "pages"}`,
         reordered: "Reordering complete",
         pdfToImages: (count: number, format: "png" | "jpeg", zipped: boolean) => {
           const label = format === "png" ? "PNG" : "JPEG";
@@ -264,6 +277,7 @@ export const enDictionary: Dictionary = {
       },
       labels: {
         pagesToExtract: "Select the pages to extract:",
+        pagesToRotate: "Select the pages to rotate:",
         reorderPages: "Drag pages to reorder them:",
       },
       compressionPreview: {
@@ -413,6 +427,13 @@ export const enDictionary: Dictionary = {
         preserveMetadata: "Preserve original metadata",
         preserveMetadataHint: "Keeps title, author, and other document details in the extracted file.",
       },
+      rotate: {
+        title: "Rotate",
+        hint: "Choose the direction and then mark the pages you want to rotate.",
+        rotateRight90: "Rotate right 90 degrees",
+        rotate180: "Rotate 180 degrees",
+        rotateLeft90: "Rotate left 90 degrees",
+      },
       reorder: {
         title: "Reorder",
         hint: "Drag thumbnails to change the order.",
@@ -475,7 +496,7 @@ export const enDictionary: Dictionary = {
       hero: {
         title: "PDFLince: Compress, merge and convert PDF online for free",
         subtitle:
-          "Compress PDF, merge PDF, split documents, extract pages, and convert PDF to images or images to PDF right in your browser. No uploads, fully private, always free.",
+          "Compress PDF, merge PDF, split documents, extract pages, rotate pages, and convert PDF to images or images to PDF right in your browser. No uploads, fully private, always free.",
         badges: [
           "Compress PDF fast",
           "Merge PDFs without limits",
@@ -535,7 +556,7 @@ export const enDictionary: Dictionary = {
       cta: {
         title: "Try PDFLince now",
         description:
-          "Merge, compress, split, extract, and reorder PDFs with full privacy. No sign-ups, no uploads.",
+          "Merge, compress, split, extract, rotate, and reorder PDFs with full privacy. No sign-ups, no uploads.",
         ctaLabel: "Go to the toolkit",
       },
     },

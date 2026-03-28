@@ -270,6 +270,73 @@ const operationsEsContent: Record<OperationKey, OperationContent> = {
       "Guardar solo las páginas con formularios o comprobantes que necesitas archivar.",
     ],
   },
+  rotate: {
+    key: "rotate",
+    slug: "rotar",
+    mode: "rotate",
+    meta: {
+      title: "Rotar páginas PDF online | Girar hojas seleccionadas | PDFLince",
+      description:
+        "Rota páginas concretas de un PDF en 90 o 180 grados directamente en tu navegador. Gratis, privado y sin subir archivos.",
+      keywords: [
+        "rotar pdf",
+        "girar paginas pdf",
+        "cambiar orientacion pdf",
+        "corregir pdf torcido",
+        "rotacion de paginas pdf",
+      ],
+      ogTitle: "Rota páginas PDF en segundos | PDFLince",
+      ogDescription:
+        "Selecciona las páginas que necesitan otra orientación, elige 90 o 180 grados y descarga el PDF corregido sin subir nada.",
+      ogImageAlt: "Rotación de páginas PDF en PDFLince",
+    },
+    hero: {
+      title: "Rota páginas PDF sin perder calidad",
+      description:
+        "Corrige escaneos girados, exportaciones boca abajo o documentos con orientaciones mezcladas en pocos clics.",
+      bulletPoints: [
+        "Rota solo las páginas que selecciones, no todo el documento",
+        "Elige girar 90 grados a la derecha, 180 grados o 90 grados a la izquierda",
+        "Todo sucede en tu navegador, sin subidas ni esperas",
+      ],
+      imageAlt: "Flujo de rotación de páginas PDF",
+    },
+    benefitsTitle: "Por qué rotar páginas con PDFLince",
+    benefits: [
+      {
+        title: "Correcciones precisas",
+        description:
+          "Ajusta solo las hojas que lo necesitan, ideal para lotes escaneados o informes largos con orientaciones mixtas.",
+      },
+      {
+        title: "Arreglo rápido",
+        description:
+          "Corrige la orientación en segundos sin reabrir el archivo en un editor pesado de escritorio.",
+      },
+      {
+        title: "Privacidad total",
+        description:
+          "Los documentos sensibles permanecen en tu dispositivo porque la rotación se ejecuta localmente.",
+      },
+    ],
+    howTo: {
+      title: "Cómo rotar páginas PDF",
+      steps: [
+        "Sube el PDF y elige el archivo con las páginas que quieres corregir.",
+        "Marca las páginas y selecciona 90 grados a la derecha, 180 grados o 90 grados a la izquierda.",
+        "Pulsa \"Procesar\" para descargar un nuevo PDF con la orientación ya corregida.",
+      ],
+      note:
+        "Si luego necesitas más ajustes, puedes reordenar, extraer o comprimir el PDF resultante en otro paso.",
+    },
+    useCasesTitle: "Cuándo conviene rotar páginas",
+    useCases: [
+      "Enderezar contratos, formularios o recibos escaneados de lado.",
+      "Corregir páginas boca abajo dentro de informes montados desde varias fuentes.",
+      "Preparar apuntes o manuales antes de compartirlos con alumnado o clientes.",
+      "Limpiar archivos históricos para que todas las páginas se lean con comodidad.",
+    ],
+  },
   reorder: {
     key: "reorder",
     slug: "reordenar",
@@ -478,6 +545,7 @@ export const operationsEs: Record<OperationKey, OperationContent> = {
   compress: operationsEsContent.compress,
   split: operationsEsContent.split,
   extract: operationsEsContent.extract,
+  rotate: operationsEsContent.rotate,
   reorder: operationsEsContent.reorder,
   pdfToImages: operationsEsContent.pdfToImages,
   imagesToPdf: operationsEsContent.imagesToPdf,

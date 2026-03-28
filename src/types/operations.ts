@@ -4,5 +4,6 @@ export type OperationKey =
 	| "split"
 	| "extract"
 	| "reorder"
+	| "rotate"
 	| "pdfToImages"
 	| "imagesToPdf";

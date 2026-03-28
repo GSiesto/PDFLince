@@ -12,6 +12,7 @@ import {
   PDFArray,
   PDFNumber,
   rgb,
+  degrees,
 } from 'pdf-lib';
 
 // Type definitions
@@ -21,42 +22,42 @@ export type PDFProcessingMode =
   | 'split'
   | 'extract'
   | 'reorder'
+  | 'rotate'
   | 'pdfToImages'
   | 'imagesToPdf'
   | 'pageCount';
 
 export type PDFProcessingOptions = {
-  // General options
   compressionLevel?: 'low' | 'medium' | 'high';
   outputFormat?: 'pdf';
-  pageRange?: string; // e.g. "1-5,8,11-13"
+  pageRange?: string;
   metadata?: Record<string, string>;
   password?: string;
+
   pagesToExtract?: number[];
   pageOrder?: number[];
+
+  pagesToRotate?: number[];
+  rotationDegrees?: 90 | 180 | 270 | -90 | -180 | -270;
+
   bundleAsZip?: boolean;
 
-  // Compression options
   preserveMetadata?: boolean;
   stripAnnotations?: boolean;
   downscaleImages?: boolean;
   downscaleImagesDpi?: number;
   imageQuality?: number;
 
-  // Merge options
   bookmarkHandling?: 'merge' | 'first' | 'none';
   addPageDividers?: boolean;
 
-  // Split options
   splitMode?: 'pageCount' | 'bookmarks' | 'pageNumbers';
   pagesPerFile?: number;
   splitPoints?: string;
   outputNamePattern?: string;
 
-  // Extract options
   maintainOriginalSize?: boolean;
 
-  // Image conversion options
   imageOutputFormat?: 'png' | 'jpeg';
   imageOutputQuality?: number;
   imageRenderDpi?: number;
@@ -66,6 +67,7 @@ export type PDFProcessingOptions = {
   pageOrientation?: 'auto' | 'portrait' | 'landscape';
   pageMarginPoints?: number;
   backgroundColor?: string;
+  
 };
 
 export type ProcessingResult = {
@@ -681,6 +683,78 @@ export async function reorderPages(
     console.error('Error reordering pages:', error);
     throw new Error(`Failed to reorder pages: ${error instanceof Error ? error.message : String(error)}`);
   }
+}
+
+export async function rotatePages(
+  fileOrData: File | ArrayBuffer | Uint8Array,
+  pageNumbers: number[],
+  rotationDegrees: 90 | 180 | 270 | -90 | -180 | -270 = 90,
+  options: PDFProcessingOptions = {}
+): Promise<Uint8Array> {
+  try {
+    if (pageNumbers.length === 0) {
+      throw new Error('No pages to rotate');
+    }
+
+    const arrayBuffer =
+      fileOrData instanceof File ? await fileOrData.arrayBuffer() : fileOrData;
+
+    const pdfDoc = await PDFDocument.load(arrayBuffer, {
+      ignoreEncryption: true,
+      updateMetadata: options.preserveMetadata !== false,
+    });
+
+    const pageCount = pdfDoc.getPageCount();
+
+    const validPageIndices = [...new Set(
+      pageNumbers
+        .map((num) => num - 1)
+        .filter((idx) => idx >= 0 && idx < pageCount)
+    )];
+
+    if (validPageIndices.length === 0) {
+      throw new Error('No valid page numbers provided');
+    }
+
+    for (const pageIndex of validPageIndices) {
+      const page = pdfDoc.getPage(pageIndex);
+      const currentRotation = page.getRotation().angle;
+      const nextRotation = normalizeRotation(currentRotation + rotationDegrees);
+      page.setRotation(degrees(nextRotation));
+    }
+
+    if (options.metadata) {
+      if (options.metadata.title) pdfDoc.setTitle(options.metadata.title);
+      if (options.metadata.author) pdfDoc.setAuthor(options.metadata.author);
+      if (options.metadata.subject) pdfDoc.setSubject(options.metadata.subject);
+      if (options.metadata.keywords) {
+        pdfDoc.setKeywords([options.metadata.keywords]);
+      }
+    }
+
+    return pdfDoc.save({
+      useObjectStreams: true,
+      addDefaultPage: false,
+    });
+  } catch (error) {
+    console.error('Error rotating pages:', error);
+    throw new Error(
+      `Failed to rotate pages: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
+  }
+}
+
+function normalizeRotation(angle: number): 0 | 90 | 180 | 270 {
+  const normalized = ((angle % 360) + 360) % 360;
+
+  if (normalized === 0) return 0;
+  if (normalized === 90) return 90;
+  if (normalized === 180) return 180;
+  if (normalized === 270) return 270;
+
+  throw new Error(`Invalid rotation angle: ${angle}`);
 }
 
 export async function getPDFPageCount(fileOrData: File | ArrayBuffer | Uint8Array): Promise<number> {

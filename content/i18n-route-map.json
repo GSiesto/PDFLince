@@ -49,6 +49,12 @@
       "de": "/de/seiten-extrahieren",
       "it": "/it/estrai"
     },
+    "rotate": {
+      "es": "/rotar",
+      "en": "/en/rotate",
+      "pt": "/pt/girar",
+      "de": "/de/drehen"
+    },
     "reorder": {
       "es": "/reordenar",
       "en": "/en/reorder",

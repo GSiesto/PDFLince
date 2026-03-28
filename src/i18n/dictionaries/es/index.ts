@@ -23,6 +23,7 @@ export const esDictionary: Dictionary = {
       compress: getOperationPath(DEFAULT_LOCALE, "compress"),
       split: getOperationPath(DEFAULT_LOCALE, "split"),
       extract: getOperationPath(DEFAULT_LOCALE, "extract"),
+      rotate: getOperationPath(DEFAULT_LOCALE, "rotate"),
       reorder: getOperationPath(DEFAULT_LOCALE, "reorder"),
       pdfToImages: getOperationPath(DEFAULT_LOCALE, "pdfToImages"),
       imagesToPdf: getOperationPath(DEFAULT_LOCALE, "imagesToPdf"),
@@ -85,7 +86,7 @@ export const esDictionary: Dictionary = {
         "apoyar herramienta pdf",
         "financiar proyecto open web",
         "donación privacidad",
-        "mantener pdflince gratis"
+        "mantener pdflince gratis",
       ],
       canonical: `${siteUrl}${getRoutePath(DEFAULT_LOCALE, "support")}`,
     },
@@ -120,6 +121,7 @@ export const esDictionary: Dictionary = {
         compress: "Comprimir PDF",
         split: "Dividir PDF",
         extract: "Extraer Páginas",
+        rotate: "Rotar páginas",
         reorder: "Reordenar Páginas",
         pdfToImages: "PDF a imágenes",
         imagesToPdf: "Imágenes a PDF",
@@ -170,6 +172,10 @@ export const esDictionary: Dictionary = {
           label: "Extraer Páginas",
           helper: "Selecciona páginas específicas de un PDF para crear un nuevo documento.",
         },
+        rotate: {
+          label: "Rotar páginas",
+          helper: "Selecciona las páginas que necesitan otra orientación y rota solo esas hojas.",
+        },
         reorder: {
           label: "Reordenar Páginas",
           helper: "Cambia el orden de las páginas dentro de un documento PDF.",
@@ -189,6 +195,7 @@ export const esDictionary: Dictionary = {
         listHeadings: {
           merge: "Archivos a unir (ordena para establecer el orden final):",
           extract: "Selecciona un archivo para trabajar con sus páginas:",
+          rotate: "Selecciona un archivo para trabajar con sus páginas:",
           reorder: "Selecciona un archivo para trabajar con sus páginas:",
           pdfToImages: "PDFs a convertir (se procesarán uno a uno):",
           imagesToPdf: "Imágenes a combinar (ordénalas para definir la secuencia final):",
@@ -206,6 +213,7 @@ export const esDictionary: Dictionary = {
         merge: "unido_PDFLince",
         split: "parte_PDFLince",
         extract: "extraido_PDFLince",
+        rotate: "rotado_PDFLince",
         reorder: "reordenado_PDFLince",
         pdfToImages: "imagenes_PDFLince",
         imagesToPdf: "imagenes_a_pdf_PDFLince",
@@ -215,6 +223,8 @@ export const esDictionary: Dictionary = {
         idleMultiple: (count: number) => `Procesar ${count} archivos`,
         processing: "Procesando...",
         extract: (count: number) => `Extraer ${count} ${count === 1 ? "página" : "páginas"}`,
+        rotate: (count: number) =>
+          count > 0 ? `Rotar ${count} ${count === 1 ? "página" : "páginas"}` : "Rotar PDF",
         reorder: "Guardar nueva ordenación",
         pdfToImages: {
           single: "Exportar imágenes",
@@ -235,6 +245,7 @@ export const esDictionary: Dictionary = {
             ? `Generados ${count} archivos. Descargando el primero...`
             : "División completada",
         extracted: (count: number) => `Extraídas ${count} páginas`,
+        rotated: (count: number) => `Rotadas ${count} ${count === 1 ? "página" : "páginas"}`,
         reordered: "Reordenación completada",
         pdfToImages: (count: number, format: "png" | "jpeg", zipped: boolean) => {
           const etiqueta = format === "png" ? "PNG" : "JPEG";
@@ -260,6 +271,7 @@ export const esDictionary: Dictionary = {
       },
       labels: {
         pagesToExtract: "Selecciona las páginas a extraer:",
+        pagesToRotate: "Selecciona las páginas a rotar:",
         reorderPages: "Arrastra las páginas para reordenarlas:",
       },
       compressionPreview: {
@@ -408,6 +420,13 @@ export const esDictionary: Dictionary = {
         title: "Extracción",
         preserveMetadata: "Conservar metadatos originales",
         preserveMetadataHint: "Mantiene título, autor y otros detalles en el PDF resultante.",
+      },
+      rotate: {
+        title: "Rotar",
+        hint: "Elige la dirección y luego marca las páginas que quieres rotar.",
+        rotateRight90: "Rotar 90 grados a la derecha",
+        rotate180: "Rotar 180 grados",
+        rotateLeft90: "Rotar 90 grados a la izquierda",
       },
       reorder: {
         title: "Reordenar",
