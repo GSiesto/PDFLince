@@ -89,3 +89,6 @@ next-env.d.ts
 # Legacy AWS specific assets (deprecated)
 .aws
 aws-exports.js
+
+# AI Agents Context (Local)
+.agents/rules/pdflince-rules.md
