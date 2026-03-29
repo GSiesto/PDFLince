@@ -1452,6 +1452,17 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
       const fileKey = buildFileSignature(file);
       const activeFile = files[currentFileIndex];
       const activeKey = activeFile ? buildFileSignature(activeFile) : null;
+      const applySelectionChange = (currentSelection: Record<number, boolean>) => {
+        const nextSelection = { ...currentSelection };
+
+        if (selected) {
+          nextSelection[pageNumber] = true;
+        } else if (nextSelection[pageNumber]) {
+          delete nextSelection[pageNumber];
+        }
+
+        return nextSelection;
+      };
 
       const fileIndex = files.findIndex(candidate => candidate === file);
       trackProcessorEvent(selected ? 'page_selected' : 'page_deselected', {
@@ -1463,23 +1474,12 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
         setCurrentFileIndex(fileIndex);
       }
 
-      let nextSelectionForFile: Record<number, boolean> | undefined;
-
       setExtractSelectionsByFile(prevMap => {
         const previousSelection = prevMap[fileKey] ?? {};
-        const nextSelection = { ...previousSelection };
-
-        if (selected) {
-          nextSelection[pageNumber] = true;
-        } else if (nextSelection[pageNumber]) {
-          delete nextSelection[pageNumber];
-        }
-
-        const hasPages = Object.keys(nextSelection).length > 0;
+        const nextSelectionForFile = applySelectionChange(previousSelection);
+        const hasPages = Object.keys(nextSelectionForFile).length > 0;
 
         if (!hasPages) {
-          nextSelectionForFile = {};
-
           if (!prevMap[fileKey]) {
             return prevMap;
           }
@@ -1489,17 +1489,18 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           return Object.keys(rest).length === 0 ? {} : rest;
         }
 
-        nextSelectionForFile = nextSelection;
-
-        if (prevMap[fileKey] && areSelectionsEqual(prevMap[fileKey], nextSelection)) {
+        if (prevMap[fileKey] && areSelectionsEqual(prevMap[fileKey], nextSelectionForFile)) {
           return prevMap;
         }
 
-        return { ...prevMap, [fileKey]: nextSelection };
+        return { ...prevMap, [fileKey]: nextSelectionForFile };
       });
 
       if (activeKey === fileKey) {
-        setSelectedPages(nextSelectionForFile && Object.keys(nextSelectionForFile).length > 0 ? { ...nextSelectionForFile } : {});
+        setSelectedPages(prevSelectedPages => {
+          const nextSelectionForFile = applySelectionChange(prevSelectedPages);
+          return Object.keys(nextSelectionForFile).length > 0 ? nextSelectionForFile : {};
+        });
       }
     },
     [buildFileSignature, files, currentFileIndex, trackProcessorEvent]
@@ -2085,6 +2086,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
                           file={file}
                           selectedPages={selection}
                           onPageSelectAction={(page, value) => handlePageSelection(file, page, value)}
+                          selectedPageRotationDegrees={processingOptions.rotationDegrees ?? 90}
                         />
                       </div>
                     </section>

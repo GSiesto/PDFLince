@@ -121,7 +121,7 @@ export const esDictionary: Dictionary = {
         compress: "Comprimir PDF",
         split: "Dividir PDF",
         extract: "Extraer Páginas",
-        rotate: "Rotar páginas",
+        rotate: "Girar páginas",
         reorder: "Reordenar Páginas",
         pdfToImages: "PDF a imágenes",
         imagesToPdf: "Imágenes a PDF",
@@ -173,7 +173,7 @@ export const esDictionary: Dictionary = {
           helper: "Selecciona páginas específicas de un PDF para crear un nuevo documento.",
         },
         rotate: {
-          label: "Rotar páginas",
+          label: "Girar páginas",
           helper: "Selecciona las páginas que necesitan otra orientación y rota solo esas hojas.",
         },
         reorder: {
@@ -224,7 +224,7 @@ export const esDictionary: Dictionary = {
         processing: "Procesando...",
         extract: (count: number) => `Extraer ${count} ${count === 1 ? "página" : "páginas"}`,
         rotate: (count: number) =>
-          count > 0 ? `Rotar ${count} ${count === 1 ? "página" : "páginas"}` : "Rotar PDF",
+          count > 0 ? `Girar ${count} ${count === 1 ? "página" : "páginas"}` : "Girar PDF",
         reorder: "Guardar nueva ordenación",
         pdfToImages: {
           single: "Exportar imágenes",
@@ -271,7 +271,7 @@ export const esDictionary: Dictionary = {
       },
       labels: {
         pagesToExtract: "Selecciona las páginas a extraer:",
-        pagesToRotate: "Selecciona las páginas a rotar:",
+        pagesToRotate: "Selecciona las páginas a girar:",
         reorderPages: "Arrastra las páginas para reordenarlas:",
       },
       compressionPreview: {
@@ -422,11 +422,11 @@ export const esDictionary: Dictionary = {
         preserveMetadataHint: "Mantiene título, autor y otros detalles en el PDF resultante.",
       },
       rotate: {
-        title: "Rotar",
-        hint: "Elige la dirección y luego marca las páginas que quieres rotar.",
-        rotateRight90: "Rotar 90 grados a la derecha",
-        rotate180: "Rotar 180 grados",
-        rotateLeft90: "Rotar 90 grados a la izquierda",
+        title: "Girar",
+        hint: "Elige la dirección y luego marca las páginas que quieres girar.",
+        rotateRight90: "Girar 90 grados a la derecha",
+        rotate180: "Girar 180 grados",
+        rotateLeft90: "Girar 90 grados a la izquierda",
       },
       reorder: {
         title: "Reordenar",

@@ -272,26 +272,26 @@ const operationsEsContent: Record<OperationKey, OperationContent> = {
   },
   rotate: {
     key: "rotate",
-    slug: "rotar",
+    slug: "girar",
     mode: "rotate",
     meta: {
-      title: "Rotar páginas PDF online | Girar hojas seleccionadas | PDFLince",
+      title: "Girar páginas PDF online | Girar hojas seleccionadas | PDFLince",
       description:
         "Rota páginas concretas de un PDF en 90 o 180 grados directamente en tu navegador. Gratis, privado y sin subir archivos.",
       keywords: [
-        "rotar pdf",
+        "girar pdf",
         "girar paginas pdf",
         "cambiar orientacion pdf",
         "corregir pdf torcido",
-        "rotacion de paginas pdf",
+        "giracion de paginas pdf",
       ],
-      ogTitle: "Rota páginas PDF en segundos | PDFLince",
+      ogTitle: "Gira páginas PDF en segundos | PDFLince",
       ogDescription:
         "Selecciona las páginas que necesitan otra orientación, elige 90 o 180 grados y descarga el PDF corregido sin subir nada.",
-      ogImageAlt: "Rotación de páginas PDF en PDFLince",
+      ogImageAlt: "Girar páginas PDF en PDFLince",
     },
     hero: {
-      title: "Rota páginas PDF sin perder calidad",
+      title: "Gira páginas PDF sin perder calidad",
       description:
         "Corrige escaneos girados, exportaciones boca abajo o documentos con orientaciones mezcladas en pocos clics.",
       bulletPoints: [
@@ -301,7 +301,7 @@ const operationsEsContent: Record<OperationKey, OperationContent> = {
       ],
       imageAlt: "Flujo de rotación de páginas PDF",
     },
-    benefitsTitle: "Por qué rotar páginas con PDFLince",
+    benefitsTitle: "Por qué girar páginas con PDFLince",
     benefits: [
       {
         title: "Correcciones precisas",
@@ -320,7 +320,7 @@ const operationsEsContent: Record<OperationKey, OperationContent> = {
       },
     ],
     howTo: {
-      title: "Cómo rotar páginas PDF",
+      title: "Cómo girar páginas PDF",
       steps: [
         "Sube el PDF y elige el archivo con las páginas que quieres corregir.",
         "Marca las páginas y selecciona 90 grados a la derecha, 180 grados o 90 grados a la izquierda.",
@@ -329,7 +329,7 @@ const operationsEsContent: Record<OperationKey, OperationContent> = {
       note:
         "Si luego necesitas más ajustes, puedes reordenar, extraer o comprimir el PDF resultante en otro paso.",
     },
-    useCasesTitle: "Cuándo conviene rotar páginas",
+    useCasesTitle: "Cuándo conviene girar páginas",
     useCases: [
       "Enderezar contratos, formularios o recibos escaneados de lado.",
       "Corregir páginas boca abajo dentro de informes montados desde varias fuentes.",

@@ -9,9 +9,15 @@ type PageSelectorProps = {
   file: File;
   selectedPages: Record<number, boolean>;
   onPageSelectAction: (pageNumber: number, selected: boolean) => void;
+  selectedPageRotationDegrees?: number;
 };
 
-export default function PageSelector({ file, selectedPages, onPageSelectAction }: PageSelectorProps) {
+export default function PageSelector({
+  file,
+  selectedPages,
+  onPageSelectAction,
+  selectedPageRotationDegrees = 0,
+}: PageSelectorProps) {
   const [pageCount, setPageCount] = useState<number>(0);
   const [thumbnails, setThumbnails] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -147,11 +153,14 @@ export default function PageSelector({ file, selectedPages, onPageSelectAction }
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {thumbnails.map((thumbnail, index) => {
           const pageNumber = index + 1;
+          const isSelected = Boolean(selectedPages[pageNumber]);
+          const thumbnailRotation = isSelected ? selectedPageRotationDegrees : 0;
+
           return (
             <div
               key={pageNumber}
               className={`relative border rounded-md overflow-hidden cursor-pointer hover:border-[var(--accent)] transition-colors
-                ${selectedPages[pageNumber] ? 'border-[var(--accent)] ring-2 ring-[var(--accent)]/30' : 'border-[var(--ui-2)]'}`}
+                ${isSelected ? 'border-[var(--accent)] ring-2 ring-[var(--accent)]/30' : 'border-[var(--ui-2)]'}`}
               onClick={() => togglePageSelection(pageNumber)}
             >
               <div className="aspect-[3/4] relative">
@@ -160,11 +169,15 @@ export default function PageSelector({ file, selectedPages, onPageSelectAction }
                   alt={selectorStrings.pageLabel(pageNumber)}
                   width={160}
                   height={200}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain transition-transform duration-200"
+                  style={{
+                    transform: thumbnailRotation ? `rotate(${thumbnailRotation}deg)` : undefined,
+                    transformOrigin: 'center',
+                  }}
                   unoptimized
                 />
                 <div className="absolute top-2 left-2 rounded-full w-6 h-6 flex items-center justify-center bg-[var(--bg)] border border-[var(--ui-2)]">
-                  {selectedPages[pageNumber] ? (
+                  {isSelected ? (
                     <svg className="w-4 h-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
