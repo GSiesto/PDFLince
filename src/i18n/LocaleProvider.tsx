@@ -19,7 +19,7 @@ export function LocaleProvider({ locale: initialLocale, children }: { locale: Lo
     const segments = pathname.split('/');
     const firstSegment = segments[1] as Locale;
 
-    if (firstSegment && ['en', 'pt', 'de'].includes(firstSegment)) {
+    if (firstSegment && ['en', 'pt', 'de', 'it'].includes(firstSegment)) {
       return firstSegment;
     }
 
