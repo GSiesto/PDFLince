@@ -29,8 +29,9 @@ Most online PDF tools require you to upload your sensitive documents to their cl
 - **Split**: Extract ranges or split every page into separate files.
 - **Convert**: PDF to Image (JPG, PNG) and Image to PDF.
 - **Organize**: Extract pages, reorder pages, and delete pages visually.
+- **Rotate**: Rotate selected pages and preview changes in real-time before exporting.
 - **Secure**: 100% local processing verifiable via Network tab.
-- **Multilingual**: Native support for English, Spanish, German, Portuguese.
+- **Multilingual**: Native support for English, Spanish, German, Portuguese, Italian.
 
 ## 🛠️ Architecture
 
