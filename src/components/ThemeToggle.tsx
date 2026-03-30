@@ -150,13 +150,11 @@ export default function ThemeToggle() {
   const copy = useMemo(() => COPY[locale] ?? COPY.en, [locale]);
 
   const [theme, setTheme] = useState<ThemePreference>("system");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const savedTheme = getStoredTheme();
     setTheme(savedTheme);
     applyTheme(savedTheme);
-    setMounted(true);
     
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");     // Sync with system changes when using "system" mode
 
