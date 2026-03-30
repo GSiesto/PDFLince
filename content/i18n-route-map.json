@@ -53,7 +53,8 @@
       "es": "/girar",
       "en": "/en/rotate",
       "pt": "/pt/girar",
-      "de": "/de/drehen"
+      "de": "/de/drehen",
+      "it": "/it/ruota"
     },
     "reorder": {
       "es": "/reordenar",
