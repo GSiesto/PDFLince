@@ -384,6 +384,69 @@ const operationsItContent: Record<OperationKey, OperationContent> = {
     ],
   },
 
+  rotate: {
+    key: "rotate",
+    slug: "rotate",
+    mode: "rotate",
+    meta: {
+      title: "Ruota PDF online | PDFLince",
+      description:
+        "Ruota pagine PDF di 90°, 180° o 270° senza perdita di qualità.",
+      keywords: [
+        "ruota pdf",
+        "ruota pagine",
+        "pdf rotator",
+      ],
+      ogTitle: "Ruota PDF facilmente | PDFLince",
+      ogDescription:
+        "Seleziona le pagine e ruotale nel browser in pochi secondi.",
+      ogImageAlt: "Rotazione PDF",
+    },
+    hero: {
+      title: "Ruota pagine PDF",
+      description:
+        "Correggi l'orientamento delle pagine velocemente.",
+      bulletPoints: [
+        "Ruota di 90° a destra o sinistra",
+        "Applica a pagine singole o intere",
+        "Nessun caricamento su server",
+      ],
+      imageAlt: "Rotazione PDF",
+    },
+    benefitsTitle: "Vantaggi",
+    benefits: [
+      {
+        title: "Velocità",
+        description: "Correzioni istantanee.",
+      },
+      {
+        title: "Precisione",
+        description: "Controlla ogni pagina.",
+      },
+      {
+        title: "Privacy",
+        description: "Elaborazione locale.",
+      },
+    ],
+    howTo: {
+      title: "Come ruotare PDF",
+      steps: [
+        "Carica il PDF.",
+        "Seleziona le pagine da ruotare.",
+        "Scegli la direzione di rotazione.",
+        "Scarica il file.",
+      ],
+      note: "Puoi ruotare più pagine contemporaneamente.",
+    },
+    useCasesTitle: "Uso",
+    useCases: [
+      "Correggere scansioni capovolte.",
+      "Unificare orientamenti misti.",
+      "Preparare documenti per stampa.",
+      "Archiviazione organizzata.",
+    ],
+  },
+
   pdfToImages: {
     key: "pdfToImages",
     slug: "pdf-to-images",
@@ -451,6 +514,7 @@ export const operationsIt: Record<OperationKey, OperationContent> = {
   split: operationsItContent.split,
   extract: operationsItContent.extract,
   reorder: operationsItContent.reorder,
+  rotate: operationsItContent.rotate,
   pdfToImages: operationsItContent.pdfToImages,
   imagesToPdf: operationsItContent.imagesToPdf,
 };
