@@ -184,6 +184,10 @@ export const itDictionary: Dictionary = {
           label: "Riordina pagine",
           helper: "Cambia l’ordine delle pagine all’interno di un PDF.",
         },
+        rotate: {
+          label: "Ruota pagine",
+          helper: "Ruota le pagine del PDF nel modo desiderato desiderato.",
+        },
         pdfToImages: {
           label: "PDF in immagini",
           helper:
