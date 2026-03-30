@@ -128,6 +128,7 @@ export const itDictionary: Dictionary = {
         split: "Dividi PDF",
         extract: "Estrai pagine",
         reorder: "Riordina pagine",
+        rotate: "Ruota pagine",
         pdfToImages: "PDF in immagini",
         imagesToPdf: "Immagini in PDF",
       },
