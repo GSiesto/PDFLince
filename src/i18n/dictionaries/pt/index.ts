@@ -15,6 +15,7 @@ const operationRoutes: Record<OperationKey, string> = {
   compress: getOperationPath(locale, "compress"),
   split: getOperationPath(locale, "split"),
   extract: getOperationPath(locale, "extract"),
+  rotate: getOperationPath(locale, "rotate"),
   reorder: getOperationPath(locale, "reorder"),
   pdfToImages: getOperationPath(locale, "pdfToImages"),
   imagesToPdf: getOperationPath(locale, "imagesToPdf"),
@@ -124,6 +125,7 @@ export const ptDictionary: Dictionary = {
         compress: "Comprimir PDF",
         split: "Dividir PDF",
         extract: "Extrair páginas",
+        rotate: "Girar páginas",
         reorder: "Reordenar páginas",
         pdfToImages: "PDF para imagens",
         imagesToPdf: "Imagens para PDF",
@@ -174,6 +176,10 @@ export const ptDictionary: Dictionary = {
           label: "Extrair páginas",
           helper: "Escolha páginas específicas para criar um novo documento.",
         },
+        rotate: {
+          label: "Girar páginas",
+          helper: "Selecione as páginas que precisam de nova orientação e gire apenas essas páginas.",
+        },
         reorder: {
           label: "Reordenar páginas",
           helper: "Mude a ordem das páginas dentro de um PDF.",
@@ -193,6 +199,7 @@ export const ptDictionary: Dictionary = {
         listHeadings: {
           merge: "Arquivos para juntar (reordene para definir a sequência final):",
           extract: "Selecione um arquivo para trabalhar com as páginas:",
+          rotate: "Selecione um arquivo para trabalhar com as páginas:",
           reorder: "Selecione um arquivo para trabalhar com as páginas:",
           pdfToImages: "PDFs para converter (processados um a um):",
           imagesToPdf: "Imagens para combinar (reordene para definir a sequência final):",
@@ -210,6 +217,7 @@ export const ptDictionary: Dictionary = {
         merge: "unido_PDFLince",
         split: "parte_PDFLince",
         extract: "extraido_PDFLince",
+        rotate: "girado_PDFLince",
         reorder: "reordenado_PDFLince",
         pdfToImages: "imagens_PDFLince",
         imagesToPdf: "imagens_para_pdf_PDFLince",
@@ -220,6 +228,8 @@ export const ptDictionary: Dictionary = {
         processing: "Processando...",
         extract: (count: number) =>
           `Extrair ${count} ${count === 1 ? "página" : "páginas"}`,
+        rotate: (count: number) =>
+          count > 0 ? `Girar ${count} ${count === 1 ? "página" : "páginas"}` : "Girar PDF",
         reorder: "Salvar nova ordem",
         pdfToImages: {
           single: "Exportar imagens",
@@ -241,6 +251,7 @@ export const ptDictionary: Dictionary = {
             : "Divisão concluída",
         extracted: (count: number) =>
           `Extraídas ${count} ${count === 1 ? "página" : "páginas"}`,
+        rotated: (count: number) => `Giradas ${count} ${count === 1 ? "página" : "páginas"}`,
         reordered: "Reordenação concluída",
         pdfToImages: (count: number, format: "png" | "jpeg", zipped: boolean) => {
           const label = format === "png" ? "PNG" : "JPEG";
@@ -266,6 +277,7 @@ export const ptDictionary: Dictionary = {
       },
       labels: {
         pagesToExtract: "Selecione as páginas para extrair:",
+        pagesToRotate: "Selecione as páginas para girar:",
         reorderPages: "Arraste as páginas para reordená-las:",
       },
       compressionPreview: {
@@ -414,6 +426,13 @@ export const ptDictionary: Dictionary = {
         title: "Extração",
         preserveMetadata: "Preservar metadados originais",
         preserveMetadataHint: "Mantém título, autor e outros detalhes no PDF gerado.",
+      },
+      rotate: {
+        title: "Girar",
+        hint: "Escolha a direção e depois marque as páginas que deseja girar.",
+        rotateRight90: "Girar 90 graus para a direita",
+        rotate180: "Girar 180 graus",
+        rotateLeft90: "Girar 90 graus para a esquerda",
       },
       reorder: {
         title: "Reordenar",

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import FileUploader from './FileUploader';
@@ -55,6 +55,10 @@ const MODE_DEFAULTS: Record<ProcessingMode, PDFProcessingOptions> = {
   reorder: {
     preserveMetadata: true,
   },
+  rotate: {
+    preserveMetadata: true,
+    rotationDegrees: 90,
+  },
   pdfToImages: {
     imageOutputFormat: 'png',
     imageOutputQuality: 0.9,
@@ -77,6 +81,7 @@ const MODE_TABS: ProcessingMode[] = [
   'split',
   'extract',
   'reorder',
+  'rotate',
   'pdfToImages',
   'imagesToPdf',
 ];
@@ -190,10 +195,10 @@ const areOrdersEqual = (a: number[], b: number[]) => {
 export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: ProcessingMode }) {
   const dictionary = useDictionary();
   const processorStrings = dictionary.components.pdfProcessor;
+  const processingOptionsStrings = dictionary.components.processingOptions;
   const ordererStrings = dictionary.components.pageOrderer;
   const fileListStrings = dictionary.components.fileList;
   const { error, NotificationContainer } = useNotification();
-
 
   const [files, setFiles] = useState<File[]>([]);
   const filesRef = useRef(files);
@@ -226,6 +231,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
     split: cloneOptions(MODE_DEFAULTS.split),
     extract: cloneOptions(MODE_DEFAULTS.extract),
     reorder: cloneOptions(MODE_DEFAULTS.reorder),
+    rotate: cloneOptions(MODE_DEFAULTS.rotate),
     pdfToImages: cloneOptions(MODE_DEFAULTS.pdfToImages),
     imagesToPdf: cloneOptions(MODE_DEFAULTS.imagesToPdf),
   });
@@ -256,7 +262,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
   }, [mode, listHeadings]);
 
   const currentFile =
-    mode === 'extract' || mode === 'reorder'
+    mode === 'extract' || mode === 'reorder' || mode === 'rotate'
       ? files[currentFileIndex] ?? null
       : files[0] ?? null;
 
@@ -290,11 +296,9 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
 
   const buildFileName = useCallback(
     (operation: ProcessingMode, originalName?: string, index?: number) => {
-      // Check for custom title in merge mode
       if (operation === 'merge' && processingOptions.metadata?.title) {
         const customTitle = processingOptions.metadata.title.trim();
         if (customTitle) {
-          // Sanitize the custom title to be safe for filenames but preserve spaces, accents, &, and ()
           const sanitizedTitle = customTitle.replace(/[^\p{L}\p{N}\-_ &()]/gu, '').trim();
           if (sanitizedTitle) {
             return ensurePdfExtension(sanitizedTitle);
@@ -679,7 +683,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
     });
 
     const nextSelectedPages =
-      newMode === 'extract' && firstFileKey
+      (newMode === 'extract' || newMode === 'rotate') && firstFileKey
         ? { ...(extractSelectionsByFile[firstFileKey] ?? {}) }
         : {};
     const nextPageOrder =
@@ -725,7 +729,6 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
   };
 
   const buildDonationPrompt = (): DonationPrompt | null => {
-    // Donation prompt disabled for initial deployment
     return null;
   };
 
@@ -818,7 +821,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
     const downloads: DownloadEntry[] = [];
     const compressionEntriesBuffer: CompressionSummaryEntry[] = [];
     const extractPlan: Array<{ file: File; pages: number[] }> = [];
-
+    const rotatePlan: Array<{ file: File; pages: number[] }> = [];
 
     switch (mode) {
       case 'merge':
@@ -857,6 +860,28 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
 
         if (extractPlan.length === 0) {
           trackProcessorEvent('operation_blocked', { reason: 'extract_no_pages' });
+          error(errorStrings.noPagesSelected);
+          return;
+        }
+        break;
+      }
+      case 'rotate': {
+        const activeKey = currentFileKey;
+        currentFiles.forEach(file => {
+          const key = buildFileSignature(file);
+          const selectionRecord =
+            key === activeKey ? selectedPages : extractSelectionsByFile[key] ?? {};
+          const pages = Object.keys(selectionRecord)
+            .map(page => parseInt(page, 10))
+            .filter(page => selectionRecord[page])
+            .sort((a, b) => a - b);
+          if (pages.length > 0) {
+            rotatePlan.push({ file, pages });
+          }
+        });
+
+        if (rotatePlan.length === 0) {
+          trackProcessorEvent('operation_blocked', { reason: 'rotate_no_pages' });
           error(errorStrings.noPagesSelected);
           return;
         }
@@ -913,7 +938,6 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           let totalElapsedSeconds = 0;
 
           for (let index = 0; index < currentFiles.length; index += 1) {
-            // Yield to main thread to keep UI responsive
             await new Promise(resolve => setTimeout(resolve, 0));
 
             const targetFile = currentFiles[index];
@@ -973,7 +997,6 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
               });
             } catch (fileErr) {
               console.error(`Error compressing file ${targetFile.name}:`, fileErr);
-              // Continue to next file instead of aborting everything
               trackProcessorEvent('file_processing_error', {
                 mode: 'compress',
                 file_name: targetFile.name,
@@ -1003,7 +1026,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           if (reductionPercentTotal) {
             highlightEntries.push({
               label: statusDialogStrings.resultsLabel,
-              value: `${compressionSummaryStrings.ratio(reductionPercentTotal)} · ${savingsLabel}`,
+              value: `${compressionSummaryStrings.ratio(reductionPercentTotal)} Â· ${savingsLabel}`,
             });
           } else {
             highlightEntries.push({
@@ -1038,6 +1061,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           });
           return;
         }
+
         case 'merge': {
           const outputBlob = await processPDF('merge', currentFiles as [File, ...File[]], processingOptions);
           const fileName = buildFileName('merge');
@@ -1063,6 +1087,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           });
           return;
         }
+
         case 'split': {
           let processedSources = 0;
           let latestMessage = '';
@@ -1118,6 +1143,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           });
           return;
         }
+
         case 'extract': {
           let processedSources = 0;
           let latestMessage = '';
@@ -1164,6 +1190,56 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           });
           return;
         }
+
+        case 'rotate': {
+          let processedSources = 0;
+          let latestMessage = '';
+          let totalPagesRotated = 0;
+
+          for (const entry of rotatePlan) {
+            const rotateOptions: PDFProcessingOptions = {
+              ...processingOptions,
+              pagesToRotate: entry.pages,
+              rotationDegrees: processingOptions.rotationDegrees ?? 90,
+            };
+            const blob = await processPDF('rotate', [entry.file], rotateOptions);
+            const fileName = buildFileName('rotate', entry.file.name);
+            downloads.push({ blob, fileName });
+            triggerDownloadAction(blob, fileName);
+
+            processedSources += 1;
+            latestMessage = `${entry.file.name}: ${statusMessages.rotated(entry.pages.length)}`;
+            totalPagesRotated += entry.pages.length;
+          }
+
+          if (processedSources === 0) {
+            showErrorDialog(errorStrings.noPagesSelected);
+            trackProcessorEvent('operation_error', { reason: 'rotate_no_results' });
+            return;
+          }
+
+          const highlightEntries: DialogHighlight[] = [
+            { label: statusDialogStrings.resultsLabel, value: latestMessage },
+          ];
+          if (processedSources > 1) {
+            highlightEntries.push({
+              label: statusDialogStrings.filesProcessedLabel(processedSources),
+            });
+          }
+
+          showSuccessDialog({
+            highlights: highlightEntries,
+            downloads,
+            donationPrompt: buildDonationPrompt(),
+          });
+          trackProcessorEvent('operation_success', {
+            file_count: processedSources,
+            total_pages: totalPagesRotated,
+            rotation_degrees: processingOptions.rotationDegrees ?? 90,
+          });
+          return;
+        }
+
         case 'reorder': {
           let processedSources = 0;
           let latestMessage = '';
@@ -1227,6 +1303,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           });
           return;
         }
+
         case 'pdfToImages': {
           let processedSources = 0;
           let totalImages = 0;
@@ -1249,8 +1326,6 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
               downloads.push({ blob: result.blob, fileName: result.suggestedName });
               triggerDownloadAction(result.blob, result.suggestedName);
             } else {
-              // Fallback for non-zip (though usually we zip if multiple images)
-              // If single image, just download it
               if (result.files.length > 0) {
                 const [first, ...rest] = result.files;
                 downloads.push({ blob: first.blob, fileName: first.name });
@@ -1267,7 +1342,6 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
               }
             }
 
-            // Small delay between files to prevent browser choking
             await new Promise(resolve => setTimeout(resolve, 500));
           }
 
@@ -1297,6 +1371,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           });
           return;
         }
+
         case 'imagesToPdf': {
           const output = await processPDF('imagesToPdf', currentFiles as [File, ...File[]], processingOptions);
           const baseSource = currentFiles[0];
@@ -1319,6 +1394,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           });
           return;
         }
+
         default:
           showErrorDialog(errorStrings.modeNotSupported);
           return;
@@ -1376,6 +1452,17 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
       const fileKey = buildFileSignature(file);
       const activeFile = files[currentFileIndex];
       const activeKey = activeFile ? buildFileSignature(activeFile) : null;
+      const applySelectionChange = (currentSelection: Record<number, boolean>) => {
+        const nextSelection = { ...currentSelection };
+
+        if (selected) {
+          nextSelection[pageNumber] = true;
+        } else if (nextSelection[pageNumber]) {
+          delete nextSelection[pageNumber];
+        }
+
+        return nextSelection;
+      };
 
       const fileIndex = files.findIndex(candidate => candidate === file);
       trackProcessorEvent(selected ? 'page_selected' : 'page_deselected', {
@@ -1387,23 +1474,12 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
         setCurrentFileIndex(fileIndex);
       }
 
-      let nextSelectionForFile: Record<number, boolean> | undefined;
-
       setExtractSelectionsByFile(prevMap => {
         const previousSelection = prevMap[fileKey] ?? {};
-        const nextSelection = { ...previousSelection };
-
-        if (selected) {
-          nextSelection[pageNumber] = true;
-        } else if (nextSelection[pageNumber]) {
-          delete nextSelection[pageNumber];
-        }
-
-        const hasPages = Object.keys(nextSelection).length > 0;
+        const nextSelectionForFile = applySelectionChange(previousSelection);
+        const hasPages = Object.keys(nextSelectionForFile).length > 0;
 
         if (!hasPages) {
-          nextSelectionForFile = {};
-
           if (!prevMap[fileKey]) {
             return prevMap;
           }
@@ -1413,17 +1489,18 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           return Object.keys(rest).length === 0 ? {} : rest;
         }
 
-        nextSelectionForFile = nextSelection;
-
-        if (prevMap[fileKey] && areSelectionsEqual(prevMap[fileKey], nextSelection)) {
+        if (prevMap[fileKey] && areSelectionsEqual(prevMap[fileKey], nextSelectionForFile)) {
           return prevMap;
         }
 
-        return { ...prevMap, [fileKey]: nextSelection };
+        return { ...prevMap, [fileKey]: nextSelectionForFile };
       });
 
       if (activeKey === fileKey) {
-        setSelectedPages(nextSelectionForFile && Object.keys(nextSelectionForFile).length > 0 ? { ...nextSelectionForFile } : {});
+        setSelectedPages(prevSelectedPages => {
+          const nextSelectionForFile = applySelectionChange(prevSelectedPages);
+          return Object.keys(nextSelectionForFile).length > 0 ? nextSelectionForFile : {};
+        });
       }
     },
     [buildFileSignature, files, currentFileIndex, trackProcessorEvent]
@@ -1471,7 +1548,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
   );
 
   useEffect(() => {
-    if (mode !== 'extract') {
+    if (mode !== 'extract' && mode !== 'rotate') {
       if (Object.keys(selectedPages).length > 0) {
         setSelectedPages({});
       }
@@ -1597,7 +1674,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
         }
       }
 
-      if (mode === 'extract' || mode === 'reorder') {
+      if (mode === 'extract' || mode === 'reorder' || mode === 'rotate') {
         setCurrentFileIndex(prevIndex => {
           if (prevIndex === index) {
             return 0;
@@ -1639,7 +1716,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
       changed: index !== currentFileIndex,
     });
 
-    if (mode === 'extract') {
+    if (mode === 'extract' || mode === 'rotate') {
       setSelectedPages(targetKey ? { ...(extractSelectionsByFile[targetKey] ?? {}) } : {});
     }
 
@@ -1670,10 +1747,10 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
 
   const totalExtractPageSelections = useMemo(() => {
     let total = 0;
-    const activeKey = mode === 'extract' ? currentFileKey : null;
+    const activeKey = mode === 'extract' || mode === 'rotate' ? currentFileKey : null;
 
     Object.entries(extractSelectionsByFile).forEach(([key, selection]) => {
-      if (mode === 'extract' && key === activeKey) {
+      if ((mode === 'extract' || mode === 'rotate') && key === activeKey) {
         return;
       }
 
@@ -1683,7 +1760,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
       }, 0);
     });
 
-    if (mode === 'extract') {
+    if (mode === 'extract' || mode === 'rotate') {
       total += Object.keys(selectedPages).reduce((count, page) => {
         const pageNumber = parseInt(page, 10);
         return selectedPages[pageNumber] ? count + 1 : count;
@@ -1745,6 +1822,10 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
   const resolveIdleButtonLabel = () => {
     if (mode === 'extract') {
       return processButton.extract(totalExtractPageSelections);
+    }
+
+    if (mode === 'rotate') {
+      return processButton.rotate(totalExtractPageSelections);
     }
 
     if (mode === 'reorder') {
@@ -1831,9 +1912,9 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
               files={files}
               onMoveFileAction={mode === 'merge' || mode === 'imagesToPdf' ? moveFile : undefined}
               onRemoveFileAction={removeFile}
-              currentIndex={mode === 'extract' || mode === 'reorder' ? currentFileIndex : undefined}
+              currentIndex={mode === 'extract' || mode === 'reorder' || mode === 'rotate' ? currentFileIndex : undefined}
               onFileSelectAction={
-                mode === 'extract' || mode === 'reorder' ? handleFileChange : undefined
+                mode === 'extract' || mode === 'reorder' || mode === 'rotate' ? handleFileChange : undefined
               }
             />
 
@@ -1873,7 +1954,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
                           </p>
                           <p className="text-xs text-[var(--tx-3)]">
                             {selectedCount > 0
-                              ? `${fileListStrings.pagesLabel(selectedCount)} • ${fileListStrings.selected}`
+                              ? `${fileListStrings.pagesLabel(selectedCount)} â€¢ ${fileListStrings.selected}`
                               : errorStrings.noPagesSelected}
                           </p>
                         </div>
@@ -1889,6 +1970,123 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
                           file={file}
                           selectedPages={selection}
                           onPageSelectAction={(page, value) => handlePageSelection(file, page, value)}
+                        />
+                      </div>
+                    </section>
+                  );
+                })}
+              </div>
+            )}
+
+            {mode === 'rotate' && (
+              <div className="mt-6 space-y-8">
+                <div className="space-y-3">
+                  <h3 className="font-bold">{labels.pagesToRotate}</h3>
+                  <p className="text-sm text-[var(--tx-3)]">{processingOptionsStrings.rotate.hint}</p>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      className={`px-4 py-2 rounded-lg border ${
+                        (processingOptions.rotationDegrees ?? 90) === 90
+                          ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
+                          : 'bg-white text-[var(--tx)] border-[var(--ui-2)]'
+                      }`}
+                      onClick={() =>
+                        setProcessingOptions(prev => ({
+                          ...prev,
+                          rotationDegrees: 90,
+                        }))
+                      }
+                    >
+                      {processingOptionsStrings.rotate.rotateRight90}
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`px-4 py-2 rounded-lg border ${
+                        (processingOptions.rotationDegrees ?? 90) === 180
+                          ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
+                          : 'bg-white text-[var(--tx)] border-[var(--ui-2)]'
+                      }`}
+                      onClick={() =>
+                        setProcessingOptions(prev => ({
+                          ...prev,
+                          rotationDegrees: 180,
+                        }))
+                      }
+                    >
+                      {processingOptionsStrings.rotate.rotate180}
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`px-4 py-2 rounded-lg border ${
+                        (processingOptions.rotationDegrees ?? 90) === -90
+                          ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
+                          : 'bg-white text-[var(--tx)] border-[var(--ui-2)]'
+                      }`}
+                      onClick={() =>
+                        setProcessingOptions(prev => ({
+                          ...prev,
+                          rotationDegrees: -90,
+                        }))
+                      }
+                    >
+                      {processingOptionsStrings.rotate.rotateLeft90}
+                    </button>
+                  </div>
+                </div>
+
+                {files.map((file, index) => {
+                  const fileKey = buildFileSignature(file);
+                  const selection =
+                    fileKey === currentFileKey
+                      ? selectedPages
+                      : extractSelectionsByFile[fileKey] ?? {};
+                  const selectedCount = Object.values(selection).filter(Boolean).length;
+                  const isActive = currentFileIndex === index;
+
+                  return (
+                    <section
+                      key={`rotate-panel-${fileKey}`}
+                      className={`rounded-lg border border-[var(--ui-2)] bg-[var(--bg-2)]/60 shadow-sm transition hover:border-[var(--accent)] ${isActive ? 'ring-1 ring-[var(--accent)]/60' : ''
+                        }`}
+                    >
+                      <header
+                        className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ui-2)] bg-white/70 px-4 py-3 cursor-pointer"
+                        onClick={() => handleFileChange(index)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={event => {
+                          if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            handleFileChange(index);
+                          }
+                        }}
+                      >
+                        <div>
+                          <p className="font-medium text-[var(--tx)] truncate max-w-[280px] sm:max-w-none">
+                            {file.name}
+                          </p>
+                          <p className="text-xs text-[var(--tx-3)]">
+                            {selectedCount > 0
+                              ? `${fileListStrings.pagesLabel(selectedCount)} â€¢ ${fileListStrings.selected}`
+                              : errorStrings.noPagesSelected}
+                          </p>
+                        </div>
+                        {isActive ? (
+                          <span className="text-xs font-medium text-[var(--accent)]">
+                            {fileListStrings.selected}
+                          </span>
+                        ) : null}
+                      </header>
+                      <div className="px-4 pb-4 pt-3">
+                        <PageSelector
+                          key={`rotate-selector-${fileKey}`}
+                          file={file}
+                          selectedPages={selection}
+                          onPageSelectAction={(page, value) => handlePageSelection(file, page, value)}
+                          selectedPageRotationDegrees={processingOptions.rotationDegrees ?? 90}
                         />
                       </div>
                     </section>
@@ -2004,7 +2202,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
                       )}
                     </p>
                     <p className="text-xs font-medium text-[var(--tx-3)]">
-                      {formatFileSize(previewItems.reduce((acc, i) => acc + (i.result?.originalSize ?? 0), 0))} → {' '}
+                      {formatFileSize(previewItems.reduce((acc, i) => acc + (i.result?.originalSize ?? 0), 0))} â†’{' '}
                       <span className="text-[var(--tx)]">
                         {formatFileSize(previewItems.reduce((acc, i) => acc + (i.result?.processedSize ?? 0), 0))}
                       </span>
@@ -2044,7 +2242,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
             disabled={
               files.length === 0 ||
               isProcessing ||
-              (mode === 'extract' && !hasExtractSelection)
+              ((mode === 'extract' || mode === 'rotate') && !hasExtractSelection)
             }
             onClick={handleProcess}
           >

@@ -98,6 +98,7 @@ export interface PdfProcessorStrings {
     listHeadings: {
       merge: string;
       extract: string;
+      rotate: string;
       reorder: string;
       pdfToImages: string;
       imagesToPdf: string;
@@ -116,6 +117,7 @@ export interface PdfProcessorStrings {
     idleMultiple: FileCountLabel;
     processing: string;
     extract: ExtractPagesLabel;
+    rotate: ExtractPagesLabel;
     reorder: string;
     pdfToImages: {
       single: string;
@@ -132,6 +134,7 @@ export interface PdfProcessorStrings {
     merged: string;
     split: OperationCountStatus;
     extracted: OperationCountStatus;
+    rotated: OperationCountStatus;
     reordered: string;
     pdfToImages: PdfToImagesStatus;
     imagesToPdf: ImagesToPdfStatus;
@@ -148,6 +151,7 @@ export interface PdfProcessorStrings {
   };
   labels: {
     pagesToExtract: string;
+    pagesToRotate: string;
     reorderPages: string;
   };
   compressionPreview: CompressionPreviewStrings;
@@ -292,6 +296,13 @@ export interface ProcessingOptionsStrings {
     title: string;
     preserveMetadata: string;
     preserveMetadataHint: string;
+  };
+  rotate: {
+    title: string;
+    hint: string;
+    rotateRight90: string;
+    rotate180: string;
+    rotateLeft90: string;
   };
   reorder: {
     title: string;

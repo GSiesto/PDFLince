@@ -337,6 +337,73 @@ const operationsEnContent: Record<OperationKey, OperationContent> = {
       "Save copies of form pages or receipts you need to archive.",
     ],
   },
+  rotate: {
+    key: "rotate",
+    slug: "rotate",
+    mode: "rotate",
+    meta: {
+      title: "Rotate PDF Pages Online | Turn Selected Pages | PDFLince",
+      description:
+        "Rotate selected PDF pages by 90 or 180 degrees directly in your browser. Private, free, and fully local.",
+      keywords: [
+        "rotate pdf",
+        "rotate pdf pages",
+        "turn pdf pages",
+        "fix sideways pdf",
+        "pdf page rotation",
+      ],
+      ogTitle: "Rotate PDF pages in seconds | PDFLince",
+      ogDescription:
+        "Select the pages that need a new orientation, choose 90 or 180 degrees, and download the corrected PDF without uploading anything.",
+      ogImageAlt: "Rotating PDF pages in PDFLince",
+    },
+    hero: {
+      title: "Rotate PDF pages without losing quality",
+      description:
+        "Fix sideways scans, upside-down exports, or mixed page orientations in a few clicks.",
+      bulletPoints: [
+        "Rotate only the pages you select instead of changing the entire document",
+        "Choose 90 degrees right, 180 degrees, or 90 degrees left",
+        "Keep everything in your browser with no uploads or waiting rooms",
+      ],
+      imageAlt: "PDF page rotation workflow",
+    },
+    benefitsTitle: "Why rotate pages with PDFLince",
+    benefits: [
+      {
+        title: "Precise corrections",
+        description:
+          "Adjust only the pages that need help, which is perfect for mixed scan batches or long reports.",
+      },
+      {
+        title: "Fast cleanup",
+        description:
+          "Correct page orientation in seconds without reopening the file in a heavy desktop editor.",
+      },
+      {
+        title: "Private by default",
+        description:
+          "Sensitive documents stay on your device because every rotation runs locally in the browser.",
+      },
+    ],
+    howTo: {
+      title: "How to rotate PDF pages",
+      steps: [
+        "Upload the PDF and choose the file whose pages you want to correct.",
+        "Select the pages to rotate and pick 90 degrees right, 180 degrees, or 90 degrees left.",
+        "Click Process to download a new PDF with the updated page orientation.",
+      ],
+      note:
+        "Need more cleanup afterwards? You can still reorder, extract, or compress the corrected PDF in another step.",
+    },
+    useCasesTitle: "When page rotation helps",
+    useCases: [
+      "Fix scanned contracts or forms that were captured sideways.",
+      "Turn upside-down pages inside reports assembled from different sources.",
+      "Correct lecture notes or manuals before sharing them with students or clients.",
+      "Clean up archival PDFs so every page is comfortable to read on screen.",
+    ],
+  },
   reorder: {
     key: "reorder",
     slug: "reorder",
@@ -479,6 +546,7 @@ export const operationsEn: Record<OperationKey, OperationContent> = {
   compress: operationsEnContent.compress,
   split: operationsEnContent.split,
   extract: operationsEnContent.extract,
+  rotate: operationsEnContent.rotate,
   reorder: operationsEnContent.reorder,
   pdfToImages: operationsEnContent.pdfToImages,
   imagesToPdf: operationsEnContent.imagesToPdf,

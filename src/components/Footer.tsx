@@ -8,6 +8,18 @@ export default function Footer() {
   const dictionary = useDictionary();
   const footer = dictionary.components.footer;
   const routes = dictionary.routes;
+  const footerOperationLinks = (Object.keys(routes.operations) as OperationKey[])
+    .map((operation) => {
+      const href = routes.operations[operation];
+      const label = footer.operations[operation];
+
+      if (!href || !label) {
+        return null;
+      }
+
+      return { operation, href, label };
+    })
+    .filter((link): link is { operation: OperationKey; href: string; label: string } => link !== null);
 
   return (
     <footer className="text-center py-6 relative z-10 bg-[var(--bg-2)] border-t border-[var(--ui)]">
@@ -51,8 +63,8 @@ export default function Footer() {
         <p className="mt-6 text-[var(--tx-3)] text-xs uppercase tracking-wide">{footer.capabilitiesLabel}</p>
 
         <div className="flex flex-wrap justify-center gap-3 mt-3 text-xs text-[var(--tx-3)]">
-          {(Object.entries(footer.operations) as Array<[OperationKey, string]>).map(([operation, label]) => (
-            <Link key={operation} href={routes.operations[operation]} className="hover:text-[var(--accent)] transition-colors">
+          {footerOperationLinks.map(({ operation, href, label }) => (
+            <Link key={operation} href={href} className="hover:text-[var(--accent)] transition-colors">
               {label}
             </Link>
           ))}
