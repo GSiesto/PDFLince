@@ -16,6 +16,7 @@ const operationsRoutes: Record<OperationKey, string> = {
   split: getOperationPath(locale, "split"),
   extract: getOperationPath(locale, "extract"),
   reorder: getOperationPath(locale, "reorder"),
+  rotate: getOperationPath(locale, "rotate"),
   pdfToImages: getOperationPath(locale, "pdfToImages"),
   imagesToPdf: getOperationPath(locale, "imagesToPdf"),
 };
