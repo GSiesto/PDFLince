@@ -207,6 +207,7 @@ export const itDictionary: Dictionary = {
           merge:
             "File da unire (riordina per definire la sequenza finale):",
           extract: "Seleziona un file per lavorare sulle sue pagine:",
+          rotate: "Seleziona un file per lavorare sulle sue pagine:",
           reorder: "Seleziona un file per lavorare sulle sue pagine:",
           pdfToImages:
             "PDF da convertire (elaborati uno alla volta):",
@@ -232,6 +233,7 @@ export const itDictionary: Dictionary = {
         merge: "unito_PDFLince",
         split: "parte_PDFLince",
         extract: "estratto_PDFLince",
+        rotate: "ruotato_PDFLince",
         reorder: "riordinato_PDFLince",
         pdfToImages: "immagini_PDFLince",
         imagesToPdf: "immagini_a_pdf_PDFLince",
@@ -243,6 +245,8 @@ export const itDictionary: Dictionary = {
         processing: "Elaborazione...",
         extract: (count: number) =>
           `Estrai ${count} ${count === 1 ? "pagina" : "pagine"}`,
+        rotate: (count: number) =>
+          count > 0 ? `Ruota ${count} ${count === 1 ? "pagina" : "pagine"}` : "Ruota PDF",
         reorder: "Salva nuovo ordine",
         pdfToImages: {
           single: "Esporta immagini",
@@ -271,6 +275,7 @@ export const itDictionary: Dictionary = {
             : "Divisione completata",
         extracted: (count: number) =>
           `Estratte ${count} ${count === 1 ? "pagina" : "pagine"}`,
+        rotated: (count: number) => `Ruotate ${count} ${count === 1 ? "pagina" : "pagine"}`,
         reordered: "Riordinamento completato",
         pdfToImages: (
           count: number,
@@ -308,6 +313,7 @@ export const itDictionary: Dictionary = {
 
       labels: {
         pagesToExtract: "Seleziona le pagine da estrarre:",
+        pagesToRotate: "Seleziona le pagine da ruotare:",
         reorderPages: "Trascina le pagine per riordinarle:",
       },
 
@@ -475,6 +481,13 @@ export const itDictionary: Dictionary = {
         preserveMetadata: "Mantieni i metadati originali",
         preserveMetadataHint:
           "Conserva titolo, autore e altri dettagli del documento nel file estratto.",
+      },
+      rotate: {
+        title: "Rotazione",
+        hint: "Scegli la direzione e poi seleziona le pagine da ruotare.",
+        rotateRight90: "Ruota di 90 gradi a destra",
+        rotate180: "Ruota di 180 gradi",
+        rotateLeft90: "Ruota di 90 gradi a sinistra",
       },
       reorder: {
         title: "Riordino",
