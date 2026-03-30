@@ -1,7 +1,9 @@
 import "../../styles/globals.css";
+
 import { Suspense, type ReactNode } from "react";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+
 import { localeLabels, DEFAULT_LOCALE, isLocale } from "../../i18n/config";
 import { GoogleAnalyticsScripts } from "../../components/analytics/GoogleAnalyticsScripts";
 import { GaPageViewTracker } from "../../components/analytics/GaPageViewTracker";
@@ -13,8 +15,12 @@ import FotoLinceBanner from "../../components/FotoLinceBanner";
 import { LocaleProvider } from "../../i18n/LocaleProvider";
 import { SchemaOrg } from "../../components/SchemaOrg";
 import { BreadcrumbSchema } from "../../components/seo/BreadcrumbSchema";
-
-import { METADATA_BASE, SHARED_ICONS, SHARED_OPEN_GRAPH } from "../../lib/metadata-shared";
+import ThemeScript from "../../components/ThemeScript";
+import {
+  METADATA_BASE,
+  SHARED_ICONS,
+  SHARED_OPEN_GRAPH,
+} from "../../lib/metadata-shared";
 
 export const metadata = {
   metadataBase: METADATA_BASE,
@@ -27,20 +33,20 @@ export const metadata = {
   alternates: {
     canonical: "https://pdflince.com",
     languages: {
-      'es-ES': 'https://pdflince.com',
-      'es-MX': 'https://pdflince.com',
-      'es-CO': 'https://pdflince.com',
-      'es-AR': 'https://pdflince.com',
-      'es': 'https://pdflince.com',
-      'en': 'https://pdflince.com/en',
-      'en-US': 'https://pdflince.com/en',
-      'pt': 'https://pdflince.com/pt',
-      'pt-BR': 'https://pdflince.com/pt',
-      'de': 'https://pdflince.com/de',
-      'de-DE': 'https://pdflince.com/de',
-      'it': 'https://pdflince.com/it',
-      'it-IT': 'https://pdflince.com/it',
-      'x-default': 'https://pdflince.com',
+      "es-ES": "https://pdflince.com",
+      "es-MX": "https://pdflince.com",
+      "es-CO": "https://pdflince.com",
+      "es-AR": "https://pdflince.com",
+      es: "https://pdflince.com",
+      en: "https://pdflince.com/en",
+      "en-US": "https://pdflince.com/en",
+      pt: "https://pdflince.com/pt",
+      "pt-BR": "https://pdflince.com/pt",
+      de: "https://pdflince.com/de",
+      "de-DE": "https://pdflince.com/de",
+      it: "https://pdflince.com/it",
+      "it-IT": "https://pdflince.com/it",
+      "x-default": "https://pdflince.com",
     },
   },
   openGraph: {
@@ -63,23 +69,29 @@ export default async function RootLayout({
 }) {
   const resolvedParams = await params;
   const requestedLocale = resolvedParams?.locale;
-  const locale = requestedLocale && isLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
+
+  const locale =
+    requestedLocale && isLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
+
   const htmlLang = localeLabels[locale].htmlLang;
 
   return (
-    <html lang={htmlLang}>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
-        {/* Reserved for future head customizations */}
         <GoogleAnalyticsScripts />
         <SchemaOrg />
         <BreadcrumbSchema />
+        <ThemeScript />
       </head>
+
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <LocaleProvider locale={locale}>
           <WebVitalsReporter />
+
           <Suspense fallback={null}>
             <GaPageViewTracker />
           </Suspense>
+
           <NavMenu />
           <main>{children}</main>
           <FotoLinceBanner />

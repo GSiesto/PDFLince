@@ -23,6 +23,12 @@ type OptionToggleProps = {
 
 type CompressionLevel = NonNullable<PDFProcessingOptions['compressionLevel']>;
 
+const FORM_CONTROL_CLASS =
+  'w-full rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm text-[var(--tx)] dark:bg-[var(--bg)] dark:text-[var(--tx)]';
+
+const FORM_CONTROL_COMPACT_CLASS =
+  'w-full rounded-md border border-[var(--ui-2)] bg-white p-2 text-[var(--tx)] dark:bg-[var(--bg)] dark:text-[var(--tx)]';
+
 const COMPRESSION_PRESETS: Record<CompressionLevel, Partial<PDFProcessingOptions>> = {
   low: {
     preserveMetadata: true,
@@ -233,7 +239,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
                 type="text"
                 value={metadataTitle}
                 onChange={event => handleMetadataChange('title', event.target.value)}
-                className="w-full rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm"
+                className={FORM_CONTROL_CLASS}
               />
             </div>
             <div className="space-y-1">
@@ -245,7 +251,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
                 type="text"
                 value={metadataAuthor}
                 onChange={event => handleMetadataChange('author', event.target.value)}
-                className="w-full rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm"
+                className={FORM_CONTROL_CLASS}
               />
             </div>
           </div>
@@ -267,7 +273,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
             id="split-pages-per-file"
             type="number"
             min={1}
-            className="w-full rounded-md border border-[var(--ui-2)] bg-white p-2"
+            className={FORM_CONTROL_COMPACT_CLASS}
             value={options.pagesPerFile ?? 1}
             onChange={event => update('pagesPerFile', Math.max(1, Number(event.target.value) || 1))}
           />
@@ -418,7 +424,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
               placeholder={exportStrings.baseNamePlaceholder}
               value={baseName}
               onChange={event => update('imageBaseName', event.target.value)}
-              className="mt-1 w-full rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm"
+              className={`mt-1 ${FORM_CONTROL_CLASS}`}
             />
             <p className="mt-1 text-xs text-[var(--tx-3)]">{exportStrings.baseNameHint}</p>
           </div>
@@ -475,7 +481,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
           </label>
           <select
             id="page-size"
-            className="mt-1 w-full rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm"
+            className={`mt-1 ${FORM_CONTROL_CLASS}`}
             value={currentSize}
             onChange={event => update('pageSize', event.target.value as PDFProcessingOptions['pageSize'])}
           >
@@ -493,7 +499,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
           </label>
           <select
             id="page-orientation"
-            className="mt-1 w-full rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm"
+            className={`mt-1 ${FORM_CONTROL_CLASS}`}
             value={currentOrientation}
             onChange={event =>
               update('pageOrientation', event.target.value as PDFProcessingOptions['pageOrientation'])
@@ -519,7 +525,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
             step={6}
             value={margin}
             onChange={event => update('pageMarginPoints', Math.max(0, Number(event.target.value) || 0))}
-            className="mt-1 w-full rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm"
+            className={`mt-1 ${FORM_CONTROL_CLASS}`}
           />
           <p className="text-xs text-[var(--tx-3)]">{layoutStrings.marginHint}</p>
         </div>
@@ -540,7 +546,7 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
               type="text"
               value={backgroundColor}
               onChange={event => update('backgroundColor', event.target.value)}
-              className="flex-1 rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm"
+              className="flex-1 rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm text-[var(--tx)] dark:bg-[var(--bg)] dark:text-[var(--tx)]"
             />
           </div>
           <p className="text-xs text-[var(--tx-3)]">{layoutStrings.backgroundHint}</p>
