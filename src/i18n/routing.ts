@@ -63,6 +63,7 @@ const localeOperationSlugMap: Record<Locale, Record<OperationKey, string>> = {
     merge: "",
     split: "",
     extract: "",
+    rotate:"",
     reorder: "",
     pdfToImages: "",
     imagesToPdf: "",
