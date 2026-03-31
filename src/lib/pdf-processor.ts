@@ -221,6 +221,9 @@ export async function getPdfPageDimensions(file: File, pageNumber: number): Prom
   return PDFOps.getPDFPageDimensions(file, pageNumber);
 }
 
+/**
+ * Render PDF thumbnail (MUST stay on main thread due to Canvas)
+ */
 export async function renderPdfThumbnail(file: File, pageNumber: number, targetWidth?: number): Promise<string> {
   return PDFOps.renderPDFThumbnail(file, pageNumber, targetWidth);
 }

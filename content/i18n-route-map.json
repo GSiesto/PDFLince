@@ -55,6 +55,12 @@
       "pt": "/pt/recortar",
       "de": "/de/zuschneiden"
     },
+    "crop": {
+      "es": "/recortar",
+      "en": "/en/crop",
+      "pt": "/pt/recortar",
+      "de": "/de/zuschneiden"
+    },
     "rotate": {
       "es": "/girar",
       "en": "/en/rotate",

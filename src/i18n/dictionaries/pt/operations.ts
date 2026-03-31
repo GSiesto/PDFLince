@@ -337,6 +337,73 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
       "Preparar relatórios, manuais ou materiais de estudo com enquadramento mais compacto.",
     ],
   },
+  crop: {
+    key: "crop",
+    slug: "recortar",
+    mode: "crop",
+    meta: {
+      title: "Recortar páginas PDF online | Ajustar margens | PDFLince",
+      description:
+        "Recorte páginas PDF e remova margens extras diretamente no navegador. Tudo acontece localmente e sem uploads.",
+      keywords: [
+        "recortar pdf",
+        "cortar margens pdf",
+        "ajustar pdf",
+        "crop pdf",
+        "recortar paginas pdf",
+      ],
+      ogTitle: "Recorte páginas PDF com privacidade | PDFLince",
+      ogDescription:
+        "Selecione as páginas, defina as margens e baixe um PDF mais limpo sem enviar arquivos para servidores.",
+      ogImageAlt: "Recortando páginas PDF no PDFLince",
+    },
+    hero: {
+      title: "Recorte páginas PDF e remova margens",
+      description:
+        "Elimine espaços em branco desnecessários de páginas específicas e baixe um documento mais enxuto em segundos.",
+      bulletPoints: [
+        "Selecione apenas as páginas que precisam de ajuste",
+        "Controle margens superior, direita, inferior e esquerda com precisão",
+        "Processamento 100% local com zero servidores",
+      ],
+      imageAlt: "Fluxo de recorte de PDF",
+    },
+    benefitsTitle: "Por que recortar PDFs com PDFLince",
+    benefits: [
+      {
+        title: "Páginas mais limpas",
+        description:
+          "Reduza bordas vazias e destaque o conteúdo realmente importante.",
+      },
+      {
+        title: "Edição seletiva",
+        description:
+          "Aplique o recorte somente nas páginas necessárias sem refazer o arquivo inteiro.",
+      },
+      {
+        title: "Privacidade total",
+        description:
+          "Seus arquivos permanecem no dispositivo durante todo o processo.",
+      },
+    ],
+    howTo: {
+      title: "Como recortar páginas PDF com PDFLince",
+      steps: [
+        "Envie o PDF e escolha o arquivo que deseja ajustar.",
+        "Marque as páginas e defina as margens superior, direita, inferior e esquerda.",
+        "Clique em “Processar” para baixar um novo PDF com o recorte aplicado.",
+      ],
+      note:
+        "Se grupos diferentes de páginas precisarem de cortes distintos, repita o processo separadamente.",
+    },
+    useCasesTitle: "Quando faz sentido recortar um PDF",
+    useCases: [
+      "Remover bordas de scanner em formulários, recibos ou documentos assinados.",
+      "Reduzir margens antes de imprimir ou juntar arquivos.",
+      "Padronizar páginas exportadas por ferramentas diferentes.",
+      "Preparar relatórios, manuais ou materiais de estudo com enquadramento mais compacto.",
+    ],
+  },
   rotate: {
     key: "rotate",
     slug: "girar",
