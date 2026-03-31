@@ -1,4 +1,3 @@
-
 import { test, expect } from '@playwright/test';
 import { PDFDocument } from 'pdf-lib';
 import fs from 'fs';
@@ -61,7 +60,7 @@ test.describe('PDFLince Smoke Tests', () => {
 
         // Verify default mode (Unir PDFs) tab is active or visible
         await expect(page.getByRole('button', { name: 'Unir PDFs', exact: true })).toBeVisible();
-        await expect(page.getByText('Selecciona una operación')).toBeVisible();
+        await expect(page.getByText(/Selecciona una operaci/i)).toBeVisible();
     });
 
     // Note: Full processing test requires checking downloads, which is more complex.

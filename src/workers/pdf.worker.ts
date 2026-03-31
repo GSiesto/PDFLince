@@ -3,6 +3,7 @@ import {
     mergePDFs,
     splitPDF,
     extractPages,
+    cropPages,
     reorderPages,
     getPDFPageCount,
     convertPdfToImages,
@@ -66,6 +67,9 @@ self.onmessage = async (e: MessageEvent) => {
                 break;
             case 'extract':
                 result = await extractPages(files[0], options.pagesToExtract, options);
+                break;
+            case 'crop':
+                result = await cropPages(files[0], options.pagesToCrop ?? [], options);
                 break;
             case 'reorder':
                 result = await reorderPages(files[0], options.pageOrder, options);

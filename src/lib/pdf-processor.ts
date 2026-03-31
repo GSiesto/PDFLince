@@ -45,6 +45,12 @@ export function processPDF(
   options: PDFProcessingOptions
 ): Promise<Blob>;
 export function processPDF(
+  mode: 'crop',
+  files: [File, ...File[]],
+  options: PDFProcessingOptions
+): Promise<Blob>;
+
+export function processPDF(
   mode: 'reorder',
   files: [File, ...File[]],
   options: PDFProcessingOptions
@@ -80,6 +86,13 @@ export function processPDF(
         throw new Error('No pages selected');
       }
       return extractPagesAsBlob(files[0] as File, options.pagesToExtract, options);
+    }
+
+    case 'crop': {
+      if (!options.pagesToCrop || options.pagesToCrop.length === 0) {
+        throw new Error('No pages selected');
+      }
+      return cropPagesAsBlob(files[0] as File, options.pagesToCrop, options);
     }
     case 'reorder': {
       if (!options.pageOrder || options.pageOrder.length === 0) {
@@ -138,6 +151,21 @@ export async function extractPagesAsBlob(file: File, pageNumbers: number[], opti
   }
 }
 
+export async function cropPagesAsBlob(file: File, pageNumbers: number[], options: PDFProcessingOptions): Promise<Blob> {
+  try {
+    const pdfBytes = await pdfWorkerClient.run('crop', [file], {
+      ...options,
+      pagesToCrop: pageNumbers,
+    }) as Uint8Array;
+
+    return createPdfBlob(pdfBytes);
+  } catch (error) {
+    console.warn('Worker crop failed, falling back to main thread', error);
+    const pdfBytes = await PDFOps.cropPages(file, pageNumbers, options);
+    return createPdfBlob(pdfBytes);
+  }
+}
+
 /**
  * Reorder pages and return as Blob (via worker)
  */
@@ -189,9 +217,10 @@ export async function getPdfPageCount(file: File): Promise<number> {
   }
 }
 
-/**
- * Render PDF thumbnail (MUST stay on main thread due to Canvas)
- */
-export async function renderPdfThumbnail(file: File, pageNumber: number): Promise<string> {
-  return PDFOps.renderPDFThumbnail(file, pageNumber);
+export async function getPdfPageDimensions(file: File, pageNumber: number): Promise<{ width: number; height: number }> {
+  return PDFOps.getPDFPageDimensions(file, pageNumber);
+}
+
+export async function renderPdfThumbnail(file: File, pageNumber: number, targetWidth?: number): Promise<string> {
+  return PDFOps.renderPDFThumbnail(file, pageNumber, targetWidth);
 }
