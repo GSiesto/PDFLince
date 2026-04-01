@@ -3,6 +3,8 @@ export type OperationKey =
 	| "compress"
 	| "split"
 	| "extract"
+	| "crop"
+	| "rotate"
 	| "reorder"
 	| "pdfToImages"
 	| "imagesToPdf";

@@ -292,6 +292,87 @@ export default function ProcessingOptions({ mode, options, onOptionsChangeAction
     );
   }
 
+  if (mode === 'crop') {
+    const cropStrings = processingStrings.crop;
+    const margins = options.cropMargins ?? { top: 0, right: 0, bottom: 0, left: 0 };
+    const inputMode = options.cropInputMode ?? 'margins';
+
+    return (
+      <div className="mt-4 space-y-4">
+        <div className="space-y-1">
+          <h3 className="font-medium text-[var(--tx)]">{cropStrings.title}</h3>
+          <p className="text-xs text-[var(--tx-3)]">{cropStrings.hint}</p>
+        </div>
+
+        <div>
+          <p className="text-xs font-medium text-[var(--tx-2)]">{cropStrings.inputModeLabel}</p>
+          <div className="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-label={cropStrings.inputModeLabel}>
+            {(['margins', 'manual'] as const).map(value => {
+              const selected = inputMode === value;
+              return (
+                <label
+                  key={value}
+                  className={`cursor-pointer rounded-lg border px-4 py-2 text-sm transition focus-within:ring-2 focus-within:ring-[var(--accent)] ${selected
+                    ? 'border-[var(--accent)] bg-[var(--bg-1)] text-[var(--tx)]'
+                    : 'border-[var(--ui-2)] bg-[var(--bg-2)] text-[var(--tx-2)] hover:border-[var(--accent)]/60'
+                    }`}
+                >
+                  <input
+                    type="radio"
+                    name="crop-input-mode"
+                    className="sr-only"
+                    checked={selected}
+                    onChange={() => update('cropInputMode', value)}
+                  />
+                  <span>{cropStrings.inputModes[value]}</span>
+                </label>
+              );
+            })}
+          </div>
+        </div>
+
+        {inputMode === 'margins' ? (
+          <>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {(['top', 'right', 'bottom', 'left'] as const).map(side => (
+                <div key={side}>
+                  <label className="block text-sm font-medium text-[var(--tx-2)]" htmlFor={`crop-margin-${side}`}>
+                    {cropStrings.marginLabels[side]}
+                  </label>
+                  <input
+                    id={`crop-margin-${side}`}
+                    type="number"
+                    min={0}
+                    step={1}
+                    value={margins[side]}
+                    onChange={event =>
+                      update('cropMargins', {
+                        ...margins,
+                        [side]: Math.max(0, Number(event.target.value) || 0),
+                      })
+                    }
+                    className="mt-1 w-full rounded-md border border-[var(--ui-2)] bg-white px-2 py-2 text-sm"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <p className="text-xs text-[var(--tx-3)]">{cropStrings.marginHint}</p>
+          </>
+        ) : (
+          <p className="text-xs text-[var(--tx-3)]">{cropStrings.manual.hint}</p>
+        )}
+
+        <OptionToggle
+          checked={options.preserveMetadata !== false}
+          label={cropStrings.preserveMetadata}
+          description={cropStrings.preserveMetadataHint}
+          onChange={value => update('preserveMetadata', value)}
+        />
+      </div>
+    );
+  }
+
   if (mode === 'reorder') {
     const reorderStrings = processingStrings.reorder;
     return (

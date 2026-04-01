@@ -270,6 +270,140 @@ const operationsEsContent: Record<OperationKey, OperationContent> = {
       "Guardar solo las páginas con formularios o comprobantes que necesitas archivar.",
     ],
   },
+  crop: {
+    key: "crop",
+    slug: "recortar",
+    mode: "crop",
+    meta: {
+      title: "Recortar páginas PDF online | Ajustar márgenes | PDFLince",
+      description:
+        "Recorta páginas PDF y elimina márgenes sobrantes directamente en tu navegador. Todo el proceso ocurre en local y sin subidas al servidor.",
+      keywords: [
+        "recortar pdf",
+        "quitar margenes pdf",
+        "ajustar pdf",
+        "crop pdf",
+        "recortar paginas pdf",
+      ],
+      ogTitle: "Recorta páginas PDF de forma privada | PDFLince",
+      ogDescription:
+        "Selecciona las páginas, define los márgenes y descarga un PDF más limpio sin compartir tus archivos con nadie.",
+      ogImageAlt: "Recortando páginas PDF en PDFLince",
+    },
+    hero: {
+      title: "Recorta páginas PDF y limpia los márgenes",
+      description:
+        "Elimina espacio en blanco innecesario de páginas concretas y descarga un documento más ajustado en segundos.",
+      bulletPoints: [
+        "Selecciona solo las páginas que quieres recortar",
+        "Ajusta márgenes superior, derecho, inferior e izquierdo con precisión",
+        "Procesamiento 100% local y sin servidores",
+      ],
+      imageAlt: "Flujo de recorte de PDF",
+    },
+    benefitsTitle: "Por qué recortar PDFs con PDFLince",
+    benefits: [
+      {
+        title: "Páginas más limpias",
+        description:
+          "Reduce bordes vacíos y centra la atención en el contenido importante.",
+      },
+      {
+        title: "Edición selectiva",
+        description:
+          "Aplica el recorte solo donde hace falta sin rehacer todo el documento.",
+      },
+      {
+        title: "Privacidad real",
+        description:
+          "Tus archivos siguen en tu dispositivo durante todo el proceso.",
+      },
+    ],
+    howTo: {
+      title: "Cómo recortar páginas PDF con PDFLince",
+      steps: [
+        "Sube el PDF y elige el archivo que quieres ajustar.",
+        "Marca las páginas a recortar y define los márgenes superior, derecho, inferior e izquierdo.",
+        "Pulsa “Procesar” para descargar un nuevo PDF con el recorte aplicado.",
+      ],
+      note:
+        "Si distintos grupos de páginas necesitan recortes diferentes, repite el proceso por separado.",
+    },
+    useCasesTitle: "Cuándo conviene recortar un PDF",
+    useCases: [
+      "Eliminar bordes del escáner en formularios, facturas o documentos firmados.",
+      "Quitar márgenes sobrantes antes de imprimir o unir archivos.",
+      "Uniformar páginas exportadas desde herramientas distintas.",
+      "Preparar manuales, reportes o apuntes con un encuadre más compacto.",
+    ],
+  },
+  rotate: {
+    key: "rotate",
+    slug: "girar",
+    mode: "rotate",
+    meta: {
+      title: "Girar páginas PDF online | Girar hojas seleccionadas | PDFLince",
+      description:
+        "Rota páginas concretas de un PDF en 90 o 180 grados directamente en tu navegador. Gratis, privado y sin subir archivos.",
+      keywords: [
+        "girar pdf",
+        "girar paginas pdf",
+        "cambiar orientacion pdf",
+        "corregir pdf torcido",
+        "giracion de paginas pdf",
+      ],
+      ogTitle: "Gira páginas PDF en segundos | PDFLince",
+      ogDescription:
+        "Selecciona las páginas que necesitan otra orientación, elige 90 o 180 grados y descarga el PDF corregido sin subir nada.",
+      ogImageAlt: "Girar páginas PDF en PDFLince",
+    },
+    hero: {
+      title: "Gira páginas PDF sin perder calidad",
+      description:
+        "Corrige escaneos girados, exportaciones boca abajo o documentos con orientaciones mezcladas en pocos clics.",
+      bulletPoints: [
+        "Rota solo las páginas que selecciones, no todo el documento",
+        "Elige girar 90 grados a la derecha, 180 grados o 90 grados a la izquierda",
+        "Todo sucede en tu navegador, sin subidas ni esperas",
+      ],
+      imageAlt: "Flujo de rotación de páginas PDF",
+    },
+    benefitsTitle: "Por qué girar páginas con PDFLince",
+    benefits: [
+      {
+        title: "Correcciones precisas",
+        description:
+          "Ajusta solo las hojas que lo necesitan, ideal para lotes escaneados o informes largos con orientaciones mixtas.",
+      },
+      {
+        title: "Arreglo rápido",
+        description:
+          "Corrige la orientación en segundos sin reabrir el archivo en un editor pesado de escritorio.",
+      },
+      {
+        title: "Privacidad total",
+        description:
+          "Los documentos sensibles permanecen en tu dispositivo porque la rotación se ejecuta localmente.",
+      },
+    ],
+    howTo: {
+      title: "Cómo girar páginas PDF",
+      steps: [
+        "Sube el PDF y elige el archivo con las páginas que quieres corregir.",
+        "Marca las páginas y selecciona 90 grados a la derecha, 180 grados o 90 grados a la izquierda.",
+        "Pulsa \"Procesar\" para descargar un nuevo PDF con la orientación ya corregida.",
+      ],
+      note:
+        "Si luego necesitas más ajustes, puedes reordenar, extraer o comprimir el PDF resultante en otro paso.",
+    },
+    useCasesTitle: "Cuándo conviene girar páginas",
+    useCases: [
+      "Enderezar contratos, formularios o recibos escaneados de lado.",
+      "Corregir páginas boca abajo dentro de informes montados desde varias fuentes.",
+      "Preparar apuntes o manuales antes de compartirlos con alumnado o clientes.",
+      "Limpiar archivos históricos para que todas las páginas se lean con comodidad.",
+    ],
+  },
   reorder: {
     key: "reorder",
     slug: "reordenar",
@@ -478,6 +612,8 @@ export const operationsEs: Record<OperationKey, OperationContent> = {
   compress: operationsEsContent.compress,
   split: operationsEsContent.split,
   extract: operationsEsContent.extract,
+  crop: operationsEsContent.crop,
+  rotate: operationsEsContent.rotate,
   reorder: operationsEsContent.reorder,
   pdfToImages: operationsEsContent.pdfToImages,
   imagesToPdf: operationsEsContent.imagesToPdf,
