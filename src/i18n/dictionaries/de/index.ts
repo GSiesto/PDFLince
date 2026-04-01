@@ -442,7 +442,7 @@ export const deDictionary: Dictionary = {
         hint: "Wahle die Seiten aus und lege fest, wie viele Punkte oben, rechts, unten und links entfernt werden.",
         inputModeLabel: "Zuschneidemethode",
         inputModes: {
-          margins: "Vier Rander",
+          margins: "Ränder festlegen",
           manual: "Manuelle Auswahl",
         },
         marginLabels: {

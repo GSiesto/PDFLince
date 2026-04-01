@@ -445,7 +445,7 @@ export const ptDictionary: Dictionary = {
         hint: "Selecione as paginas e defina quantos pontos remover de cada lado.",
         inputModeLabel: "Metodo de recorte",
         inputModes: {
-          margins: "Quatro margens",
+          margins: "Definir margens",
           manual: "Selecao manual",
         },
         marginLabels: {

@@ -439,7 +439,7 @@ export const esDictionary: Dictionary = {
         hint: "Selecciona las paginas a recortar y define cuantos puntos quitar de cada lado.",
         inputModeLabel: "Metodo de recorte",
         inputModes: {
-          margins: "Cuatro margenes",
+          margins: "Establecer márgenes",
           manual: "Seleccion manual",
         },
         marginLabels: {

@@ -445,7 +445,7 @@ export const enDictionary: Dictionary = {
         hint: "Select the pages to crop and define how many points to trim from each side.",
         inputModeLabel: "Crop method",
         inputModes: {
-          margins: "Four margins",
+          margins: "Set margins",
           manual: "Manual selection",
         },
         marginLabels: {

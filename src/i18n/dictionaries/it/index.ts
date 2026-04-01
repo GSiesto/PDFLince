@@ -503,7 +503,7 @@ export const itDictionary: Dictionary = {
         hint: "Seleziona le pagine da ritagliare e definisci quanti punti rimuovere da ogni lato.",
         inputModeLabel: "Metodo di ritaglio",
         inputModes: {
-          margins: "Quattro margini",
+          margins: "Imposta margini",
           manual: "Selezione manuale",
         },
         marginLabels: {
