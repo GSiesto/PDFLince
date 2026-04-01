@@ -53,19 +53,15 @@
       "es": "/recortar",
       "en": "/en/crop",
       "pt": "/pt/recortar",
-      "de": "/de/zuschneiden"
-    },
-    "crop": {
-      "es": "/recortar",
-      "en": "/en/crop",
-      "pt": "/pt/recortar",
-      "de": "/de/zuschneiden"
+      "de": "/de/zuschneiden",
+      "it": "/it/ritaglia"
     },
     "rotate": {
       "es": "/girar",
       "en": "/en/rotate",
       "pt": "/pt/girar",
-      "de": "/de/drehen"
+      "de": "/de/drehen",
+      "it": "/it/ruota"
     },
     "reorder": {
       "es": "/reordenar",

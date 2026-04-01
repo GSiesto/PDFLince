@@ -15,6 +15,8 @@ const operationsRoutes: Record<OperationKey, string> = {
   compress: getOperationPath(locale, "compress"),
   split: getOperationPath(locale, "split"),
   extract: getOperationPath(locale, "extract"),
+  crop: getOperationPath(locale, "crop"),
+  rotate: getOperationPath(locale, "rotate"),
   reorder: getOperationPath(locale, "reorder"),
   pdfToImages: getOperationPath(locale, "pdfToImages"),
   imagesToPdf: getOperationPath(locale, "imagesToPdf"),
@@ -126,6 +128,8 @@ export const itDictionary: Dictionary = {
         compress: "Comprimi PDF",
         split: "Dividi PDF",
         extract: "Estrai pagine",
+        crop: "Ritaglia pagine",
+        rotate: "Ruota pagine",
         reorder: "Riordina pagine",
         pdfToImages: "PDF in immagini",
         imagesToPdf: "Immagini in PDF",
@@ -178,6 +182,14 @@ export const itDictionary: Dictionary = {
           label: "Estrai pagine",
           helper: "Scegli pagine specifiche per creare un nuovo documento.",
         },
+        crop: {
+          label: "Ritaglia pagine",
+          helper: "Riduci i margini visibili delle pagine selezionate senza uscire dal browser.",
+        },
+        rotate: {
+          label: "Ruota pagine",
+          helper: "Seleziona le pagine che hanno bisogno di un nuovo orientamento e ruota solo quelle.",
+        },
         reorder: {
           label: "Riordina pagine",
           helper: "Cambia l’ordine delle pagine all’interno di un PDF.",
@@ -201,6 +213,8 @@ export const itDictionary: Dictionary = {
           merge:
             "File da unire (riordina per definire la sequenza finale):",
           extract: "Seleziona un file per lavorare sulle sue pagine:",
+          crop: "Seleziona un file per lavorare sulle sue pagine:",
+          rotate: "Seleziona un file per lavorare sulle sue pagine:",
           reorder: "Seleziona un file per lavorare sulle sue pagine:",
           pdfToImages:
             "PDF da convertire (elaborati uno alla volta):",
@@ -214,6 +228,8 @@ export const itDictionary: Dictionary = {
             "Ogni file viene compresso individualmente con il miglior rapporto qualità/dimensione.",
           split:
             "Ogni PDF verrà suddiviso in base alle opzioni selezionate nel passaggio successivo.",
+          crop:
+            "Seleziona le pagine da ritagliare e definisci quanti punti rimuovere da ogni lato nel pannello opzioni.",
           pdfToImages:
             "Elaboriamo un PDF alla volta. Regola formato e DPI dal pannello opzioni prima di esportare.",
           imagesToPdf:
@@ -226,6 +242,8 @@ export const itDictionary: Dictionary = {
         merge: "unito_PDFLince",
         split: "parte_PDFLince",
         extract: "estratto_PDFLince",
+        crop: "ritagliato_PDFLince",
+        rotate: "ruotato_PDFLince",
         reorder: "riordinato_PDFLince",
         pdfToImages: "immagini_PDFLince",
         imagesToPdf: "immagini_a_pdf_PDFLince",
@@ -237,6 +255,10 @@ export const itDictionary: Dictionary = {
         processing: "Elaborazione...",
         extract: (count: number) =>
           `Estrai ${count} ${count === 1 ? "pagina" : "pagine"}`,
+        crop: (count: number) =>
+          count > 0 ? `Ritaglia ${count} ${count === 1 ? "pagina" : "pagine"}` : "Ritaglia PDF",
+        rotate: (count: number) =>
+          count > 0 ? `Ruota ${count} ${count === 1 ? "pagina" : "pagine"}` : "Ruota PDF",
         reorder: "Salva nuovo ordine",
         pdfToImages: {
           single: "Esporta immagini",
@@ -265,6 +287,10 @@ export const itDictionary: Dictionary = {
             : "Divisione completata",
         extracted: (count: number) =>
           `Estratte ${count} ${count === 1 ? "pagina" : "pagine"}`,
+        cropped: (count: number) =>
+          `Ritagliate ${count} ${count === 1 ? "pagina" : "pagine"}`,
+        rotated: (count: number) =>
+          `Ruotate ${count} ${count === 1 ? "pagina" : "pagine"}`,
         reordered: "Riordinamento completato",
         pdfToImages: (
           count: number,
@@ -302,6 +328,8 @@ export const itDictionary: Dictionary = {
 
       labels: {
         pagesToExtract: "Seleziona le pagine da estrarre:",
+        pagesToCrop: "Seleziona le pagine da ritagliare:",
+        pagesToRotate: "Seleziona le pagine da ruotare:",
         reorderPages: "Trascina le pagine per riordinarle:",
       },
 
@@ -469,6 +497,39 @@ export const itDictionary: Dictionary = {
         preserveMetadata: "Mantieni i metadati originali",
         preserveMetadataHint:
           "Conserva titolo, autore e altri dettagli del documento nel file estratto.",
+      },
+      crop: {
+        title: "Ritaglio",
+        hint: "Seleziona le pagine da ritagliare e definisci quanti punti rimuovere da ogni lato.",
+        inputModeLabel: "Metodo di ritaglio",
+        inputModes: {
+          margins: "Quattro margini",
+          manual: "Selezione manuale",
+        },
+        marginLabels: {
+          top: "Margine superiore (pt)",
+          right: "Margine destro (pt)",
+          bottom: "Margine inferiore (pt)",
+          left: "Margine sinistro (pt)",
+        },
+        marginHint: "72 pt corrispondono a circa 1 pollice. Inizia con valori piccoli per non tagliare il contenuto.",
+        preserveMetadata: "Mantieni i metadati originali",
+        preserveMetadataHint: "Conserva titolo, autore e altri dettagli del documento nel file ritagliato.",
+        manual: {
+          title: "Selezione manuale del ritaglio",
+          hint: "Trascina sull'anteprima per definire l'area visibile. Convertiamo la selezione negli stessi margini usati dal flusso di ritaglio attuale.",
+          loading: "Caricamento anteprima ritaglio...",
+          error: "Impossibile caricare l'anteprima del ritaglio.",
+          reset: "Reimposta selezione",
+          pagePreview: (pageNumber: number) => `Anteprima pagina ${pageNumber}`,
+        },
+      },
+      rotate: {
+        title: "Rotazione",
+        hint: "Scegli la direzione e poi seleziona le pagine da ruotare.",
+        rotateRight90: "Ruota di 90 gradi a destra",
+        rotate180: "Ruota di 180 gradi",
+        rotateLeft90: "Ruota di 90 gradi a sinistra",
       },
       reorder: {
         title: "Riordino",

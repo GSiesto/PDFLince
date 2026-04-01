@@ -49,6 +49,11 @@ export function processPDF(
   files: [File, ...File[]],
   options: PDFProcessingOptions
 ): Promise<Blob>;
+export function processPDF(
+  mode: 'rotate',
+  files: [File, ...File[]],
+  options: PDFProcessingOptions
+): Promise<Blob>;
 
 export function processPDF(
   mode: 'reorder',
@@ -93,6 +98,12 @@ export function processPDF(
         throw new Error('No pages selected');
       }
       return cropPagesAsBlob(files[0] as File, options.pagesToCrop, options);
+    }
+    case 'rotate': {
+      if (!options.pagesToRotate || options.pagesToRotate.length === 0) {
+        throw new Error('No pages selected');
+      }
+      return rotatePagesAsBlob(files[0] as File, options.pagesToRotate, options);
     }
     case 'reorder': {
       if (!options.pageOrder || options.pageOrder.length === 0) {
@@ -162,6 +173,20 @@ export async function cropPagesAsBlob(file: File, pageNumbers: number[], options
   } catch (error) {
     console.warn('Worker crop failed, falling back to main thread', error);
     const pdfBytes = await PDFOps.cropPages(file, pageNumbers, options);
+    return createPdfBlob(pdfBytes);
+  }
+}
+
+export async function rotatePagesAsBlob(file: File, pageNumbers: number[], options: PDFProcessingOptions): Promise<Blob> {
+  try {
+    const pdfBytes = await pdfWorkerClient.run('rotate', [file], {
+      ...options,
+      pagesToRotate: pageNumbers,
+    }) as Uint8Array;
+    return createPdfBlob(pdfBytes);
+  } catch (error) {
+    console.warn('Worker rotate failed, falling back to main thread', error);
+    const pdfBytes = await PDFOps.rotatePages(file, pageNumbers, options.rotationDegrees ?? 90, options);
     return createPdfBlob(pdfBytes);
   }
 }

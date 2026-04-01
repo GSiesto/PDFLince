@@ -11,6 +11,7 @@ import {
   PDFRef,
   PDFArray,
   PDFNumber,
+  degrees,
   rgb,
 } from 'pdf-lib';
 
@@ -21,6 +22,7 @@ export type PDFProcessingMode =
   | 'split'
   | 'extract'
   | 'crop'
+  | 'rotate'
   | 'reorder'
   | 'pdfToImages'
   | 'imagesToPdf'
@@ -46,8 +48,6 @@ export type PDFProcessingOptions = {
     left: number;
   };
   cropInputMode?: 'margins' | 'manual';
-
->>>>>>> cbfe13c (Feat: add crop PDF function)
   bundleAsZip?: boolean;
 
   // Compression options
@@ -848,8 +848,6 @@ function normalizeRotation(angle: number): 0 | 90 | 180 | 270 {
 
   throw new Error(`Invalid rotation angle: ${angle}`);
 }
-
->>>>>>> cbfe13c (Feat: add crop PDF function)
 export async function getPDFPageCount(fileOrData: File | ArrayBuffer | Uint8Array): Promise<number> {
   try {
     const arrayBuffer = fileOrData instanceof File ? await fileOrData.arrayBuffer() : fileOrData;

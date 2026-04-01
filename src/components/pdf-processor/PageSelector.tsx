@@ -9,6 +9,7 @@ type PageSelectorProps = {
   file: File;
   selectedPages: Record<number, boolean>;
   onPageSelectAction: (pageNumber: number, selected: boolean) => void;
+  selectedPageRotationDegrees?: 90 | 180 | 270 | -90 | -180 | -270;
 };
 
 export default function PageSelector({ file, selectedPages, onPageSelectAction }: PageSelectorProps) {
