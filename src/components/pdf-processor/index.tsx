@@ -2036,7 +2036,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
                         }`}
                     >
                       <header
-                        className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ui-2)] bg-white/70 px-4 py-3 cursor-pointer"
+                        className="processor-file-panel-header flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ui-2)] bg-white/70 px-4 py-3 cursor-pointer"
                         onClick={() => handleFileChange(index)}
                         role="button"
                         tabIndex={0}
@@ -2286,7 +2286,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
                         }`}
                     >
                       <header
-                        className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ui-2)] bg-white/70 px-4 py-3 cursor-pointer"
+                        className="processor-file-panel-header flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ui-2)] bg-white/70 px-4 py-3 cursor-pointer"
                         onClick={() => handleFileChange(index)}
                         role="button"
                         tabIndex={0}

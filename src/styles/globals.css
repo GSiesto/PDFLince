@@ -612,6 +612,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
   color: var(--accent);
 }
 
+.dark .processor-file-panel-header,
+:root[data-resolved-theme="dark"] .processor-file-panel-header {
+  background-color: rgba(20, 13, 13, 0.8);
+}
+
 /* Image preview thumbnail in file list */
 .file-preview-thumbnail {
   width: 2rem;
