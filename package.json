@@ -1,6 +1,6 @@
 {
   "name": "pdflince",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Privacy-first client-side PDF toolkit running 100% in the browser.",
   "keywords": [
     "pdf",
