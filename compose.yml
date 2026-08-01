@@ -1,0 +1,14 @@
+services:
+  pdflince:
+    image: pdflince:latest
+    container_name: pdflince
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+      pull: true
+
+    restart: unless-stopped
+
+    ports:
+      - "3000:80"
