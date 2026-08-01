@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "404 – Page Not Found | PDFLince",
@@ -163,7 +164,6 @@ export default function NotFound() {
         </main>
 
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500;600&display=swap');
           * {
             box-sizing: border-box;
           }
