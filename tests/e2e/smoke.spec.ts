@@ -37,7 +37,7 @@ test.afterAll(({}, testInfo) => {
 
 test.describe('PDFLince Smoke Tests', () => {
     test.beforeEach(async ({ page }) => {
-        // Default locale is Spanish, served at root
+        // Default locale is English, served at root
         await page.goto('/');
     });
 
@@ -45,8 +45,8 @@ test.describe('PDFLince Smoke Tests', () => {
         await expect(page).toHaveTitle(/PDFLince/i);
         // Check for main headline or key text
         await expect(page.locator('h1')).toBeVisible();
-        // "Procesamiento local" is in the tagline/badges
-        await expect(page.getByText('Procesamiento local').first()).toBeVisible();
+        // "Local processing" is in the tagline/badges
+        await expect(page.getByText(/Local processing/i).first()).toBeVisible();
     });
 
     test('Can upload a PDF and see processing options', async ({ page }, testInfo) => {
@@ -60,9 +60,9 @@ test.describe('PDFLince Smoke Tests', () => {
         // Verify file appears in the list
         await expect(page.getByText(path.basename(testPdfPath))).toBeVisible();
 
-        // Verify default mode (Unir PDFs) tab is active or visible
-        await expect(page.getByRole('button', { name: 'Unir PDFs', exact: true })).toBeVisible();
-        await expect(page.getByText(/Selecciona una operaci/i)).toBeVisible();
+        // Verify default mode (Merge PDFs) tab is active or visible
+        await expect(page.getByRole('button', { name: 'Merge PDFs', exact: true })).toBeVisible();
+        await expect(page.getByText(/Choose an operation/i)).toBeVisible();
     });
 
     // Note: Full processing test requires checking downloads, which is more complex.

@@ -27,10 +27,10 @@ test('PDF Split Workflow', async ({ page }) => {
     test.setTimeout(90_000);
 
     // 1. Visit Split Page directly
-    await page.goto('/dividir', { timeout: 60_000 });
+    await page.goto('/split', { timeout: 60_000 });
 
     // 2. Verify we are on the correct tool
-    await expect(page.getByRole('heading', { name: 'Dividir PDF por páginas o segmentos' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Split PDFs by pages or segments' })).toBeVisible();
 
     // 3. Upload File
     const fileInput = page.locator('input[type="file"]');
@@ -42,12 +42,12 @@ test('PDF Split Workflow', async ({ page }) => {
     // 5. Configure Split Options
     // Default is "All pages to individual files" (Split mode)
     // Let's verify we can change pages per file to 2
-    const pagesInput = page.getByLabel('Páginas por archivo');
+    const pagesInput = page.getByLabel('Pages per file');
     await pagesInput.fill('2');
 
     // 6. Process
     const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('button', { name: 'Procesar 1 archivo' }).click();
+    await page.getByRole('button', { name: 'Process 1 file' }).click();
     const download = await downloadPromise;
 
     // 7. Verification

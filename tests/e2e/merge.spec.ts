@@ -32,10 +32,10 @@ test('PDF Merge Workflow', async ({ page }) => {
     test.setTimeout(90_000);
 
     // 1. Visit Merge Page directly
-    await page.goto('/unir', { timeout: 60_000 });
+    await page.goto('/merge', { timeout: 60_000 });
 
     // Verify correct operation
-    await expect(page.getByRole('heading', { name: 'Unir PDF online rápido y seguro' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Merge PDFs online — fast and secure' })).toBeVisible();
 
     // 2. Upload Files
     const fileInput = page.locator('input[type="file"]');
@@ -47,11 +47,11 @@ test('PDF Merge Workflow', async ({ page }) => {
 
     // 4. Process
     const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('button', { name: 'Procesar 2 archivos' }).click();
+    await page.getByRole('button', { name: 'Process 2 files' }).click();
     const download = await downloadPromise;
 
     // 5. Verification
-    expect(download.suggestedFilename()).toMatch(/unido_PDFLince\.pdf$/);
+    expect(download.suggestedFilename()).toMatch(/merged_PDFLince\.pdf$/);
 
     // Verify page count of result
     const downloadPath = path.join(__dirname, 'downloaded-merged.pdf');

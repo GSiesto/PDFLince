@@ -22,7 +22,7 @@ test('Lossless (FlateDecode) PDF Compression Verification', async ({ page }) => 
     test.setTimeout(180_000);
 
     // 1. Visit the app
-    await page.goto('/comprimir');
+    await page.goto('/compress');
 
     // 2. Generate a high-res PNG in the browser
     console.log('Generating high-res PNG in browser...');
@@ -79,21 +79,21 @@ test('Lossless (FlateDecode) PDF Compression Verification', async ({ page }) => 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(losslessPdfPath);
 
-    // 5. Select "Alta" (72 DPI)
-    await page.getByLabel('Alta').click({ force: true });
+    // 5. Select "High" (72 DPI)
+    await page.getByLabel('High').click({ force: true });
 
     // 6. Wait for preview
     console.log('Waiting for compression preview...');
-    const estimadoSection = page.getByText('Resultado estimado');
+    const estimadoSection = page.getByText('Estimated output');
     await expect(estimadoSection).toBeVisible({ timeout: 60_000 });
 
-    const previewResult = page.locator('div:has-text("Resultado estimado")').last();
+    const previewResult = page.locator('div:has-text("Estimated output")').last();
     const resultText = await previewResult.innerText();
     console.log('Preview Result:', resultText);
 
     // 7. Process
     const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('button', { name: 'Procesar 1 archivo' }).click();
+    await page.getByRole('button', { name: 'Process 1 file' }).click();
     const download = await downloadPromise;
     await download.saveAs(downloadPath);
 

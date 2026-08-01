@@ -35,8 +35,8 @@ test.describe('Worker Robustness & Rendering', () => {
             }
         });
 
-        // 2. Navigate to PDF-to-Images page (route group (es) is invisible in URL)
-        await page.goto('/convertir-pdf-a-imagenes');
+        // 2. Navigate to PDF-to-Images page
+        await page.goto('/pdf-to-images');
         await expect(page.locator('h1')).toBeVisible();
 
         // 3. Upload a test PDF
@@ -44,18 +44,18 @@ test.describe('Worker Robustness & Rendering', () => {
         await fileInput.setInputFiles(testPdfPath);
 
         // 4. Wait for the file to be accepted and the process button to appear
-        //    Button text for pdfToImages single file: "Exportar imágenes"
-        const processBtn = page.getByRole('button', { name: /Exportar imágenes/i });
+        //    Button text for pdfToImages single file: "Export images"
+        const processBtn = page.getByRole('button', { name: /Export images/i });
         await expect(processBtn).toBeVisible({ timeout: 10000 });
 
         // 5. Click process
         await processBtn.click();
 
         // 6. Wait for the success dialog (or error dialog) to appear
-        //    Success dialog shows "Descargar de nuevo" button
-        //    Error dialog shows "Reintentar" button
+        //    Success dialog shows "Download again" button
+        //    Error dialog shows "Retry" button
         //    We wait for either, with generous timeout for worker processing
-        const successIndicator = page.getByRole('button', { name: /Descargar de nuevo/i });
+        const successIndicator = page.getByRole('button', { name: /Download again/i });
         const errorIndicator = page.getByText(/error/i).first();
 
         await expect(successIndicator.or(errorIndicator)).toBeVisible({ timeout: 30000 });

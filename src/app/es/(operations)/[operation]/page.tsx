@@ -1,6 +1,6 @@
 import { createLocaleOperationHandlers } from "../../../(helpers)/operation-handlers";
 
-const LOCALE = "en" as const;
+const LOCALE = "es" as const;
 
 const { generateStaticParams, generateMetadata, OperationPage } = createLocaleOperationHandlers(LOCALE);
 

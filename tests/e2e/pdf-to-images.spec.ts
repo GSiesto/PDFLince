@@ -32,10 +32,10 @@ test('PDF to Images Workflow', async ({ page }) => {
     test.setTimeout(120_000);
 
     // 1. Visit PDF to Images Page directly
-    await page.goto('/convertir-pdf-a-imagenes', { timeout: 60_000 });
+    await page.goto('/pdf-to-images', { timeout: 60_000 });
 
     // 2. Verify we are on the correct tool
-    await expect(page.getByRole('heading', { name: 'Convierte páginas PDF en PNG o JPEG' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Convert PDF pages to PNG or JPEG' })).toBeVisible();
 
     // 3. Upload File
     const fileInput = page.locator('input[type="file"]');
@@ -47,12 +47,12 @@ test('PDF to Images Workflow', async ({ page }) => {
     // 5. Configure Options (Default is PNG + ZIP)
     // We can verify the toggle text or state if needed. 
     // In our component, OptionToggle uses a label.
-    await expect(page.getByText('Agrupar imágenes en un ZIP')).toBeVisible();
+    await expect(page.getByText('Bundle images in a ZIP')).toBeVisible();
 
     // 6. Process
     const downloadPromise = page.waitForEvent('download');
     // Using handle with specific name from dictionary
-    await page.getByRole('button', { name: 'Exportar imágenes' }).click();
+    await page.getByRole('button', { name: 'Export images' }).click();
     const download = await downloadPromise;
 
     // 7. Verification

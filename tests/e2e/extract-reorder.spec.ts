@@ -31,22 +31,22 @@ test('PDF Page Extraction Workflow', async ({ page }, testInfo) => {
     test.setTimeout(120_000);
 
     // 1. Visit Extract Page
-    await page.goto('/extraer', { timeout: 60_000 });
+    await page.goto('/extract', { timeout: 60_000 });
 
     // 2. Upload File
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(getTestPdfPath(testInfo.workerIndex));
 
     // 3. Selection
-    // Wait for the thumbnails to load. Label from dictionary is "Pág. X"
-    await expect(page.getByText('Pág. 1').first()).toBeVisible({ timeout: 20_000 });
+    // Wait for the thumbnails to load. Label from dictionary is "Page X"
+    await expect(page.getByText('Page 1').first()).toBeVisible({ timeout: 20_000 });
 
     // Click on page 1 and page 3
-    await page.getByText('Pág. 1').first().click();
-    await page.getByText('Pág. 3').first().click();
+    await page.getByText('Page 1').first().click();
+    await page.getByText('Page 3').first().click();
 
     // Wait for the process button to be enabled (state update might take a moment)
-    const processButton = page.getByRole('button', { name: 'Extraer 2 páginas' });
+    const processButton = page.getByRole('button', { name: 'Extract 2 pages' });
     await expect(processButton).toBeEnabled({ timeout: 20_000 });
 
     // 4. Process
@@ -55,7 +55,7 @@ test('PDF Page Extraction Workflow', async ({ page }, testInfo) => {
     const download = await downloadPromise;
 
     // 5. Verification
-    expect(download.suggestedFilename()).toMatch(/extraido_PDFLince\.pdf$/);
+    expect(download.suggestedFilename()).toMatch(/extracted_PDFLince\.pdf$/);
     const downloadPath = path.join(__dirname, 'downloaded-extracted.pdf');
     await download.saveAs(downloadPath);
 
@@ -70,7 +70,7 @@ test('PDF Page Reordering Workflow', async ({ page }, testInfo) => {
     test.setTimeout(120_000);
 
     // 1. Visit Reorder Page
-    await page.goto('/reordenar', { timeout: 60_000 });
+    await page.goto('/reorder', { timeout: 60_000 });
 
     // 2. Upload File
     const fileInput = page.locator('input[type="file"]');
@@ -79,11 +79,11 @@ test('PDF Page Reordering Workflow', async ({ page }, testInfo) => {
     // 3. Wait for PageOrderer to finish loading (loading spinner disappears, page grid appears)
     // The orderer shows a loading state while fetching page count and thumbnails.
     // Wait for the first page item label to appear (rendered only when loading=false).
-    const firstPage = page.getByText('Original: Pág. 1').first();
+    const firstPage = page.getByText('Original: Page 1').first();
     await expect(firstPage).toBeVisible({ timeout: 60_000 });
 
     // Wait for the process button to be enabled (thumbnails might take a moment)
-    const processButton = page.getByRole('button', { name: 'Guardar nueva ordenación' });
+    const processButton = page.getByRole('button', { name: 'Save new order' });
     await expect(processButton).toBeEnabled({ timeout: 30_000 });
 
     // 4. Process
@@ -92,7 +92,7 @@ test('PDF Page Reordering Workflow', async ({ page }, testInfo) => {
     const download = await downloadPromise;
 
     // 5. Verification
-    expect(download.suggestedFilename()).toMatch(/reordenado_PDFLince\.pdf$/);
+    expect(download.suggestedFilename()).toMatch(/reordered_PDFLince\.pdf$/);
 
     // Clean up
     const downloadPath = path.join(__dirname, 'downloaded-reordered.pdf');

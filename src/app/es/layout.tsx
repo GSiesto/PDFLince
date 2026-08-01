@@ -2,7 +2,6 @@ import "../../styles/globals.css";
 import { Suspense, type ReactNode } from "react";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { localeLabels, DEFAULT_LOCALE, isLocale } from "../../i18n/config";
 import { GoogleAnalyticsScripts } from "../../components/analytics/GoogleAnalyticsScripts";
 import { GaPageViewTracker } from "../../components/analytics/GaPageViewTracker";
 import { WebVitalsReporter } from "../../components/analytics/WebVitalsReporter";
@@ -16,6 +15,8 @@ import { BreadcrumbSchema } from "../../components/seo/BreadcrumbSchema";
 
 import { METADATA_BASE, SHARED_ICONS, SHARED_OPEN_GRAPH, SHARED_TWITTER } from "../../lib/metadata-shared";
 
+const LOCALE = "es" as const;
+
 export const metadata = {
   metadataBase: METADATA_BASE,
   title: "PDFLince | Comprimir, unir, dividir y convertir PDF online sin subir archivos",
@@ -25,15 +26,15 @@ export const metadata = {
     "comprimir pdf, unir pdf, dividir pdf, extraer paginas pdf, convertir pdf, pdf a imagen, imagen a pdf, reorganizar pdf, herramienta pdf gratis, pdf sin subir archivos",
   icons: SHARED_ICONS,
   alternates: {
-    canonical: "https://pdflince.com/",
+    canonical: "https://pdflince.com/es/",
     languages: {
-      'es-ES': 'https://pdflince.com/',
-      'es-MX': 'https://pdflince.com/',
-      'es-CO': 'https://pdflince.com/',
-      'es-AR': 'https://pdflince.com/',
-      'es': 'https://pdflince.com/',
-      'en': 'https://pdflince.com/en/',
-      'en-US': 'https://pdflince.com/en/',
+      'es-ES': 'https://pdflince.com/es/',
+      'es-MX': 'https://pdflince.com/es/',
+      'es-CO': 'https://pdflince.com/es/',
+      'es-AR': 'https://pdflince.com/es/',
+      'es': 'https://pdflince.com/es/',
+      'en': 'https://pdflince.com/',
+      'en-US': 'https://pdflince.com/',
       'fr': 'https://pdflince.com/fr/',
       'fr-FR': 'https://pdflince.com/fr/',
       'pt': 'https://pdflince.com/pt/',
@@ -58,35 +59,24 @@ export const metadata = {
     title: "PDFLince | Herramientas PDF privadas y gratuitas en tu navegador",
     description:
       "Une, comprime, divide, extrae y convierte PDFs sin subir archivos. Resultados al instante con procesamiento 100% local y privado.",
-    url: "https://pdflince.com",
+    url: "https://pdflince.com/es",
     locale: "es_ES",
     type: "website",
   },
   twitter: SHARED_TWITTER,
 };
 
-export default async function RootLayout({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: Promise<{ locale?: string }>;
-}) {
-  const resolvedParams = await params;
-  const requestedLocale = resolvedParams?.locale;
-  const locale = requestedLocale && isLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
-  const htmlLang = localeLabels[locale].htmlLang;
-
+export default function EsLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang={htmlLang}>
+    <html lang={LOCALE}>
       <head>
-        {/* Reserved for future head customizations */}
+        <title>{metadata.title}</title>
         <GoogleAnalyticsScripts />
         <SchemaOrg />
         <BreadcrumbSchema />
       </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <LocaleProvider locale={locale}>
+        <LocaleProvider locale={LOCALE}>
           <WebVitalsReporter />
           <Suspense fallback={null}>
             <GaPageViewTracker />
