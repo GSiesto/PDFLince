@@ -96,6 +96,7 @@ graph TD
     ```bash
     bun install
     ```
+    `bun install` runs `scripts/setup-pdf-worker.mjs` via the `postinstall` script.
 
 3.  **Run development server:**
     ```bash
