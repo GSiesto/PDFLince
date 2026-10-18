@@ -5,6 +5,13 @@ All notable changes to PDFLince will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1](https://github.com/GSiesto/PDFLince/compare/v1.1.0...v1.1.1) (2026-10-18)
+
+
+### Bug Fixes
+
+* **mcp:** switch release workflow to npm OIDC trusted publisher and normalize bin path ([a7b875c](https://github.com/GSiesto/PDFLince/commit/a7b875c0095ebfd1fbc9a48c91e8408d88624cef))
+
 ## [1.1.0](https://github.com/GSiesto/PDFLince/compare/v1.0.0...v1.1.0) (2026-10-18)
 
 
