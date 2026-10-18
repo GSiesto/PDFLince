@@ -5,6 +5,21 @@ All notable changes to PDFLince will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0](https://github.com/GSiesto/PDFLince/compare/v1.0.0...v1.1.0) (2026-10-18)
+
+
+### Features
+
+* **mcp:** add pdflince-mcp server with full UI parity, unified icons, and 9-locale /mcp page ([212c0cd](https://github.com/GSiesto/PDFLince/commit/212c0cdb3fb78c0a9633a12ba6db8b2a6ebe8db8))
+* **mcp:** add pdflince-mcp server with full UI parity, unified icons, and 9-locale /mcp page ([8b6eaf1](https://github.com/GSiesto/PDFLince/commit/8b6eaf12692fdd39d80f7ca0a23a83d40fd96e03))
+
+
+### Bug Fixes
+
+* **mcp:** add pure-Node PNG fallback for headless Linux CI in image-adapter ([915a9e3](https://github.com/GSiesto/PDFLince/commit/915a9e32505053cfe3dd37c752f9825f6f16f8ae))
+* **mcp:** add repository metadata to package.json for npm provenance ([45e8731](https://github.com/GSiesto/PDFLince/commit/45e87317ab0d5623accc91b59cd0fc4135f33329))
+* regenerate bun.lock to match updated package.json ([2f1142b](https://github.com/GSiesto/PDFLince/commit/2f1142bff30705a55af3e8c6eb4261a447b982d7))
+
 ## 1.0.0 (2026-06-16)
 
 
