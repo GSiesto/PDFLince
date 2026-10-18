@@ -32,7 +32,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Setup Bun
@@ -47,8 +47,6 @@ jobs:
       - name: Build MCP standalone binary
         run: bun run build:mcp
 
-      - name: Publish to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm (OIDC Trusted Publisher)
         run: npm publish --access public --provenance
 
