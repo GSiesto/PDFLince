@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { trackEvent } from "../../lib/analytics";
 import { FeedbackWidget } from "../FeedbackWidget";
+import { AlertCircle, CheckCircle2, Loader2, Share2, X } from "../ui/Icons";
 
 export type DialogStatus = "processing" | "success" | "error";
 
@@ -61,46 +62,11 @@ const actionStyles: Record<NonNullable<DialogAction["variant"]>, string> = {
 const statusIcon = (status: DialogStatus) => {
   switch (status) {
     case "success":
-      return (
-        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="11" className="fill-current opacity-20" />
-          <path
-            className="stroke-current"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M8 12.5l2.5 2.5L16 9"
-          />
-        </svg>
-      );
+      return <CheckCircle2 className="h-5 w-5 shrink-0" strokeWidth={2} aria-hidden="true" />;
     case "error":
-      return (
-        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="11" className="fill-current opacity-20" />
-          <path
-            className="stroke-current"
-            strokeWidth="2"
-            strokeLinecap="round"
-            d="M8.5 8.5l7 7m0-7l-7 7"
-          />
-        </svg>
-      );
+      return <AlertCircle className="h-5 w-5 shrink-0" strokeWidth={2} aria-hidden="true" />;
     default:
-      return (
-        <svg className="h-6 w-6 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle
-            className="opacity-25 stroke-current"
-            cx="12"
-            cy="12"
-            r="10"
-            strokeWidth="4"
-          />
-          <path
-            className="opacity-75 fill-current"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          />
-        </svg>
-      );
+      return <Loader2 className="h-5 w-5 shrink-0 animate-spin" strokeWidth={2} aria-hidden="true" />;
   }
 };
 
@@ -252,14 +218,7 @@ export function ProcessingStatusDialog({
             className="ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--tx-3)] transition hover:bg-[var(--bg-2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent)]"
           >
             <span className="sr-only">{closeLabel}</span>
-            <svg className="h-4 w-4" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-              <path
-                d="M3 3l6 6m0-6L3 9"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
+            <X className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
           </button>
         </div>
         <div className="space-y-4 px-6 py-5 text-[var(--tx)]">
@@ -318,9 +277,7 @@ export function ProcessingStatusDialog({
                     onClick={handleShareClick}
                     className="inline-flex shrink-0 items-center justify-center rounded-md border border-[var(--ui-3)] bg-white px-3 py-1.5 text-sm font-medium text-[var(--tx)] shadow-sm transition hover:bg-[var(--bg-2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
                   >
-                    <svg className="mr-2 h-4 w-4 text-[var(--tx-3)]" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-                    </svg>
+                    <Share2 className="mr-2 h-4 w-4 text-[var(--tx-3)]" strokeWidth={1.85} />
                     {copied ? sharePrompt.copiedLabel : sharePrompt.actionLabel}
                   </button>
                 </div>

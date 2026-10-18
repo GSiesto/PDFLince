@@ -34,6 +34,9 @@ export default function Footer() {
           <Link href={routes.faq} className="text-[var(--tx-2)] hover:text-[var(--accent)] font-medium">
             {footer.links.faq}
           </Link>
+          <Link href={routes.mcp} className="text-[var(--tx-2)] hover:text-[var(--accent)] font-medium">
+            {footer.links.mcp ?? "MCP Server"}
+          </Link>
 
           <a
             href="https://fotolince.com"

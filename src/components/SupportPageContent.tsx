@@ -3,6 +3,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useDictionary } from "../i18n/LocaleProvider";
+import { Check, ChevronDown, FeatureIcon, Heart, IconBadge, Sprout } from "./ui/Icons";
+
+function stripLeadingEmoji(text: string): string {
+  return text.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\uFE0F\s]+/u, "").trim();
+}
 
 export function SupportPageContent() {
   if (process.env.NODE_ENV === "production") {
@@ -21,7 +26,8 @@ export function SupportPageContent() {
         <section className="text-center mb-16">
           <div className="mb-6 flex items-center justify-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-[var(--ui)]/70 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--tx-3)]">
-              {hero.eyebrow}
+              <Sprout className="w-3.5 h-3.5 text-[var(--accent)]" strokeWidth={2} />
+              <span>{stripLeadingEmoji(hero.eyebrow)}</span>
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-balance mb-4">{hero.title}</h1>
@@ -39,7 +45,9 @@ export function SupportPageContent() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {reasons.cards.map((card) => (
               <div key={card.title} className="text-center">
-                <div className="text-5xl mb-4">{card.icon}</div>
+                <IconBadge size="lg" className="mx-auto mb-4">
+                  <FeatureIcon icon={card.icon} className="w-6 h-6" />
+                </IconBadge>
                 <h3 className="text-lg font-semibold mb-3">{card.title}</h3>
                 <p className="text-[var(--tx-2)] text-sm leading-relaxed">{card.description}</p>
               </div>
@@ -57,8 +65,9 @@ export function SupportPageContent() {
             {tiers.cards.map((card) => (
               <div key={card.id} className="surface-card p-6 flex flex-col text-center relative">
                 {card.badge ? (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-sm">
-                    {card.badge}
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-[var(--ui)] px-3 py-0.5 text-xs font-semibold text-[var(--accent)] border border-[var(--ui-2)]">
+                    <Heart className="w-3 h-3" strokeWidth={2} />
+                    <span>{stripLeadingEmoji(card.badge)}</span>
                   </span>
                 ) : null}
                 <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
@@ -80,12 +89,12 @@ export function SupportPageContent() {
         </section>
 
         {/* Transparency - simple list */}
-  <section id="support-transparency" className="my-20 max-w-2xl mx-auto">
+        <section id="support-transparency" className="my-20 max-w-2xl mx-auto">
           <h2 className="text-xl font-semibold mb-6 text-center">{transparency.title}</h2>
           <ul className="space-y-3">
             {transparency.items.map((item) => (
               <li key={item} className="flex items-start gap-3">
-                <span className="text-[var(--accent)] mt-1">•</span>
+                <Check className="w-4 h-4 text-[var(--accent)] shrink-0 mt-1" strokeWidth={2.25} />
                 <p className="text-sm text-[var(--tx-2)] leading-relaxed">{item}</p>
               </li>
             ))}
@@ -97,9 +106,10 @@ export function SupportPageContent() {
           <h2 className="text-xl font-semibold mb-6 text-center">{faq.title}</h2>
           <div className="space-y-4">
             {faq.entries.map(({ question, answer }) => (
-              <details key={question} className="surface-card p-5 rounded-lg">
-                <summary className="cursor-pointer text-sm font-semibold text-[var(--tx)]">
-                  {question}
+              <details key={question} name="support-faq" className="surface-card p-5 rounded-lg group">
+                <summary className="cursor-pointer text-sm font-semibold text-[var(--tx)] list-none flex items-center justify-between gap-3">
+                  <span>{question}</span>
+                  <ChevronDown className="w-4 h-4 text-[var(--tx-3)] shrink-0 transition-transform duration-200 group-open:rotate-180" />
                 </summary>
                 <p className="mt-3 text-sm text-[var(--tx-2)] leading-relaxed">{answer}</p>
               </details>

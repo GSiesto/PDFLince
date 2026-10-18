@@ -1,6 +1,7 @@
 import Image from "next/image";
 import PDFProcessor from "./pdf-processor";
 import type { Dictionary } from "../i18n/dictionaries/dictionary-types";
+import { FeatureIcon, IconBadge } from "./ui/Icons";
 
 export function HomePageContent({ dictionary }: { dictionary: Dictionary }) {
   const {
@@ -46,15 +47,15 @@ export function HomePageContent({ dictionary }: { dictionary: Dictionary }) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {home.why.cards.map((card) => (
               <div key={card.title} className="surface-card p-6">
-                <div className="text-3xl mb-4 text-[var(--accent)]">{card.icon}</div>
+                <IconBadge className="mb-4">
+                  <FeatureIcon icon={card.icon} className="w-5 h-5" />
+                </IconBadge>
                 <h3 className="text-lg font-bold mb-2">{card.title}</h3>
                 <p className="text-[var(--tx-2)]">{card.description}</p>
               </div>
             ))}
           </div>
         </section>
-
-
       </div>
     </div>
   );

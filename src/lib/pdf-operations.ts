@@ -111,6 +111,32 @@ type PageLayout = {
   margin: number;
 };
 
+export const PDFLINCE_PRODUCER = 'PDFLince (https://pdflince.com)';
+export const PDFLINCE_CREATOR = 'PDFLince';
+
+/**
+ * Ensures PDF documents are branded with PDFLince Producer, while preserving original Creator authoring application if present.
+ */
+export function stampPdfLinceMetadata(
+  pdfDoc: PDFDocument,
+  sourceDoc?: PDFDocument
+): void {
+  try {
+    pdfDoc.setProducer(PDFLINCE_PRODUCER);
+    const sourceCreator = sourceDoc?.getCreator();
+    if (sourceCreator && !sourceCreator.toLowerCase().includes('pdf-lib')) {
+      pdfDoc.setCreator(sourceCreator);
+    } else {
+      const existingCreator = pdfDoc.getCreator();
+      if (!existingCreator || existingCreator.toLowerCase().includes('pdf-lib')) {
+        pdfDoc.setCreator(PDFLINCE_CREATOR);
+      }
+    }
+  } catch {
+    // Fail gracefully if metadata catalog is locked
+  }
+}
+
 /**
  * Compress a PDF file
  */
@@ -148,6 +174,10 @@ export async function compressPDF(
         targetDpi,
         imageQuality,
       });
+    }
+
+    if (!shouldRemoveMetadata) {
+      stampPdfLinceMetadata(pdfDoc);
     }
 
     // Save with optimization
@@ -237,10 +267,38 @@ function stripPageAnnotations(pdfDoc: PDFDocument) {
   });
 }
 
+export interface NodeImageAdapter {
+  decompressFlate?: (bytes: Uint8Array) => Promise<Uint8Array | null>;
+  downscaleImage?: (
+    bytes: Uint8Array,
+    targetDpi: number,
+    quality: number,
+    rawParams?: { width: number; height: number; colorSpace: string }
+  ) => Promise<{
+    bytes: Uint8Array;
+    width: number;
+    height: number;
+    colorSpace?: 'DeviceRGB' | 'DeviceGray';
+  } | null>;
+  normalizeImageForPdf?: (
+    fileOrData: File | ArrayBuffer | Uint8Array
+  ) => Promise<{ bytes: Uint8Array; format: 'png' | 'jpeg' } | null>;
+}
+
+let nodeImageAdapter: NodeImageAdapter | null = null;
+
+export function registerNodeImageAdapter(adapter: NodeImageAdapter): void {
+  nodeImageAdapter = adapter;
+}
+
 /**
- * Decompress FlateDecode/Zlib bytes using browser's DecompressionStream.
+ * Decompress FlateDecode/Zlib bytes using Node adapter or browser's DecompressionStream.
  */
 async function decompressFlate(bytes: Uint8Array): Promise<Uint8Array | null> {
+  if (nodeImageAdapter?.decompressFlate) {
+    const res = await nodeImageAdapter.decompressFlate(bytes);
+    if (res) return res;
+  }
   if (typeof DecompressionStream === 'undefined') return null;
   try {
     const ds = new DecompressionStream('deflate');
@@ -304,11 +362,21 @@ async function downscaleImage(
   targetDpi: number,
   quality: number,
   rawParams?: { width: number; height: number; colorSpace: string }
-): Promise<{ bytes: Uint8Array; width: number; height: number } | null> {
+): Promise<{
+  bytes: Uint8Array;
+  width: number;
+  height: number;
+  colorSpace?: 'DeviceRGB' | 'DeviceGray';
+} | null> {
   const hasDocument = typeof document !== 'undefined';
   const hasOffscreen = typeof OffscreenCanvas !== 'undefined';
 
-  if (!hasDocument && !hasOffscreen) return null;
+  if (!hasDocument && !hasOffscreen) {
+    if (nodeImageAdapter?.downscaleImage) {
+      return nodeImageAdapter.downscaleImage(bytes, targetDpi, quality, rawParams);
+    }
+    return null;
+  }
 
   let width = 0;
   let height = 0;
@@ -423,13 +491,17 @@ async function downscaleImage(
   return {
     bytes: new Uint8Array(await resultBlob.arrayBuffer()),
     width: targetWidth,
-    height: targetHeight
+    height: targetHeight,
+    colorSpace: 'DeviceRGB',
   };
 }
 
 async function downscaleDocumentImages(pdfDoc: PDFDocument, targetDpi: number, quality: number) {
   let universalOptimizedCount = 0;
-  const processedImages = new Map<string, { bytes: Uint8Array; width: number; height: number }>();
+  const processedImages = new Map<
+    string,
+    { bytes: Uint8Array; width: number; height: number; colorSpace?: 'DeviceRGB' | 'DeviceGray' }
+  >();
   const allObjects = pdfDoc.context.enumerateIndirectObjects();
 
   for (const [ref, object] of allObjects) {
@@ -437,6 +509,9 @@ async function downscaleDocumentImages(pdfDoc: PDFDocument, targetDpi: number, q
 
     const subtype = object.dict.get(PDFName.of("Subtype"));
     if (subtype !== PDFName.of("Image")) continue;
+
+    // Skip images with transparency masks so we don't break alpha channels
+    if (object.dict.get(PDFName.of("SMask")) || object.dict.get(PDFName.of("Mask"))) continue;
 
     const filter = object.dict.get(PDFName.of("Filter"));
     const isDCT = filter === PDFName.of("DCTDecode") ||
@@ -446,6 +521,7 @@ async function downscaleDocumentImages(pdfDoc: PDFDocument, targetDpi: number, q
 
     if (!isDCT && !isFlate) continue;
 
+    const originalStreamLength = object.contents.length;
     let imageBytes = object.contents;
     let rawParams: { width: number; height: number; colorSpace: string } | undefined;
 
@@ -456,13 +532,22 @@ async function downscaleDocumentImages(pdfDoc: PDFDocument, targetDpi: number, q
       const w = object.dict.get(PDFName.of('Width'));
       const h = object.dict.get(PDFName.of('Height'));
       const cs = object.dict.get(PDFName.of('ColorSpace'));
+      const resolvedCs = cs ? pdfDoc.context.lookup(cs) : undefined;
       const bpc = object.dict.get(PDFName.of('BitsPerComponent'));
       const params = object.dict.get(PDFName.of('DecodeParms'));
 
       if (w instanceof PDFNumber && h instanceof PDFNumber && bpc instanceof PDFNumber && bpc.asNumber() === 8) {
         const width = w.asNumber();
         const height = h.asNumber();
-        const colorSpace = cs instanceof PDFName ? cs.asString().replace(/^\//, '') : 'DeviceRGB';
+        let colorSpace = '';
+        if (resolvedCs instanceof PDFName) {
+          colorSpace = resolvedCs.asString().replace(/^\//, '');
+        } else if (!cs) {
+          colorSpace = 'DeviceRGB';
+        }
+        if (colorSpace !== 'DeviceRGB' && colorSpace !== 'DeviceGray') {
+          continue; // Skip Indexed or DeviceCMYK raw Flate streams
+        }
         const bpp = colorSpace === 'DeviceRGB' ? 3 : 1;
 
         let predictor = 1;
@@ -488,14 +573,17 @@ async function downscaleDocumentImages(pdfDoc: PDFDocument, targetDpi: number, q
     const hash = hashBytes(imageBytes);
     const cached = processedImages.get(hash);
 
-    if (cached) {
+    if (cached && cached.bytes.length < originalStreamLength) {
       // PDFRawStream.contents is readonly, so we must replace the object in the context
       const newStream = PDFRawStream.of(object.dict, cached.bytes);
       newStream.dict.set(PDFName.of("Length"), pdfDoc.context.obj(cached.bytes.length));
       newStream.dict.set(PDFName.of("Filter"), PDFName.of("DCTDecode"));
       newStream.dict.set(PDFName.of("Width"), pdfDoc.context.obj(cached.width));
       newStream.dict.set(PDFName.of("Height"), pdfDoc.context.obj(cached.height));
+      newStream.dict.set(PDFName.of("ColorSpace"), PDFName.of(cached.colorSpace ?? "DeviceRGB"));
+      newStream.dict.set(PDFName.of("BitsPerComponent"), pdfDoc.context.obj(8));
       newStream.dict.delete(PDFName.of('DecodeParms'));
+      newStream.dict.delete(PDFName.of('Decode'));
 
       // Assign the new stream to the existing reference
       pdfDoc.context.assign(ref, newStream);
@@ -508,14 +596,17 @@ async function downscaleDocumentImages(pdfDoc: PDFDocument, targetDpi: number, q
     }
 
     const result = await downscaleImage(imageBytes, targetDpi, quality, rawParams);
-    if (result) {
+    if (result && result.bytes.length < originalStreamLength) {
       // PDFRawStream.contents is readonly, so we must replace the object in the context
       const newStream = PDFRawStream.of(object.dict, result.bytes);
       newStream.dict.set(PDFName.of("Length"), pdfDoc.context.obj(result.bytes.length));
       newStream.dict.set(PDFName.of("Filter"), PDFName.of("DCTDecode"));
       newStream.dict.set(PDFName.of("Width"), pdfDoc.context.obj(result.width));
       newStream.dict.set(PDFName.of("Height"), pdfDoc.context.obj(result.height));
+      newStream.dict.set(PDFName.of("ColorSpace"), PDFName.of(result.colorSpace ?? "DeviceRGB"));
+      newStream.dict.set(PDFName.of("BitsPerComponent"), pdfDoc.context.obj(8));
       newStream.dict.delete(PDFName.of('DecodeParms'));
+      newStream.dict.delete(PDFName.of('Decode'));
 
       // Assign the new stream to the existing reference
       pdfDoc.context.assign(ref, newStream);
@@ -594,6 +685,8 @@ export async function mergePDFs(
       if (options.metadata.keywords) mergedPdf.setKeywords([options.metadata.keywords]);
     }
 
+    stampPdfLinceMetadata(mergedPdf);
+
     return mergedPdf.save({ useObjectStreams: true });
   } catch (error) {
     console.error('Error merging PDFs:', error);
@@ -619,6 +712,15 @@ export async function splitPDF(
       const pageIndices = Array.from({ length: endPage - i }, (_, idx) => i + idx);
       const copiedPages = await newPdf.copyPages(pdfDoc, pageIndices);
       copiedPages.forEach((page) => newPdf.addPage(page));
+      if (options.preserveMetadata !== false) {
+        const title = pdfDoc.getTitle();
+        const author = pdfDoc.getAuthor();
+        const subject = pdfDoc.getSubject();
+        if (title) newPdf.setTitle(title);
+        if (author) newPdf.setAuthor(author);
+        if (subject) newPdf.setSubject(subject);
+      }
+      stampPdfLinceMetadata(newPdf, pdfDoc);
       results.push(await newPdf.save({ useObjectStreams: true }));
     }
     return results;
@@ -654,6 +756,8 @@ export async function extractPages(
       if (subject) newPdf.setSubject(subject);
     }
 
+    stampPdfLinceMetadata(newPdf, pdfDoc);
+
     return newPdf.save({ useObjectStreams: true });
   } catch (error) {
     console.error('Error extracting pages:', error);
@@ -686,6 +790,8 @@ export async function reorderPages(
       if (author) newPdf.setAuthor(author);
       if (subject) newPdf.setSubject(subject);
     }
+
+    stampPdfLinceMetadata(newPdf, pdfDoc);
 
     return newPdf.save({ useObjectStreams: true });
   } catch (error) {
@@ -792,6 +898,10 @@ export async function cropPages(
       }
     }
 
+    if (options.preserveMetadata !== false) {
+      stampPdfLinceMetadata(pdfDoc);
+    }
+
     return pdfDoc.save({
       useObjectStreams: true,
       addDefaultPage: false,
@@ -851,6 +961,10 @@ export async function rotatePages(
       if (options.metadata.keywords) {
         pdfDoc.setKeywords([options.metadata.keywords]);
       }
+    }
+
+    if (options.preserveMetadata !== false) {
+      stampPdfLinceMetadata(pdfDoc);
     }
 
     return pdfDoc.save({
@@ -1020,6 +1134,10 @@ async function normalizeImageForPdf(fileOrData: File | ArrayBuffer | Uint8Array)
     if (mime === 'image/jpeg' || mime === 'image/jpg' || lowerName.endsWith('.jpg') || lowerName.endsWith('.jpeg')) return { bytes: new Uint8Array(await fileOrData.arrayBuffer()), format: 'jpeg' };
   }
   const hasDocument = typeof document !== 'undefined';
+  if (!hasDocument && typeof OffscreenCanvas === 'undefined' && nodeImageAdapter?.normalizeImageForPdf) {
+    const adapted = await nodeImageAdapter.normalizeImageForPdf(fileOrData);
+    if (adapted) return adapted;
+  }
   let resultBuffer: ArrayBuffer;
   if (typeof createImageBitmap === 'function') {
     const bitmap = await createImageBitmap(data);
@@ -1076,6 +1194,7 @@ export async function convertImagesToPdf(files: File[], options: PDFProcessingOp
     const sf = (options.imageFit === 'cover') ? Math.max(availW / image.size().width, availH / image.size().height) : Math.min(availW / image.size().width, availH / image.size().height);
     page.drawImage(image, { x: (layout.pageWidth - image.size().width * sf) / 2, y: (layout.pageHeight - image.size().height * sf) / 2, width: image.size().width * sf, height: image.size().height * sf });
   }
+  stampPdfLinceMetadata(pdfDoc);
   return pdfDoc.save({ useObjectStreams: true });
 }
 
