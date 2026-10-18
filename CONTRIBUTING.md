@@ -26,7 +26,7 @@ We love new ideas! Please open an issue to discuss your feature request before w
 3.  **Make your changes**. Ensure your code follows the project's style (TypeScript, Tailwind CSS).
 4.  **Run tests** to ensure no regressions:
     ```bash
-    npm run test:e2e
+    bun run test:e2e
     ```
 5.  **Commit your changes** with descriptive messages.
 6.  **Push to your fork** and submit a Pull Request to the `main` branch.
@@ -35,12 +35,12 @@ We love new ideas! Please open an issue to discuss your feature request before w
 
 1.  **Install dependencies**:
     ```bash
-    npm install
+    bun install
     ```
 
 2.  **Start development server**:
     ```bash
-    npm run dev
+    bun run dev
     ```
     Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 

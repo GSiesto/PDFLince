@@ -82,8 +82,7 @@ graph TD
 ## Local Development
 
 ### Prerequisites
-- Node.js 18+
-- npm
+- Bun 1.0+
 
 ### Quick Start
 
@@ -95,12 +94,12 @@ graph TD
 
 2.  **Install dependencies:**
     ```bash
-    npm install
+    bun install
     ```
 
 3.  **Run development server:**
     ```bash
-    npm run dev
+    bun run dev
     ```
 
 4.  **Open in browser:**

@@ -20,25 +20,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-
-    - name: Verify package-lock.json is in sync
-      run: |
-        if ! npm ci --dry-run; then
-          echo "::warning::package-lock.json seems out of sync. Attempting sync..."
-          npm i --package-lock-only
-          echo "::warning::Sync attempted. Please run 'npm install' locally and commit the updated package-lock.json."
-        fi
-
     - name: Setup Bun
       uses: oven-sh/setup-bun@v2
 
     - name: Install dependencies
-      run: npm ci
+      run: bun install --frozen-lockfile
 
     - name: Build and test MCP server
       run: |
@@ -46,11 +32,11 @@ jobs:
         bun run test:mcp
 
     - name: Lint code (non-blocking)
-      run: npm run lint || echo "::warning::Linting found issues but continuing"
+      run: bun run lint || echo "::warning::Linting found issues but continuing"
       continue-on-error: true
 
     - name: Type check (non-blocking)
-      run: npx tsc --noEmit || echo "::warning::Type checking found issues but continuing"
+      run: bunx tsc --noEmit || echo "::warning::Type checking found issues but continuing"
       continue-on-error: true
 
   # Run E2E tests
@@ -60,16 +46,14 @@ jobs:
     needs: [validate]
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
     - name: Install dependencies
-      run: npm ci
+      run: bun install --frozen-lockfile
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: bunx playwright install --with-deps
     - name: Run Playwright tests
-      run: npm run test:e2e
+      run: bun run test:e2e
 
   # Build the Next.js application
   build-pdflince:
@@ -79,14 +63,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
 
     - name: Install dependencies
-      run: npm ci
+      run: bun install --frozen-lockfile
 
     - name: Build application
       env:
@@ -95,7 +76,7 @@ jobs:
         NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
       run: |
         echo "Building PDFLince application..."
-        npm run build
+        bun run build
 
         echo "Verifying build output..."
         if [ ! -d "out" ]; then
@@ -127,10 +108,8 @@ jobs:
     environment: production
     steps:
     - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
 
     - name: Download build artifacts
       uses: actions/download-artifact@v4
@@ -176,4 +155,4 @@ jobs:
 
     - name: Ping IndexNow
       run: |
-        node scripts/ping-indexnow.mjs deploy-files/sitemap.xml
+        bun scripts/ping-indexnow.mjs deploy-files/sitemap.xml
