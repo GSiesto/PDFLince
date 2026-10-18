@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Locale, DEFAULT_LOCALE, localeLabels } from "../../i18n/config";
 import { getDictionary } from "../../i18n/get-dictionary";
-import { getLocalizedAlternateMap } from "../../i18n/routing";
-
-type StaticRouteKey = "home" | "faq" | "support";
+import { getLocalizedAlternateMap, StaticRouteKey } from "../../i18n/routing";
 
 function buildLanguagesMap(identifier: { type: "static"; key: StaticRouteKey }, baseUrl: string) {
   const alternatesMap = getLocalizedAlternateMap(identifier);
@@ -90,6 +88,42 @@ export function createSupportMetadata(locale: Locale) {
       alternates: {
         canonical: supportMeta.canonical.endsWith("/") ? supportMeta.canonical : `${supportMeta.canonical}/`,
         languages,
+      },
+    };
+  };
+}
+
+export function createMcpMetadata(locale: Locale) {
+  return (): Metadata => {
+    const dictionary = getDictionary(locale);
+    const mcpMeta = dictionary.metadata.mcp;
+    const siteMeta = dictionary.metadata.site;
+    const baseUrl = siteMeta.openGraph.url;
+    const languages = buildLanguagesMap({ type: "static", key: "mcp" }, baseUrl);
+    const canonicalWithSlash = mcpMeta.canonical.endsWith("/") ? mcpMeta.canonical : `${mcpMeta.canonical}/`;
+
+    return {
+      title: mcpMeta.title,
+      description: mcpMeta.description,
+      keywords: mcpMeta.keywords,
+      alternates: {
+        canonical: canonicalWithSlash,
+        languages,
+      },
+      openGraph: {
+        title: mcpMeta.title,
+        description: mcpMeta.description,
+        url: canonicalWithSlash,
+        locale: siteMeta.openGraph.locale,
+        type: "website",
+        images: [
+          {
+            url: siteMeta.openGraph.imageUrl,
+            width: 1409,
+            height: 736,
+            alt: siteMeta.openGraph.imageAlt,
+          },
+        ],
       },
     };
   };

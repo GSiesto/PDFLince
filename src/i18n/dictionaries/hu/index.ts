@@ -2,11 +2,13 @@ import { localeLabels } from "../../config";
 import { getRoutePath, getOperationPath } from "../../routing";
 import { operationsHu } from "./operations";
 import { faqsHu } from "./faqs";
+import { getMcpContent } from "../mcp-content";
 import type { Dictionary } from "../dictionary-types";
 import { OperationKey } from "../../../types/operations";
 
 const locale = "hu" as const;
 const { label, nativeName, htmlLang, hrefLang } = localeLabels[locale];
+const mcpContent = getMcpContent(locale);
 const siteUrl = "https://pdflince.com";
 const homePath = getRoutePath(locale, "home");
 
@@ -32,6 +34,7 @@ export const huDictionary: Dictionary = {
     home: homePath,
     faq: getRoutePath(locale, "faq"),
     support: getRoutePath(locale, "support"),
+    mcp: getRoutePath(locale, "mcp"),
     operations: operationsRoutes,
   },
   metadata: {
@@ -103,6 +106,7 @@ export const huDictionary: Dictionary = {
       ],
       canonical: `${siteUrl}${getRoutePath(locale, "support")}`,
     },
+    mcp: mcpContent.metadata,
     operations: operationsHu,
   },
   brand: {
@@ -115,6 +119,7 @@ export const huDictionary: Dictionary = {
       faq: "Gyakori kérdések",
       support: "Támogatás",
       photo: "FotoLince",
+      mcp: "MCP Szerver",
       languageLabel: "Nyelv",
       menuLabel: "Navigációs menü megnyitása",
     },
@@ -127,6 +132,7 @@ export const huDictionary: Dictionary = {
         support: "Támogatás",
         photo: "FotoLince",
         contact: "Kapcsolat",
+        mcp: "MCP Szerver",
       },
       capabilitiesLabel: "Népszerű műveletek",
       operations: {
@@ -722,6 +728,7 @@ export const huDictionary: Dictionary = {
         ],
       },
     },
+    mcp: mcpContent.page,
   },
   faqs: faqsHu,
   operations: operationsHu,

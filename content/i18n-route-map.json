@@ -32,6 +32,17 @@
     "ru": "/ru/podderzhka",
     "hu": "/hu/tamogatas"
   },
+  "mcp": {
+    "es": "/mcp",
+    "en": "/en/mcp",
+    "pt": "/pt/mcp",
+    "de": "/de/mcp",
+    "it": "/it/mcp",
+    "fr": "/fr/mcp",
+    "ro": "/ro/mcp",
+    "ru": "/ru/mcp",
+    "hu": "/hu/mcp"
+  },
   "operations": {
     "compress": {
       "es": "/comprimir",

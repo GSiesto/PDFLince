@@ -4,9 +4,11 @@ import type { Dictionary } from "../dictionary-types";
 import { OperationKey } from "../../../types/operations";
 import { operationsDe } from "./operations";
 import { faqsDe } from "./faqs";
+import { getMcpContent } from "../mcp-content";
 
 const locale = "de" as const;
 const { label, nativeName, htmlLang, hrefLang } = localeLabels[locale];
+const mcpContent = getMcpContent(locale);
 const siteUrl = "https://pdflince.com";
 const homePath = getRoutePath(locale, "home");
 
@@ -32,6 +34,7 @@ export const deDictionary: Dictionary = {
     home: homePath,
     faq: getRoutePath(locale, "faq"),
     support: getRoutePath(locale, "support"),
+    mcp: getRoutePath(locale, "mcp"),
     operations: operationRoutes,
   },
   metadata: {
@@ -97,6 +100,7 @@ export const deDictionary: Dictionary = {
       ],
       canonical: `${siteUrl}${getRoutePath(locale, "support")}`,
     },
+    mcp: mcpContent.metadata,
     operations: operationsDe,
   },
   brand: {
@@ -109,11 +113,12 @@ export const deDictionary: Dictionary = {
       faq: "FAQ",
       support: "Unterstützen",
       photo: "FotoLince",
+      mcp: "MCP-Server",
       languageLabel: "Sprache",
       menuLabel: "Navigationsmenü öffnen",
     },
     footer: {
-      privacy: "Lokale Verarbeitung • 100 % privat • Offene Lizenzen",
+      privacy: "Lokale Verarbeitung • 100 % privat • Offene Lizenzen",
       rights: `© ${new Date().getFullYear()} PDFLince — Werkzeuge zur PDF-Bearbeitung ohne Datenschutzkompromisse`,
       links: {
         home: "Startseite",
@@ -121,6 +126,7 @@ export const deDictionary: Dictionary = {
         support: "Unterstützen",
         photo: "FotoLince",
         contact: "Kontakt",
+        mcp: "MCP-Server",
       },
       capabilitiesLabel: "Beliebte Aktionen",
       operations: {
@@ -709,6 +715,7 @@ export const deDictionary: Dictionary = {
         ],
       },
     },
+    mcp: mcpContent.page,
   },
   faqs: {
     common: faqsDe.common,

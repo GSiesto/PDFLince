@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useDictionary } from '../../i18n/LocaleProvider';
 import { getPdfPageCount, renderPdfThumbnail } from '../../lib/pdf-processor';
+import { ChevronDown, ChevronUp, FileText, GripHorizontal, X } from '../ui/Icons';
 
 type FileListProps = {
   files: File[];
@@ -461,9 +462,7 @@ export default function FileList({
               {/* Drag handle for better UX */}
               {onMoveFileAction && (
                 <div className="drag-handle mr-2">
-                  <svg className="w-5 h-5 text-[var(--tx-3)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16M4 16h16"></path>
-                  </svg>
+                  <GripHorizontal className="w-5 h-5 text-[var(--tx-3)]" strokeWidth={1.85} />
                 </div>
               )}
               
@@ -491,12 +490,7 @@ export default function FileList({
                   />
                 </div>
               ) : (
-                <svg className="pdf-preview-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M9 13H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M9 17H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <FileText className="pdf-preview-icon" strokeWidth={1.85} />
               )}
               
               {/* File info with improved filename display */}
@@ -532,9 +526,7 @@ export default function FileList({
                       disabled={index === 0}
                       title={fileListStrings.moveUp}
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path>
-                      </svg>
+                      <ChevronUp className="w-4 h-4" strokeWidth={2} />
                     </button>
                     <button 
                       className={`p-1.5 rounded hover:bg-[var(--ui-2)] text-[var(--tx-3)] ${index === files.length - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:text-[var(--accent)]'}`}
@@ -548,9 +540,7 @@ export default function FileList({
                       disabled={index === files.length - 1}
                       title={fileListStrings.moveDown}
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                      </svg>
+                      <ChevronDown className="w-4 h-4" strokeWidth={2} />
                     </button>
                   </>
                 )}
@@ -568,9 +558,7 @@ export default function FileList({
                   }}
                   title={fileListStrings.remove}
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
+                  <X className="w-4 h-4" strokeWidth={2} />
                 </button>
               </div>
             </div>

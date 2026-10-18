@@ -2,6 +2,7 @@ import Image from "next/image";
 import PDFProcessor from "./pdf-processor";
 import FaqSection from "./faq-section";
 import type { OperationContent } from "../i18n/dictionaries/operation-types";
+import { Check } from "./ui/Icons";
 
 export function OperationPageContent({
   operation,
@@ -36,8 +37,8 @@ export function OperationPageContent({
                     key={point}
                     className="inline-flex items-start gap-2 px-3 py-2 rounded-lg bg-[var(--ui)] text-sm text-left"
                   >
-                    <span className="text-[var(--accent)]">✓</span>
-                    {point}
+                    <Check className="w-4 h-4 text-[var(--accent)] shrink-0 mt-0.5" strokeWidth={2.25} />
+                    <span>{point}</span>
                   </span>
                 ))}
               </div>

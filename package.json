@@ -1,7 +1,7 @@
 {
-  "name": "pdflince",
+  "name": "pdflince-mcp",
   "version": "1.0.0",
-  "description": "Privacy-first client-side PDF toolkit running 100% in the browser.",
+  "description": "Privacy-first client-side PDF toolkit and local Model Context Protocol (MCP) server.",
   "keywords": [
     "pdf",
     "pdf-tools",
@@ -9,11 +9,22 @@
     "client-side",
     "nextjs",
     "react",
-    "pdf-lib"
+    "pdf-lib",
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "ai-agent",
+    "claude-mcp",
+    "cursor-mcp",
+    "hermes-agent",
+    "grok",
+    "ollama",
+    "deepseek"
   ],
   "license": "MIT",
   "type": "module",
   "engines": {
+    "node": ">=18.0.0",
     "bun": ">=1.0.0"
   },
   "scripts": {
@@ -23,11 +34,22 @@
     "lint:fix": "cross-env STRICT_LINT=true next lint --fix",
     "preview": "bun run build && bunx serve out --single",
     "start": "bunx serve out --single",
+    "build:mcp": "bun build ./src/mcp/index.ts --target node --outfile ./bin/pdflince-mcp.js",
+    "test:mcp": "bun test tests/mcp",
+    "prepack": "bun run build:mcp",
     "test:e2e": "playwright test",
-    "postinstall": "bun scripts/setup-pdf-worker.mjs"
+    "prepare": "node scripts/setup-pdf-worker.mjs"
   },
+  "bin": {
+    "pdflince-mcp": "./bin/pdflince-mcp.js"
+  },
+  "files": [
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
-    "@t3-oss/env-nextjs": "^0.10.1",
+    "@modelcontextprotocol/sdk": "^1.32.1",
     "geist": "^1.3.0",
     "lucide-react": "^0.563.0",
     "next": "^15.5.12",
@@ -36,7 +58,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.0",
     "server-only": "^0.0.1",
-    "zod": "^3.23.3"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",

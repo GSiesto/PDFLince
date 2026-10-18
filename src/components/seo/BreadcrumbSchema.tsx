@@ -54,6 +54,8 @@ export function BreadcrumbSchema() {
             label = dictionary.components.footer.operations[operationKey];
         } else if (FAQ_SEGMENTS.has(lastSegment)) {
             label = dictionary.pages.faq.title;
+        } else if (lastSegment === "mcp") {
+            label = dictionary.components.nav.mcp ?? "MCP Server";
         } else {
             // Fallback formatting
             label = lastSegment.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());

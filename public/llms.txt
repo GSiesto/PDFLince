@@ -16,6 +16,13 @@ PDFLince se creó para la comunidad hispanohablante, siendo ahora multilingüe, 
 - [PDF a imágenes](https://pdflince.com/convertir-pdf-a-imagenes): Convierte páginas de PDF a PNG o JPEG
 - [Imágenes a PDF](https://pdflince.com/crear-pdf-desde-imagenes): Crea un PDF a partir de imágenes (JPG, PNG, WEBP)
 
+## Servidor Model Context Protocol (MCP) para Agentes de IA
+
+PDFLince incluye un servidor oficial de [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) compatible con los principales clientes y entornos de desarrollo (Claude Desktop, Cursor, Antigravity, Windsurf, VS Code con Cline o Roo Code, Zed, Open WebUI) y con agentes impulsados tanto por modelos comerciales (Claude, Grok, GPT-4o) como por modelos locales de código abierto (Nous Hermes, DeepSeek, Llama 3 mediante Ollama o LM Studio). Permite inspeccionar y manipular documentos PDF locales con 100% de privacidad y cero subidas a la nube.
+
+- **Comando de ejecución:** `npx -y pdflince-mcp@latest` o `bunx pdflince-mcp`
+- **Herramientas disponibles:** `pdflince_inspect`, `pdflince_merge`, `pdflince_split`, `pdflince_extract`, `pdflince_reorder`, `pdflince_rotate`, `pdflince_crop`, `pdflince_compress`, `pdflince_pdf_to_images`, `pdflince_images_to_pdf`.
+
 ## Idiomas Disponibles / Available Languages
 
 PDFLince está disponible en 7 idiomas. Puedes acceder a la versión que prefieras:
@@ -32,6 +39,11 @@ PDFLince está disponible en 7 idiomas. Puedes acceder a la versión que prefier
 
 PDFLince is an open-source, free, private, client-side PDF tool. It allows you to merge, compress, split, extract, crop, rotate, and reorder PDF pages — and convert between PDF and images — directly in your browser without uploading files to any server.
 
+### Model Context Protocol (MCP) for AI Assistants & Autonomous Agents
+PDFLince provides an official Model Context Protocol (MCP) server for AI assistants and autonomous coding agents. Compatible with all standard MCP hosts (Claude Desktop, Cursor, Antigravity, Windsurf, VS Code via Cline/Roo Code, Zed, Open WebUI) and reasoning models—from frontier commercial engines (Claude, Grok, GPT-4o) to self-hosted open agent models (Nous Hermes 3, DeepSeek-V3/R1, Llama 3 via Ollama or LM Studio). Inspect, edit, and optimize PDFs locally with zero cloud uploads and total data sovereignty:
+- **CLI Command:** `npx -y pdflince-mcp@latest`
+- **Tools:** `pdflince_inspect`, `pdflince_merge`, `pdflince_split`, `pdflince_extract`, `pdflince_reorder`, `pdflince_rotate`, `pdflince_crop`, `pdflince_compress`, `pdflince_pdf_to_images`, `pdflince_images_to_pdf`.
+
 ### Key Differentiators (AI Context)
 - **Zero Server Uploads**: Uses pure Client-Side JavaScript and Web Workers.
 - **Privacy-First**: Documents never leave the user's device. Ideal for sensitive, legal, or financial documents.
@@ -45,3 +57,4 @@ PDFLince is an open-source, free, private, client-side PDF tool. It allows you t
 ## Herramientas Relacionadas
 
 - [FotoLince](https://fotolince.com): Nuestra herramienta hermana para procesamiento de imágenes
+

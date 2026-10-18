@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useDictionary, useLocale } from "../i18n/LocaleProvider";
 import type { FAQItem } from "../i18n/dictionaries/dictionary-types";
 import { FaqSchema } from "./seo/FaqSchema";
+import { ChevronDown } from "./ui/Icons";
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -57,11 +58,16 @@ export default function FaqSection() {
         {faqs.map((faq, index) => (
           <div key={`${faq.question}-${index}`} className="mb-4 border border-[var(--ui-2)] rounded-lg overflow-hidden">
             <button
-              className="w-full text-left p-4 flex justify-between items-center font-medium hover:bg-[var(--ui)]/10 transition-colors"
+              className="w-full text-left p-4 flex justify-between items-center gap-3 font-medium hover:bg-[var(--ui)]/10 transition-colors"
               onClick={() => toggleQuestion(index)}
             >
               <span>{faq.question}</span>
-              <span className="text-xl">{openIndex === index ? "−" : "+"}</span>
+              <ChevronDown
+                className={`w-4 h-4 text-[var(--tx-3)] shrink-0 transition-transform duration-200 ${
+                  openIndex === index ? "rotate-180 text-[var(--accent)]" : ""
+                }`}
+                strokeWidth={2}
+              />
             </button>
 
             {openIndex === index && (

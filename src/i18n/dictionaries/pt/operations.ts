@@ -7,9 +7,9 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
     slug: "comprimir",
     mode: "compress",
     meta: {
-      title: "Comprimir PDF Online GrÃ¡tis | Reduzir Tamanho | PDFLince",
+      title: "Comprimir PDF Online Grátis | Reduzir Tamanho | PDFLince",
       description:
-        "Reduza o tamanho do seu PDF eficientemente sem perda de qualidade. CompressÃ£o privada e gratuita direto no navegador.",
+        "Reduza o tamanho do seu PDF eficientemente sem perda de qualidade. Compressão privada e gratuita direto no navegador.",
       keywords: [
         "comprimir pdf",
         "reduzir tamanho pdf",
@@ -19,54 +19,54 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
       ],
       ogTitle: "Comprimir PDFs sem perder qualidade | PDFLince",
       ogDescription:
-        "Arraste seu arquivo, escolha o nÃ­vel de compressÃ£o ideal e baixe um PDF significativamente menor em segundos â€” totalmente seguro e sem uploads para servidores.",
+        "Arraste seu arquivo, escolha o nível de compressão ideal e baixe um PDF significativamente menor em segundos — totalmente seguro e sem uploads para servidores.",
       ogImageAlt: "Interface do PDFLince comprimindo um documento",
     },
     hero: {
       title: "Comprimir PDF online com qualidade",
       description:
-        "Reduza o tamanho de documentos para caber em limites de e-mail, plataformas educacionais ou portais pÃºblicos mantendo a legibilidade.",
+        "Reduza o tamanho de documentos para caber em limites de e-mail, plataformas educacionais ou portais públicos mantendo a legibilidade.",
       bulletPoints: [
-        "Processamento 100% local: seus arquivos nÃ£o saem do navegador",
-        "Escolha compressÃ£o bÃ¡sica, intermediÃ¡ria ou agressiva conforme a necessidade",
+        "Processamento 100% local: seus arquivos não saem do navegador",
+        "Escolha compressão básica, intermediária ou agressiva conforme a necessidade",
         "Preserve metadados e estrutura quando for importante",
       ],
-      imageAlt: "Fluxo de compressÃ£o de PDF no PDFLince",
+      imageAlt: "Fluxo de compressão de PDF no PDFLince",
     },
     benefitsTitle: "Por que comprimir PDFs com o PDFLince",
     benefits: [
       {
         title: "Qualidade equilibrada",
         description:
-          "Nosso motor de compressÃ£o analisa cada recurso para entregar a maior reduÃ§Ã£o sem borrar textos ou grÃ¡ficos.",
+          "Nosso motor de compressão analisa cada recurso para entregar a maior redução sem borrar textos ou gráficos.",
       },
       {
         title: "Pronto para envios",
         description:
-          "Gere arquivos que passam em limites rÃ­gidos de portais governamentais, universidades ou fluxos corporativos.",
+          "Gere arquivos que passam em limites rígidos de portais governamentais, universidades ou fluxos corporativos.",
       },
       {
-        title: "Privacidade por padrÃ£o",
+        title: "Privacidade por padrão",
         description:
-          "Evite uploads em servidores e reduza o risco de vazamentos cumprindo polÃ­ticas internas de privacidade.",
+          "Evite uploads em servidores e reduza o risco de vazamentos cumprindo políticas internas de privacidade.",
       },
     ],
     howTo: {
       title: "Como comprimir um PDF com o PDFLince",
       steps: [
-        "Clique em â€œEnvie seus arquivosâ€ e escolha o PDF que deseja otimizar.",
-        "Selecione o nÃ­vel de compressÃ£o e defina opÃ§Ãµes avanÃ§adas como manter metadados.",
-        "Pressione â€œProcessarâ€ e baixe o documento comprimido em segundos.",
+        "Clique em “Envie seus arquivos” e escolha o PDF que deseja otimizar.",
+        "Selecione o nível de compressão e defina opções avançadas como manter metadados.",
+        "Pressione “Processar” e baixe o documento comprimido em segundos.",
       ],
       note:
-        "Precisa comprimir vÃ¡rios relatÃ³rios? FaÃ§a um por vez sem limites diÃ¡rios ou marcas d'Ã¡gua.",
+        "Precisa comprimir vários relatórios? Faça um por vez sem limites diários ou marcas d'água.",
     },
     useCasesTitle: "Quando vale a pena comprimir um PDF",
     useCases: [
       "Enviar contratos, notas fiscais ou manuais por e-mail sem estourar o limite de anexos.",
-      "Enviar trabalhos para Moodle, Canvas ou qualquer AVA com limite rÃ­gido de arquivo.",
-      "Deixar teses, catÃ¡logos ou relatÃ³rios mais leves para download.",
-      "Arquivar documentos na nuvem economizando espaÃ§o sem perder informaÃ§Ãµes relevantes.",
+      "Enviar trabalhos para Moodle, Canvas ou qualquer AVA com limite rígido de arquivo.",
+      "Deixar teses, catálogos ou relatórios mais leves para download.",
+      "Arquivar documentos na nuvem economizando espaço sem perder informações relevantes.",
     ],
   },
   merge: {
@@ -74,9 +74,9 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
     slug: "juntar",
     mode: "merge",
     meta: {
-      title: "Juntar PDF Online | Combinar VÃ¡rios PDFs GrÃ¡tis | PDFLince",
+      title: "Juntar PDF Online | Combinar Vários PDFs Grátis | PDFLince",
       description:
-        "Combine vÃ¡rios PDF em um Ãºnico documento sem limites. Arraste, reordene e baixe seu arquivo unificado com privacidade.",
+        "Combine vários PDF em um único documento sem limites. Arraste, reordene e baixe seu arquivo unificado com privacidade.",
       keywords: [
         "juntar pdf",
         "combinar pdf",
@@ -84,56 +84,56 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
         "fundir pdf",
         "merge pdf",
       ],
-      ogTitle: "Una mÃºltiplos PDFs em segundos | PDFLince",
+      ogTitle: "Una múltiplos PDFs em segundos | PDFLince",
       ogDescription:
-        "Organize seus documentos na ordem perfeita, ajuste as configuraÃ§Ãµes e baixe um arquivo PDF unificado sem nunca enviar seus dados para a nuvem.",
-      ogImageAlt: "JunÃ§Ã£o de arquivos PDF no PDFLince",
+        "Organize seus documentos na ordem perfeita, ajuste as configurações e baixe um arquivo PDF unificado sem nunca enviar seus dados para a nuvem.",
+      ogImageAlt: "Junção de arquivos PDF no PDFLince",
     },
     hero: {
-      title: "Juntar PDFs online â€” rÃ¡pido e seguro",
+      title: "Juntar PDFs online — rápido e seguro",
       description:
-        "Crie um arquivo polido com contratos, notas de aula ou polÃ­ticas prontas para enviar, assinar ou arquivar.",
+        "Crie um arquivo polido com contratos, notas de aula ou políticas prontas para enviar, assinar ou arquivar.",
       bulletPoints: [
         "Arraste e solte para definir a ordem final",
         "Sem limites ocultos: una documentos longos gratuitamente",
-        "Mantenha marcadores e metadados quando necessÃ¡rio",
+        "Mantenha marcadores e metadados quando necessário",
       ],
-      imageAlt: "Ferramenta de junÃ§Ã£o de PDFs",
+      imageAlt: "Ferramenta de junção de PDFs",
     },
     benefitsTitle: "Vantagens de juntar com o PDFLince",
     benefits: [
       {
         title: "Entrega consistente",
         description:
-          "Garanta material em um Ãºnico arquivo com numeraÃ§Ã£o contÃ­nua e formato padronizado.",
+          "Garanta material em um único arquivo com numeração contínua e formato padronizado.",
       },
       {
         title: "Economia de tempo",
         description:
-          "EsqueÃ§a editores pesados. Arraste, organize e baixe um documento pronto para compartilhar.",
+          "Esqueça editores pesados. Arraste, organize e baixe um documento pronto para compartilhar.",
       },
       {
         title: "Privado e sem cadastro",
         description:
-          "NÃ£o armazenamos cÃ³pias nem pedimos dados pessoais â€” ideal para informaÃ§Ãµes confidenciais.",
+          "Não armazenamos cópias nem pedimos dados pessoais — ideal para informações confidenciais.",
       },
     ],
     howTo: {
       title: "Como juntar PDFs com o PDFLince",
       steps: [
-        "Clique em â€œEnvie seus arquivosâ€ e selecione pelo menos dois PDFs.",
+        "Clique em “Envie seus arquivos” e selecione pelo menos dois PDFs.",
         "Use as setas ou o arrastar para definir a ordem final.",
-        "Escolha as opÃ§Ãµes de marcadores e toque em â€œProcessarâ€ para baixar o PDF combinado.",
+        "Escolha as opções de marcadores e toque em “Processar” para baixar o PDF combinado.",
       ],
       note:
         "Precisa adicionar mais arquivos depois? Basta arrastar sem reiniciar o processo.",
     },
     useCasesTitle: "Quando juntar PDFs",
     useCases: [
-      "Montar um dossiÃª com anexos, propostas e condiÃ§Ãµes comerciais.",
-      "Enviar vÃ¡rias notas fiscais mensais em um Ãºnico arquivo.",
-      "Reunir anotaÃ§Ãµes escaneadas e apresentaÃ§Ãµes em um PDF para alunos.",
-      "Criar pacotes jurÃ­dicos completos para assinatura eletrÃ´nica.",
+      "Montar um dossiê com anexos, propostas e condições comerciais.",
+      "Enviar várias notas fiscais mensais em um único arquivo.",
+      "Reunir anotações escaneadas e apresentações em um PDF para alunos.",
+      "Criar pacotes jurídicos completos para assinatura eletrônica.",
     ],
   },
   split: {
@@ -141,46 +141,46 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
     slug: "dividir",
     mode: "split",
     meta: {
-      title: "Dividir PDF por PÃ¡ginas ou CapÃ­tulos | GrÃ¡tis | PDFLince",
+      title: "Dividir PDF por Páginas ou Capítulos | Grátis | PDFLince",
       description:
-        "Separe seu PDF em vÃ¡rios arquivos por intervalos ou capÃ­tulos. Controle total sobre a estrutura sem uploads para o servidor.",
+        "Separe seu PDF em vários arquivos por intervalos ou capítulos. Controle total sobre a estrutura sem uploads para o servidor.",
       keywords: [
         "dividir pdf",
         "separar pdf",
-        "dividir pdf por pÃ¡ginas",
+        "dividir pdf por páginas",
         "split pdf",
         "partir pdf",
       ],
-      ogTitle: "Divida PDFs com precisÃ£o | PDFLince",
+      ogTitle: "Divida PDFs com precisão | PDFLince",
       ogDescription:
         "Escolha exatamente como dividir seu documento, gere quantos arquivos individuais precisar e baixe-os instantaneamente para o seu dispositivo.",
-      ogImageAlt: "Processo de divisÃ£o de PDF",
+      ogImageAlt: "Processo de divisão de PDF",
     },
     hero: {
-      title: "Dividir PDFs por pÃ¡ginas ou segmentos",
+      title: "Dividir PDFs por páginas ou segmentos",
       description:
-        "Extraia capÃ­tulos, anexos ou seÃ§Ãµes especÃ­ficas em arquivos independentes prontos para compartilhar.",
+        "Extraia capítulos, anexos ou seções específicas em arquivos independentes prontos para compartilhar.",
       bulletPoints: [
-        "Configure divisÃµes por nÃºmero de pÃ¡ginas ou por tamanho",
-        "Gere vÃ¡rios PDFs em um Ãºnico processamento",
-        "Trabalhe sem limites de pÃ¡ginas ou marcas d'Ã¡gua",
+        "Configure divisões por número de páginas ou por tamanho",
+        "Gere vários PDFs em um único processamento",
+        "Trabalhe sem limites de páginas ou marcas d'água",
       ],
-      imageAlt: "DivisÃ£o de documento PDF",
+      imageAlt: "Divisão de documento PDF",
     },
-    benefitsTitle: "O que a divisÃ£o com o PDFLince oferece",
+    benefitsTitle: "O que a divisão com o PDFLince oferece",
     benefits: [
       {
         title: "Controle sobre o que compartilhar",
         description:
-          "Entregue apenas a parte relevante sem expor informaÃ§Ãµes sensÃ­veis do restante do documento.",
+          "Entregue apenas a parte relevante sem expor informações sensíveis do restante do documento.",
       },
       {
-        title: "Entrega escalÃ¡vel",
+        title: "Entrega escalável",
         description:
-          "Gere mÃºltiplos arquivos de uma vez e faÃ§a o download automÃ¡tico para arquivar ou enviar.",
+          "Gere múltiplos arquivos de uma vez e faça o download automático para arquivar ou enviar.",
       },
       {
-        title: "Ajustes avanÃ§ados",
+        title: "Ajustes avançados",
         description:
           "Crie lotes, adicione separadores ou defina formatos que combinam com seu fluxo.",
       },
@@ -189,17 +189,17 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
       title: "Como dividir um PDF com o PDFLince",
       steps: [
         "Envie o PDF que deseja segmentar.",
-        "Escolha se vai dividir por nÃºmero fixo de pÃ¡ginas ou por tamanho do arquivo.",
-        "Clique em â€œProcessarâ€ e baixe automaticamente os novos documentos.",
+        "Escolha se vai dividir por número fixo de páginas ou por tamanho do arquivo.",
+        "Clique em “Processar” e baixe automaticamente os novos documentos.",
       ],
       note:
         "O PDFLince baixa o primeiro arquivo na hora e salva os demais sem etapas extras.",
     },
-    useCasesTitle: "CenÃ¡rios comuns para dividir PDFs",
+    useCasesTitle: "Cenários comuns para dividir PDFs",
     useCases: [
-      "Publicar cada capÃ­tulo de um livro digital em um curso online.",
+      "Publicar cada capítulo de um livro digital em um curso online.",
       "Separar anexos que precisam ser enviados por canais diferentes.",
-      "Extrair resumos trimestrais de relatÃ³rios financeiros extensos.",
+      "Extrair resumos trimestrais de relatórios financeiros extensos.",
       "Criar pacotes enxutos para clientes sem expor documentos internos.",
     ],
   },
@@ -208,9 +208,9 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
     slug: "extrair",
     mode: "extract",
     meta: {
-      title: "Extrair PÃ¡ginas de um PDF | Salvar SeleÃ§Ã£o | PDFLince",
+      title: "Extrair Páginas de um PDF | Salvar Seleção | PDFLince",
       description:
-        "Selecione pÃ¡ginas de qualquer PDF e crie um novo documento na hora. Processamento privado e ilimitado direto no navegador.",
+        "Selecione páginas de qualquer PDF e crie um novo documento na hora. Processamento privado e ilimitado direto no navegador.",
       keywords: [
         "extraer paginas pdf",
         "salvar paginas pdf",
@@ -218,56 +218,56 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
         "extrair paginas pdf",
         "novo pdf",
       ],
-      ogTitle: "Extraia apenas as pÃ¡ginas necessÃ¡rias | PDFLince",
+      ogTitle: "Extraia apenas as páginas necessárias | PDFLince",
       ogDescription:
-        "Marque as pÃ¡ginas relevantes que deseja manter, gere um novo arquivo PDF em segundos e garanta que seus dados permaneÃ§am seguros no seu prÃ³prio dispositivo.",
-      ogImageAlt: "SeleÃ§Ã£o de pÃ¡ginas no PDFLince",
+        "Marque as páginas relevantes que deseja manter, gere um novo arquivo PDF em segundos e garanta que seus dados permaneçam seguros no seu próprio dispositivo.",
+      ogImageAlt: "Seleção de páginas no PDFLince",
     },
     hero: {
-      title: "Extrair pÃ¡ginas especÃ­ficas de um PDF",
+      title: "Extrair páginas específicas de um PDF",
       description:
-        "Monte documentos sob medida mantendo apenas as pÃ¡ginas que vocÃª precisa compartilhar ou arquivar.",
+        "Monte documentos sob medida mantendo apenas as páginas que você precisa compartilhar ou arquivar.",
       bulletPoints: [
-        "Visualize miniaturas e marque pÃ¡ginas individuais",
-        "Mantenha a numeraÃ§Ã£o original ou crie novas seÃ§Ãµes",
+        "Visualize miniaturas e marque páginas individuais",
+        "Mantenha a numeração original ou crie novas seções",
         "Baixe o PDF resultante imediatamente",
       ],
-      imageAlt: "ExtraÃ§Ã£o de pÃ¡ginas em PDF",
+      imageAlt: "Extração de páginas em PDF",
     },
-    benefitsTitle: "Vantagens de extrair pÃ¡ginas com o PDFLince",
+    benefitsTitle: "Vantagens de extrair páginas com o PDFLince",
     benefits: [
       {
         title: "Documentos mais relevantes",
         description:
-          "Compartilhe apenas o conteÃºdo Ãºtil com equipe ou clientes evitando dados redundantes.",
+          "Compartilhe apenas o conteúdo útil com equipe ou clientes evitando dados redundantes.",
       },
       {
         title: "Controle total no navegador",
         description:
-          "Selecione, visualize e confirme cada pÃ¡gina sem softwares pesados ou conexÃ£o estÃ¡vel.",
+          "Selecione, visualize e confirme cada página sem softwares pesados ou conexão estável.",
       },
       {
         title: "Resultado limpo",
         description:
-          "O novo PDF preserva qualidade e metadados conforme as opÃ§Ãµes escolhidas.",
+          "O novo PDF preserva qualidade e metadados conforme as opções escolhidas.",
       },
     ],
     howTo: {
-      title: "Como extrair pÃ¡ginas com o PDFLince",
+      title: "Como extrair páginas com o PDFLince",
       steps: [
         "Envie o PDF e selecione o arquivo desejado.",
-        "Marque as pÃ¡ginas necessÃ¡rias no painel de miniaturas.",
-        "Clique em â€œProcessarâ€ para baixar um PDF com as pÃ¡ginas selecionadas.",
+        "Marque as páginas necessárias no painel de miniaturas.",
+        "Clique em “Processar” para baixar um PDF com as páginas selecionadas.",
       ],
       note:
-        "Combine a extraÃ§Ã£o com outras operaÃ§Ãµes como juntar ou comprimir em sessÃµes diferentes.",
+        "Combine a extração com outras operações como juntar ou comprimir em sessões diferentes.",
     },
-    useCasesTitle: "Ideias para extrair pÃ¡ginas",
+    useCasesTitle: "Ideias para extrair páginas",
     useCases: [
-      "Compartilhar apenas o capÃ­tulo designado de um manual com a equipe.",
-      "Enviar pÃ¡ginas especÃ­ficas de um contrato para revisÃ£o jurÃ­dica.",
-      "Montar dossiÃªs personalizados com informaÃ§Ã£o relevante para cada cliente.",
-      "Guardar somente pÃ¡ginas com formulÃ¡rios ou comprovantes que precisam ser arquivados.",
+      "Compartilhar apenas o capítulo designado de um manual com a equipe.",
+      "Enviar páginas específicas de um contrato para revisão jurídica.",
+      "Montar dossiês personalizados com informação relevante para cada cliente.",
+      "Guardar somente páginas com formulários ou comprovantes que precisam ser arquivados.",
     ],
   },
   rotate: {
@@ -342,9 +342,9 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
     slug: "recortar",
     mode: "crop",
     meta: {
-      title: "Recortar páginas PDF online | Ajustar margens | PDFLince",
+      title: "Recortar p�ginas PDF online | Ajustar margens | PDFLince",
       description:
-        "Recorte páginas PDF e remova margens extras diretamente no navegador. Tudo acontece localmente e sem uploads.",
+        "Recorte p�ginas PDF e remova margens extras diretamente no navegador. Tudo acontece localmente e sem uploads.",
       keywords: [
         "recortar pdf",
         "cortar margens pdf",
@@ -352,18 +352,18 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
         "tirar margem pdf",
         "recortar paginas pdf",
       ],
-      ogTitle: "Recorte páginas PDF com privacidade | PDFLince",
+      ogTitle: "Recorte p�ginas PDF com privacidade | PDFLince",
       ogDescription:
-        "Selecione as páginas, defina as margens e baixe um PDF mais limpo sem enviar arquivos para servidores.",
-      ogImageAlt: "Recortando páginas PDF no PDFLince",
+        "Selecione as p�ginas, defina as margens e baixe um PDF mais limpo sem enviar arquivos para servidores.",
+      ogImageAlt: "Recortando p�ginas PDF no PDFLince",
     },
     hero: {
-      title: "Recorte páginas PDF e remova margens",
+      title: "Recorte p�ginas PDF e remova margens",
       description:
-        "Elimine espaços em branco desnecessários de páginas específicas e baixe um documento mais enxuto em segundos.",
+        "Elimine espa�os em branco desnecess�rios de p�ginas espec�ficas e baixe um documento mais enxuto em segundos.",
       bulletPoints: [
-        "Selecione apenas as páginas que precisam de ajuste",
-        "Controle margens superior, direita, inferior e esquerda com precisão",
+        "Selecione apenas as p�ginas que precisam de ajuste",
+        "Controle margens superior, direita, inferior e esquerda com precis�o",
         "Processamento 100% local com zero servidores",
       ],
       imageAlt: "Fluxo de recorte de PDF",
@@ -371,14 +371,14 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
     benefitsTitle: "Por que recortar PDFs com PDFLince",
     benefits: [
       {
-        title: "Páginas mais limpas",
+        title: "P�ginas mais limpas",
         description:
-          "Reduza bordas vazias e destaque o conteúdo realmente importante.",
+          "Reduza bordas vazias e destaque o conte�do realmente importante.",
       },
       {
-        title: "Edição seletiva",
+        title: "Edi��o seletiva",
         description:
-          "Aplique o recorte somente nas páginas necessárias sem refazer o arquivo inteiro.",
+          "Aplique o recorte somente nas p�ginas necess�rias sem refazer o arquivo inteiro.",
       },
       {
         title: "Privacidade total",
@@ -387,21 +387,21 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
       },
     ],
     howTo: {
-      title: "Como recortar páginas PDF com PDFLince",
+      title: "Como recortar p�ginas PDF com PDFLince",
       steps: [
         "Envie o PDF e escolha o arquivo que deseja ajustar.",
-        "Marque as páginas e defina as margens superior, direita, inferior e esquerda.",
-        "Clique em “Processar” para baixar um novo PDF com o recorte aplicado.",
+        "Marque as p�ginas e defina as margens superior, direita, inferior e esquerda.",
+        "Clique em �Processar� para baixar um novo PDF com o recorte aplicado.",
       ],
       note:
-        "Se grupos diferentes de páginas precisarem de cortes distintos, repita o processo separadamente.",
+        "Se grupos diferentes de p�ginas precisarem de cortes distintos, repita o processo separadamente.",
     },
     useCasesTitle: "Quando faz sentido recortar um PDF",
     useCases: [
-      "Remover bordas de scanner em formulários, recibos ou documentos assinados.",
+      "Remover bordas de scanner em formul�rios, recibos ou documentos assinados.",
       "Reduzir margens antes de imprimir ou juntar arquivos.",
-      "Padronizar páginas exportadas por ferramentas diferentes.",
-      "Preparar relatórios, manuais ou materiais de estudo com enquadramento mais compacto.",
+      "Padronizar p�ginas exportadas por ferramentas diferentes.",
+      "Preparar relat�rios, manuais ou materiais de estudo com enquadramento mais compacto.",
     ],
   },
   reorder: {
@@ -409,9 +409,9 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
     slug: "reordenar",
     mode: "reorder",
     meta: {
-      title: "Reordenar PÃ¡ginas PDF | Mudar Ordem RÃ¡pido | PDFLince",
+      title: "Reordenar Páginas PDF | Mudar Ordem Rápido | PDFLince",
       description:
-        "Reorganize facilmente as pÃ¡ginas do seu PDF arrastando e soltando. Corrija a ordem e salve o resultado instantaneamente, tudo localmente.",
+        "Reorganize facilmente as páginas do seu PDF arrastando e soltando. Corrija a ordem e salve o resultado instantaneamente, tudo localmente.",
       keywords: [
         "reordenar pdf",
         "mudar ordem paginas pdf",
@@ -421,54 +421,54 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
       ],
       ogTitle: "Organize PDFs sem reinstalar software | PDFLince",
       ogDescription:
-        "Mova as pÃ¡ginas para a posiÃ§Ã£o correta, corrija erros de ordenaÃ§Ã£o e baixe seu documento PDF perfeitamente organizado em apenas alguns momentos.",
-      ogImageAlt: "ReordenaÃ§Ã£o de pÃ¡ginas no PDFLince",
+        "Mova as páginas para a posição correta, corrija erros de ordenação e baixe seu documento PDF perfeitamente organizado em apenas alguns momentos.",
+      ogImageAlt: "Reordenação de páginas no PDFLince",
     },
     hero: {
-      title: "Reordenar pÃ¡ginas de um PDF com arrastar e soltar",
+      title: "Reordenar páginas de um PDF com arrastar e soltar",
       description:
-        "Corrija a sequÃªncia de notas fiscais escaneadas, apresentaÃ§Ãµes ou relatÃ³rios extensos em segundos.",
+        "Corrija a sequência de notas fiscais escaneadas, apresentações ou relatórios extensos em segundos.",
       bulletPoints: [
         "Miniaturas grandes ajudam a evitar erros",
-        "Arraste as pÃ¡ginas e confirme a nova ordem rapidamente",
+        "Arraste as páginas e confirme a nova ordem rapidamente",
         "Exporte o PDF reorganizado sem perder marcadores ou links internos",
       ],
-      imageAlt: "Interface de reordenaÃ§Ã£o de pÃ¡ginas",
+      imageAlt: "Interface de reordenação de páginas",
     },
     benefitsTitle: "Por que reordenar com o PDFLince",
     benefits: [
       {
-        title: "Fluxos mais Ã¡geis",
+        title: "Fluxos mais ágeis",
         description:
-          "Corrija digitalizaÃ§Ãµes bagunÃ§adas sem redigitalizar ou instalar editores complexos.",
+          "Corrija digitalizações bagunçadas sem redigitalizar ou instalar editores complexos.",
       },
       {
-        title: "PrecisÃ£o visual",
+        title: "Precisão visual",
         description:
-          "As miniaturas permitem validar cada pÃ¡gina antes de exportar a nova sequÃªncia.",
+          "As miniaturas permitem validar cada página antes de exportar a nova sequência.",
       },
       {
         title: "Sem rastros",
         description:
-          "Todo o processo fica no seu dispositivo â€” ideal para documentos sensÃ­veis ou confidenciais.",
+          "Todo o processo fica no seu dispositivo — ideal para documentos sensíveis ou confidenciais.",
       },
     ],
     howTo: {
-      title: "Como reordenar pÃ¡ginas com o PDFLince",
+      title: "Como reordenar páginas com o PDFLince",
       steps: [
         "Envie o PDF e escolha o arquivo que deseja editar.",
-        "Arraste cada miniatura atÃ© alcanÃ§ar a ordem correta.",
-        "Clique em â€œProcessarâ€ para baixar o documento com a nova sequÃªncia.",
+        "Arraste cada miniatura até alcançar a ordem correta.",
+        "Clique em “Processar” para baixar o documento com a nova sequência.",
       ],
       note:
-        "Continue ajustando a ordem mesmo apÃ³s exportar, sem reenviar o arquivo.",
+        "Continue ajustando a ordem mesmo após exportar, sem reenviar o arquivo.",
     },
     useCasesTitle: "Quando reorganizar um PDF",
     useCases: [
       "Alinhar propostas, anexos e assinaturas antes de enviar.",
-      "Preparar apresentaÃ§Ãµes impressas com a sequÃªncia certa.",
-      "Corrigir pÃ¡ginas duplicadas ou invertidas apÃ³s digitalizaÃ§Ãµes em lote.",
-      "Atualizar manuais ou catÃ¡logos reaproveitando conteÃºdo existente sem diagramar do zero.",
+      "Preparar apresentações impressas com a sequência certa.",
+      "Corrigir páginas duplicadas ou invertidas após digitalizações em lote.",
+      "Atualizar manuais ou catálogos reaproveitando conteúdo existente sem diagramar do zero.",
     ],
   },
   pdfToImages: {
@@ -478,7 +478,7 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
     meta: {
       title: "Converter PDF em Imagens | Exportar PNG/JPEG | PDFLince",
       description:
-        "Converta cada pÃ¡gina do seu PDF em imagens PNG ou JPEG de alta qualidade. Escolha sua resoluÃ§Ã£o e baixe como um arquivo ZIP â€” 100% privado e seguro.",
+        "Converta cada página do seu PDF em imagens PNG ou JPEG de alta qualidade. Escolha sua resolução e baixe como um arquivo ZIP — 100% privado e seguro.",
       keywords: [
         "pdf para imagens",
         "pdf para png",
@@ -486,33 +486,33 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
         "exportar paginas pdf",
         "baixar pdf como imagem",
       ],
-      ogTitle: "Exporte pÃ¡ginas de PDF como imagens nÃ­tidas | PDFLince",
+      ogTitle: "Exporte páginas de PDF como imagens nítidas | PDFLince",
       ogDescription:
-        "Renderize cada pÃ¡gina como uma imagem nÃ­tida diretamente no seu navegador. Ajuste a qualidade, defina nomes e obtenha um arquivo ZIP organizado instantaneamente.",
+        "Renderize cada página como uma imagem nítida diretamente no seu navegador. Ajuste a qualidade, defina nomes e obtenha um arquivo ZIP organizado instantaneamente.",
       ogImageAlt: "PDFLince convertendo um PDF em imagens",
     },
     hero: {
-      title: "Converter pÃ¡ginas PDF em PNG ou JPEG",
+      title: "Converter páginas PDF em PNG ou JPEG",
       description:
-        "Gere imagens prontas para apresentaÃ§Ãµes, revisÃµes ou handoffs sem depender de editores pesados.",
+        "Gere imagens prontas para apresentações, revisões ou handoffs sem depender de editores pesados.",
       bulletPoints: [
-        "Selecione PNG ou JPEG e controle o DPI de exportaÃ§Ã£o",
-        "Baixe um Ãºnico ZIP ou uma imagem por pÃ¡gina",
-        "Processamento 100% local no seu navegador â€” nada Ã© enviado",
+        "Selecione PNG ou JPEG e controle o DPI de exportação",
+        "Baixe um único ZIP ou uma imagem por página",
+        "Processamento 100% local no seu navegador — nada é enviado",
       ],
       imageAlt: "Fluxo de PDF para imagens",
     },
     benefitsTitle: "Por que exportar PDFs com o PDFLince",
     benefits: [
       {
-        title: "Qualidade pronta para apresentaÃ§Ãµes",
+        title: "Qualidade pronta para apresentações",
         description:
-          "Escolha a resoluÃ§Ã£o ideal para slides, intranets ou fluxos de design sem perder nitidez.",
+          "Escolha a resolução ideal para slides, intranets ou fluxos de design sem perder nitidez.",
       },
       {
-        title: "Downloads flexÃ­veis",
+        title: "Downloads flexíveis",
         description:
-          "Mantenha um ZIP organizado para documentos longos ou baixe somente as pÃ¡ginas necessÃ¡rias.",
+          "Mantenha um ZIP organizado para documentos longos ou baixe somente as páginas necessárias.",
       },
       {
         title: "Privacidade garantida",
@@ -525,17 +525,17 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
       steps: [
         "Envie o PDF que deseja converter. Trabalhamos um arquivo por vez para preservar a qualidade.",
         "Escolha PNG ou JPEG, ajuste o DPI e defina se deseja agrupar tudo em um ZIP.",
-        "Clique em â€œExportar imagensâ€ para baixar o arquivo comprimido ou as pÃ¡ginas individuais.",
+        "Clique em “Exportar imagens” para baixar o arquivo comprimido ou as páginas individuais.",
       ],
       note:
-        "Precisa apenas de algumas pÃ¡ginas? Extraia ou divida antes e depois exporte para imagens.",
+        "Precisa apenas de algumas páginas? Extraia ou divida antes e depois exporte para imagens.",
     },
-    useCasesTitle: "Quando a conversÃ£o PDFâ†’imagem ajuda",
+    useCasesTitle: "Quando a conversão PDF→imagem ajuda",
     useCases: [
-      "Compartilhar prÃ©vias de design sem enviar o PDF completo.",
-      "Inserir pÃ¡ginas em CMS, apresentaÃ§Ãµes ou ferramentas que aceitam apenas imagens.",
+      "Compartilhar prévias de design sem enviar o PDF completo.",
+      "Inserir páginas em CMS, apresentações ou ferramentas que aceitam apenas imagens.",
       "Criar materiais para tablets ou e-readers que lidam melhor com PNG/JPEG.",
-      "Documentar revisÃµes internas com capturas de cada pÃ¡gina.",
+      "Documentar revisões internas com capturas de cada página.",
     ],
   },
   imagesToPdf: {
@@ -553,19 +553,19 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
         "webp para pdf",
         "criar pdf com fotos",
       ],
-      ogTitle: "Monte um PDF impecÃ¡vel com suas imagens | PDFLince",
+      ogTitle: "Monte um PDF impecável com suas imagens | PDFLince",
       ogDescription:
-        "Arraste suas imagens para o lugar, defina as configuraÃ§Ãµes de layout e exporte um arquivo PDF pronto para impressÃ£o â€” sem uploads ou marcas d'Ã¡gua anexadas.",
-      ogImageAlt: "CriaÃ§Ã£o de PDF a partir de imagens no PDFLince",
+        "Arraste suas imagens para o lugar, defina as configurações de layout e exporte um arquivo PDF pronto para impressão — sem uploads ou marcas d'água anexadas.",
+      ogImageAlt: "Criação de PDF a partir de imagens no PDFLince",
     },
     hero: {
       title: "Agrupe JPG ou PNG em um PDF profissional",
       description:
-        "Junte digitalizaÃ§Ãµes, fotos ou grÃ¡ficos em um Ãºnico documento pronto para equipes, alunos ou clientes.",
+        "Junte digitalizações, fotos ou gráficos em um único documento pronto para equipes, alunos ou clientes.",
       bulletPoints: [
         "Reordene as imagens com arrastar e soltar",
-        "Defina tamanho de pÃ¡gina, orientaÃ§Ã£o e margens",
-        "Escolha uma cor de fundo sÃ³lida para evitar transparÃªncias",
+        "Defina tamanho de página, orientação e margens",
+        "Escolha uma cor de fundo sólida para evitar transparências",
       ],
       imageAlt: "Fluxo de imagens para PDF",
     },
@@ -577,32 +577,32 @@ const operationsPtContent: Record<OperationKey, OperationContent> = {
           "Alinhe formatos diferentes em um PDF uniforme sem esticar ou cortar demais.",
       },
       {
-        title: "Pronto para impressÃ£o e revisÃ£o",
+        title: "Pronto para impressão e revisão",
         description:
-          "Ajuste margens, orientaÃ§Ã£o e fundo para que o PDF fique perfeito no papel e na tela.",
+          "Ajuste margens, orientação e fundo para que o PDF fique perfeito no papel e na tela.",
       },
       {
         title: "Processamento seguro",
         description:
-          "A conversÃ£o acontece inteiramente no navegador, ideal para recibos, identidades ou material educacional.",
+          "A conversão acontece inteiramente no navegador, ideal para recibos, identidades ou material educacional.",
       },
     ],
     howTo: {
       title: "Como converter imagens em PDF",
       steps: [
         "Adicione as imagens que deseja incluir e organize na ordem final.",
-        "Ajuste o modo de encaixe, tamanho de pÃ¡gina, orientaÃ§Ã£o e margens.",
-        "Clique em â€œCriar PDFâ€ para baixar o documento pronto para compartilhar ou arquivar.",
+        "Ajuste o modo de encaixe, tamanho de página, orientação e margens.",
+        "Clique em “Criar PDF” para baixar o documento pronto para compartilhar ou arquivar.",
       ],
       note:
         "O PDF ficou pesado? Comprima ou divida depois sem reenviar as imagens.",
     },
-    useCasesTitle: "Boas ideias para imagemâ†’PDF",
+    useCasesTitle: "Boas ideias para imagem→PDF",
     useCases: [
-      "Agrupar provas, tarefas ou atividades escaneadas antes de devolvÃª-las aos alunos.",
-      "Reunir recibos e comprovantes em um Ãºnico PDF para prestaÃ§Ã£o de contas.",
-      "Montar catÃ¡logos, portfolios ou lookbooks a partir de exportaÃ§Ãµes de design.",
-      "Enviar relatÃ³rios fotogrÃ¡ficos ou inspeÃ§Ãµes sem anexar dezenas de arquivos.",
+      "Agrupar provas, tarefas ou atividades escaneadas antes de devolvê-las aos alunos.",
+      "Reunir recibos e comprovantes em um único PDF para prestação de contas.",
+      "Montar catálogos, portfolios ou lookbooks a partir de exportações de design.",
+      "Enviar relatórios fotográficos ou inspeções sem anexar dezenas de arquivos.",
     ],
   },
 };

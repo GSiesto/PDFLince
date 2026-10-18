@@ -26,6 +26,11 @@ jobs:
     - name: Install dependencies
       run: bun install --frozen-lockfile
 
+    - name: Build and test MCP server
+      run: |
+        bun run build:mcp
+        bun run test:mcp
+
     - name: Lint code (non-blocking)
       run: bun run lint || echo "::warning::Linting found issues but continuing"
       continue-on-error: true

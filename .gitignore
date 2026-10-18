@@ -14,9 +14,14 @@ package-lock.json
 /public/standard_fonts
 /public/pdf.worker.min.mjs
 
-# Production build
+# Production build & package tarballs
 /build
 /dist
+/bin
+*.tgz
+*.tar
+*.tar.gz
+.npm/
 
 # Legacy WASM artifacts (deprecated)
 *.wasm

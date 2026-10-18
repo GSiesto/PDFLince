@@ -7,6 +7,7 @@ import { useMemo, useState, type ChangeEvent } from 'react';
 import { useDictionary, useLocale } from '../i18n/LocaleProvider';
 import { SUPPORTED_LOCALES, localeLabels, type Locale } from '../i18n/config';
 import { getLocalizedAlternateMap, getRouteIdentifierForPath, getRoutePath } from '../i18n/routing';
+import { Menu, X } from './ui/Icons';
 
 export default function NavMenu() {
   const pathname = usePathname();
@@ -48,17 +49,11 @@ export default function NavMenu() {
         </Link>
 
         <button
-          className="md:hidden p-2"
+          className="md:hidden p-2 text-[var(--tx)]"
           onClick={() => setIsOpen((open) => !open)}
           aria-label={nav.menuLabel}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {isOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
+          {isOpen ? <X className="w-6 h-6" strokeWidth={1.85} /> : <Menu className="w-6 h-6" strokeWidth={1.85} />}
         </button>
 
         <div className={`${isOpen ? 'block' : 'hidden'} md:block w-full md:w-auto mt-4 md:mt-0`}>
@@ -77,6 +72,14 @@ export default function NavMenu() {
                 className={`${isActive(routes.faq) ? 'text-[var(--accent)] font-medium' : 'text-[var(--tx-2)]'} hover:text-[var(--accent)] transition-colors`}
               >
                 {nav.faq}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={routes.mcp}
+                className={`${isActive(routes.mcp) ? 'text-[var(--accent)] font-medium' : 'text-[var(--tx-2)]'} hover:text-[var(--accent)] transition-colors`}
+              >
+                {nav.mcp ?? 'MCP Server'}
               </Link>
             </li>
 

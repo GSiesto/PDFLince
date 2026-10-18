@@ -2,11 +2,13 @@ import { localeLabels } from "../../config";
 import { getRoutePath, getOperationPath } from "../../routing";
 import { operationsFr } from "./operations";
 import { faqsFr } from "./faqs";
+import { getMcpContent } from "../mcp-content";
 import type { Dictionary } from "../dictionary-types";
 import { OperationKey } from "../../../types/operations";
 
 const locale = "fr" as const;
 const { label, nativeName, htmlLang, hrefLang } = localeLabels[locale];
+const mcpContent = getMcpContent(locale);
 const siteUrl = "https://pdflince.com";
 const homePath = getRoutePath(locale, "home");
 
@@ -32,6 +34,7 @@ export const frDictionary: Dictionary = {
     home: homePath,
     faq: getRoutePath(locale, "faq"),
     support: getRoutePath(locale, "support"),
+    mcp: getRoutePath(locale, "mcp"),
     operations: operationsRoutes,
   },
   metadata: {
@@ -97,6 +100,7 @@ export const frDictionary: Dictionary = {
       ],
       canonical: `${siteUrl}${getRoutePath(locale, "support")}`,
     },
+    mcp: mcpContent.metadata,
     operations: operationsFr,
   },
   brand: {
@@ -109,6 +113,7 @@ export const frDictionary: Dictionary = {
       faq: "FAQ",
       support: "Soutenir",
       photo: "FotoLince",
+      mcp: "Serveur MCP",
       languageLabel: "Langue",
       menuLabel: "Basculer le menu de navigation",
     },
@@ -121,6 +126,7 @@ export const frDictionary: Dictionary = {
         support: "Soutenir",
         photo: "FotoLince",
         contact: "Contact",
+        mcp: "Serveur MCP",
       },
       capabilitiesLabel: "Actions populaires",
       operations: {
@@ -715,6 +721,7 @@ export const frDictionary: Dictionary = {
         ],
       },
     },
+    mcp: mcpContent.page,
   },
   faqs: faqsFr,
   operations: operationsFr,

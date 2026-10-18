@@ -13,7 +13,7 @@ const weekly: ChangeFrequency = "weekly";
 const monthly: ChangeFrequency = "monthly";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const { home, faq, operations } = getRouteMap();
+  const { home, faq, mcp, operations } = getRouteMap();
   const lastModified = new Date();
   const entries: MetadataRoute.Sitemap = [];
   const seen = new Set<string>();
@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   };
 
   Object.values(home).forEach((path) => addEntry(path, weekly, 1));
+  Object.values(mcp).forEach((path) => addEntry(path, weekly, 0.9));
   Object.values(faq).forEach((path) => addEntry(path, monthly, 0.7));
 
   Object.values(operations).forEach((perLocale) => {

@@ -105,6 +105,53 @@ graph TD
 4.  **Open in browser:**
     Navigate to [http://localhost:3000](http://localhost:3000).
 
+## Model Context Protocol (MCP) Server
+
+PDFLince includes an official [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that empowers AI assistants, IDEs, and autonomous coding agents to inspect and manipulate local PDF files with **100% privacy and zero cloud uploads**.
+
+### Compatibility
+
+* **Supported MCP Hosts & IDEs:** Claude Desktop, Cursor, Antigravity, Windsurf, VS Code (via Cline, Roo Code, or Continue), Zed, and Open WebUI.
+* **Supported Models & Reasoning Engines:**
+  * **Frontier Cloud Models:** Claude (Anthropic), Grok (xAI via API in Cline/Open WebUI), GPT-4o (OpenAI), Gemini (Google).
+  * **Local & Open-Weights Models:** Nous Hermes (Hermes 3), DeepSeek (V3 / R1), Llama 3, Qwen, and Mistral running locally on **Ollama**, **LM Studio**, or **vLLM**.
+  * **Privacy Guarantee:** If you run local models like Nous Hermes or DeepSeek for strict data sovereignty, PDFLince ensures your PDF documents never leave your local filesystem.
+
+### Available Tools
+
+* `pdflince_inspect`: Inspect page count, dimensions, orientation, and document metadata without mutation.
+* `pdflince_merge`: Combine multiple PDFs with optional blank divider pages and custom metadata.
+* `pdflince_split`: Split PDFs into chunks based on page count, with optional ZIP archiving.
+* `pdflince_extract`: Extract specific pages or page ranges (e.g. `"1-3, 5"`).
+* `pdflince_reorder`: Reorder or drop pages according to a specified sequence.
+* `pdflince_rotate`: Rotate pages clockwise or counter-clockwise (90°, 180°, 270°).
+* `pdflince_crop`: Trim margins from page borders (top, bottom, left, right in points).
+* `pdflince_compress`: Optimize stream structure, downscale embedded images (150/72 DPI), prune annotations, and remove metadata.
+* `pdflince_pdf_to_images`: Render PDF pages into PNG or JPEG images at configurable DPI (72, 144, 300) and quality, with optional ZIP bundling.
+* `pdflince_images_to_pdf`: Convert local image files (PNG, JPG, WebP, TIFF) into a formatted PDF document.
+
+### Client Configuration
+
+Add PDFLince to your client's MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "pdflince": {
+      "command": "npx",
+      "args": ["-y", "pdflince-mcp@latest"]
+    }
+  }
+}
+```
+
+To run locally from the repository:
+```bash
+bun run build:mcp
+node ./bin/pdflince-mcp.js
+```
+
+
 ## Contributing
 
 Contributions are welcome! Whether it's fixing bugs, improving documentation, or proposing new features.

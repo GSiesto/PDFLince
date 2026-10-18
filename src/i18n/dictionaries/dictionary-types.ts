@@ -59,6 +59,7 @@ export interface NavStrings {
   faq: string;
   support: string;
   photo: string;
+  mcp?: string;
   languageLabel: string;
   menuLabel: string;
 }
@@ -72,6 +73,7 @@ export interface FooterStrings {
     support: string;
     photo: string;
     contact: string;
+    mcp?: string;
   };
   capabilitiesLabel: string;
   operations: Record<OperationKey, string>;
@@ -474,6 +476,92 @@ export interface SupportPageStrings {
   };
 }
 
+export interface McpToolItem {
+  name: string;
+  title: string;
+  description: string;
+  badge: string;
+  parameters: Array<{ name: string; type: string; required: boolean; description: string }>;
+  promptExample: string;
+}
+
+export interface McpClientConfig {
+  id: string;
+  name: string;
+  description: string;
+  configPath?: string;
+  snippet: string;
+}
+
+export interface McpPageStrings {
+  hero: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    installCommand: string;
+    copyLabel: string;
+    copiedLabel: string;
+    stats: Array<{ label: string; value: string }>;
+  };
+  privacyNotice: {
+    title: string;
+    description: string;
+    points: string[];
+  };
+  features: {
+    title: string;
+    subtitle: string;
+    cards: Array<{
+      icon: string;
+      title: string;
+      description: string;
+    }>;
+  };
+  clients: {
+    title: string;
+    subtitle: string;
+    tabs: McpClientConfig[];
+  };
+  tools: {
+    title: string;
+    subtitle: string;
+    items: McpToolItem[];
+  };
+  faq: {
+    title: string;
+    entries: FAQItem[];
+  };
+  cta: {
+    title: string;
+    description: string;
+    command: string;
+    webAppLabel: string;
+    webAppHref: string;
+    githubLabel: string;
+    githubHref: string;
+  };
+  ui?: {
+    copyPath: string;
+    copiedPath: string;
+    copyJson: string;
+    copiedJson: string;
+    parametersHeading: string;
+    paramName: string;
+    paramType: string;
+    paramRequired: string;
+    paramDescription: string;
+    yes: string;
+    no: string;
+    promptExampleHeading: string;
+    copyPrompt: string;
+    copiedPrompt: string;
+    clickToCopy: string;
+    copyCommandPrefix: string;
+    commandCopied: string;
+    directCliLabel?: string;
+  };
+}
+
 export interface FaqPageStrings {
   title: string;
   intro: string;
@@ -528,6 +616,7 @@ export interface Dictionary {
     home: string;
     faq: string;
     support: string;
+    mcp: string;
     operations: Record<OperationKey, string>;
   };
   metadata: {
@@ -558,6 +647,12 @@ export interface Dictionary {
       keywords: string[];
       canonical: string;
     };
+    mcp: {
+      title: string;
+      description: string;
+      keywords: string[];
+      canonical: string;
+    };
     operations: Record<OperationKey, OperationContent>;
   };
   brand: {
@@ -569,6 +664,7 @@ export interface Dictionary {
     home: HomePageStrings;
     faq: FaqPageStrings;
     support: SupportPageStrings;
+    mcp: McpPageStrings;
   };
   faqs: {
     common: FAQItem[];

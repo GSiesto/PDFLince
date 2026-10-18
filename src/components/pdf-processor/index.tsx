@@ -26,6 +26,7 @@ import CompressionPreviewCard, { PreviewStatus } from './CompressionPreviewCard'
 import CompressionSummaryCard from './CompressionSummaryCard';
 import type { OperationKey } from '../../types/operations';
 import { trackEvent } from '../../lib/analytics';
+import { Loader2, OperationIcon } from '../ui/Icons';
 
 type ProcessingMode = OperationKey;
 
@@ -1074,7 +1075,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           if (reductionPercentTotal) {
             highlightEntries.push({
               label: statusDialogStrings.resultsLabel,
-              value: `${compressionSummaryStrings.ratio(reductionPercentTotal)} Â· ${savingsLabel}`,
+              value: `${compressionSummaryStrings.ratio(reductionPercentTotal)} · ${savingsLabel}`,
             });
           } else {
             highlightEntries.push({
@@ -1961,13 +1962,17 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
               return (
                 <button
                   key={modeKey}
-                  className={`px-4 py-2 rounded-lg ${isActive
-                    ? 'bg-[var(--accent)] text-white'
-                    : 'bg-[var(--ui-2)] text-[var(--tx-2)]'
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive
+                    ? 'bg-[var(--accent)] text-white shadow-xs'
+                    : 'bg-[var(--ui-2)] text-[var(--tx-2)] hover:bg-[var(--ui-3)]'
                     }`}
                   onClick={() => handleModeChange(modeKey)}
                 >
-                  {label}
+                  <OperationIcon
+                    operation={modeKey}
+                    className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-[var(--accent)]'}`}
+                  />
+                  <span>{label}</span>
                 </button>
               );
             })}
@@ -2053,7 +2058,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
                           </p>
                           <p className="text-xs text-[var(--tx-3)]">
                             {selectedCount > 0
-                              ? `${fileListStrings.pagesLabel(selectedCount)} â€¢ ${fileListStrings.selected}`
+                              ? `${fileListStrings.pagesLabel(selectedCount)} • ${fileListStrings.selected}`
                               : errorStrings.noPagesSelected}
                           </p>
                         </div>
@@ -2375,7 +2380,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
                       )}
                     </p>
                     <p className="text-xs font-medium text-[var(--tx-3)]">
-                      {formatFileSize(previewItems.reduce((acc, i) => acc + (i.result?.originalSize ?? 0), 0))} â†’{' '}
+                      {formatFileSize(previewItems.reduce((acc, i) => acc + (i.result?.originalSize ?? 0), 0))} →{' '}
                       <span className="text-[var(--tx)]">
                         {formatFileSize(previewItems.reduce((acc, i) => acc + (i.result?.processedSize ?? 0), 0))}
                       </span>
@@ -2421,26 +2426,7 @@ export default function PDFProcessor({ initialMode = 'merge' }: { initialMode?: 
           >
             {isProcessing ? (
               <span className="flex items-center">
-                <svg
-                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
+                <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" />
                 {processButton.processing}
               </span>
             ) : (
