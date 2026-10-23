@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || (process.env.NODE_ENV !== 'production' ? 'G-MEASUREMENT-ID' : undefined);
 const DEBUG = process.env.NEXT_PUBLIC_ANALYTICS_DEBUG === 'true';
 
 const trackPageview = (url: string) => {
@@ -11,8 +11,12 @@ const trackPageview = (url: string) => {
     return;
   }
 
-  if (typeof window === 'undefined' || typeof window.gtag !== 'function') {
-    if (DEBUG && typeof window !== 'undefined') {
+  if (typeof window === 'undefined' || localStorage.getItem('cookie_consent') !== 'true') {
+    return;
+  }
+
+  if (typeof window.gtag !== 'function') {
+    if (DEBUG) {
       console.debug('[analytics] window.gtag unavailable for pageview', url);
     }
     return;

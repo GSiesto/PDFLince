@@ -36,21 +36,25 @@ export default function CookieBanner() {
     const handleAccept = () => {
         localStorage.setItem('cookie_consent', 'true');
         setIsVisible(false);
-
-        // Update GA consent
-        if (typeof window !== 'undefined' && (window as unknown as WindowWithGtag).gtag) {
-            (window as unknown as WindowWithGtag).gtag('consent', 'update', {
-                'ad_storage': 'granted',
-                'analytics_storage': 'granted',
-                'ad_user_data': 'granted',
-                'ad_personalization': 'granted'
-            });
+        if (typeof window !== 'undefined') {
+            window.dispatchEvent(new Event('cookie_consent_changed'));
+            if ((window as unknown as WindowWithGtag).gtag) {
+                (window as unknown as WindowWithGtag).gtag('consent', 'update', {
+                    'ad_storage': 'granted',
+                    'analytics_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted'
+                });
+            }
         }
     };
 
     const handleDecline = () => {
         localStorage.setItem('cookie_consent', 'false');
         setIsVisible(false);
+        if (typeof window !== 'undefined') {
+            window.dispatchEvent(new Event('cookie_consent_changed'));
+        }
     };
 
     if (!isVisible) return null;

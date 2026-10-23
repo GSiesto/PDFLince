@@ -2,7 +2,7 @@
 
 import { useReportWebVitals } from 'next/web-vitals';
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || (process.env.NODE_ENV !== 'production' ? 'G-MEASUREMENT-ID' : undefined);
 const DEBUG = process.env.NEXT_PUBLIC_ANALYTICS_DEBUG === 'true';
 
 export function WebVitalsReporter() {
@@ -11,7 +11,7 @@ export function WebVitalsReporter() {
       return;
     }
 
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' || localStorage.getItem('cookie_consent') !== 'true') {
       return;
     }
 
