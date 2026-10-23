@@ -25,13 +25,13 @@ export const metadata = {
   alternates: {
     canonical: "https://pdflince.com/de/",
     languages: {
-      'es-ES': 'https://pdflince.com/',
-      'es-MX': 'https://pdflince.com/',
-      'es-CO': 'https://pdflince.com/',
-      'es-AR': 'https://pdflince.com/',
-      'es': 'https://pdflince.com/',
-      'en': 'https://pdflince.com/en/',
-      'en-US': 'https://pdflince.com/en/',
+      'es-ES': 'https://pdflince.com/es/',
+      'es-MX': 'https://pdflince.com/es/',
+      'es-CO': 'https://pdflince.com/es/',
+      'es-AR': 'https://pdflince.com/es/',
+      'es': 'https://pdflince.com/es/',
+      'en': 'https://pdflince.com/',
+      'en-US': 'https://pdflince.com/',
       'fr': 'https://pdflince.com/fr/',
       'fr-FR': 'https://pdflince.com/fr/',
       'pt': 'https://pdflince.com/pt/',
@@ -66,6 +66,7 @@ export default function DeLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={LOCALE}>
       <head>
+        <title>{metadata.title}</title>
         <GoogleAnalyticsScripts />
         <SchemaOrg />
         <BreadcrumbSchema />

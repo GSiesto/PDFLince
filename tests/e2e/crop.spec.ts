@@ -32,7 +32,7 @@ test.afterAll(() => {
 test('PDF Manual Crop Workflow', async ({ page }) => {
     test.setTimeout(120_000);
 
-    await page.goto('/recortar', { timeout: 60_000 });
+    await page.goto('/crop', { timeout: 60_000 });
 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(testFile);
@@ -41,7 +41,7 @@ test('PDF Manual Crop Workflow', async ({ page }) => {
     await expect(thumbnailCards.first()).toBeVisible({ timeout: 20_000 });
     await thumbnailCards.first().click();
 
-    await expect(page.getByRole('heading', { name: 'Recorte' })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole('heading', { name: 'Crop', exact: true })).toBeVisible({ timeout: 30_000 });
 
     const manualPreview = page.locator('div.touch-none.select-none').last();
     await expect(manualPreview).toBeVisible({ timeout: 30_000 });
@@ -58,14 +58,14 @@ test('PDF Manual Crop Workflow', async ({ page }) => {
     await page.mouse.move(bounds.x + bounds.width * 0.75, bounds.y + bounds.height * 0.75, { steps: 12 });
     await page.mouse.up();
 
-    const processButton = page.getByRole('button', { name: /^Recortar \d+ pagina/ });
+    const processButton = page.getByRole('button', { name: /^Crop \d+ page/ });
     await expect(processButton).toBeEnabled({ timeout: 20_000 });
 
     const downloadPromise = page.waitForEvent('download', { timeout: 60_000 });
     await processButton.click();
     const download = await downloadPromise;
 
-    expect(download.suggestedFilename()).toMatch(/recortado_PDFLince\.pdf$/);
+    expect(download.suggestedFilename()).toMatch(/cropped_PDFLince\.pdf$/);
 
     const downloadPath = path.join(__dirname, 'downloaded-cropped.pdf');
     await download.saveAs(downloadPath);

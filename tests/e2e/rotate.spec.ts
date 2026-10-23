@@ -36,7 +36,7 @@ test.afterAll(() => {
 test('PDF Rotate Workflow', async ({ page }) => {
     test.setTimeout(120_000);
 
-    await page.goto('/girar', { timeout: 60_000 });
+    await page.goto('/rotate', { timeout: 60_000 });
 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(testFile);
@@ -45,7 +45,7 @@ test('PDF Rotate Workflow', async ({ page }) => {
     await expect(thumbnailCards.first()).toBeVisible({ timeout: 20_000 });
     await expect(thumbnailCards).toHaveCount(3);
 
-    await page.getByRole('button', { name: 'Girar 180 grados' }).click();
+    await page.getByRole('button', { name: 'Rotate 180 degrees' }).click();
 
     const pageOneCard = thumbnailCards.nth(0);
     const pageTwoCard = thumbnailCards.nth(1);
@@ -59,14 +59,14 @@ test('PDF Rotate Workflow', async ({ page }) => {
     await expect(pageOneThumbnail).toHaveAttribute('style', /rotate\(180deg\)/);
     await expect(pageTwoThumbnail).toHaveAttribute('style', /rotate\(180deg\)/);
 
-    const processButton = page.getByRole('button', { name: /Girar 2/ });
+    const processButton = page.getByRole('button', { name: /Rotate 2/ });
     await expect(processButton).toBeEnabled({ timeout: 20_000 });
 
     const downloadPromise = page.waitForEvent('download', { timeout: 60_000 });
     await processButton.click();
     const download = await downloadPromise;
 
-    expect(download.suggestedFilename()).toMatch(/rotado_PDFLince\.pdf$/);
+    expect(download.suggestedFilename()).toMatch(/rotated_PDFLince\.pdf$/);
 
     const downloadPath = path.join(__dirname, 'downloaded-rotated.pdf');
     await download.saveAs(downloadPath);

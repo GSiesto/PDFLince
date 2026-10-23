@@ -22,7 +22,7 @@ test('Rigorous PDF Compression Verification', async ({ page }) => {
     test.setTimeout(180_000);
 
     // 1. Visit the app
-    await page.goto('/comprimir');
+    await page.goto('/compress');
 
     // 2. Generate a HEAVY JPEG in the browser context using Canvas
     console.log('Generating heavy image in browser...');
@@ -87,23 +87,23 @@ test('Rigorous PDF Compression Verification', async ({ page }) => {
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(heavyPdfPath);
 
-    // 5. Select "Alta" (72 DPI)
+    // 5. Select "High" (72 DPI)
     // 72 DPI for a 500pt (6.9 inch) image should be ~500 pixels.
     // Reducing from 2500 to 500 is a 25x reduction in pixels!
-    await page.getByLabel('Alta').click({ force: true });
+    await page.getByLabel('High').click({ force: true });
 
     // 6. Wait for preview
     console.log('Waiting for compression preview...');
-    const estimadoSection = page.getByText('Resultado estimado');
+    const estimadoSection = page.getByText('Estimated output');
     await expect(estimadoSection).toBeVisible({ timeout: 60_000 });
 
-    const previewResult = page.locator('div:has-text("Resultado estimado")').last();
+    const previewResult = page.locator('div:has-text("Estimated output")').last();
     const resultText = await previewResult.innerText();
     console.log('Preview Result:', resultText);
 
     // 7. Process
     const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('button', { name: 'Procesar 1 archivo' }).click();
+    await page.getByRole('button', { name: 'Process 1 file' }).click();
     const download = await downloadPromise;
     await download.saveAs(downloadPath);
 

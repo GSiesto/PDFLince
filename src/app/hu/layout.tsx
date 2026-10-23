@@ -11,6 +11,7 @@ import { GaPageViewTracker } from "../../components/analytics/GaPageViewTracker"
 import { WebVitalsReporter } from "../../components/analytics/WebVitalsReporter";
 import CookieBanner from "../../components/CookieBanner";
 import { SchemaOrg } from "../../components/SchemaOrg";
+import { BreadcrumbSchema } from "../../components/seo/BreadcrumbSchema";
 
 import { METADATA_BASE, SHARED_ICONS, SHARED_OPEN_GRAPH, SHARED_TWITTER } from "../../lib/metadata-shared";
 
@@ -24,13 +25,13 @@ export const metadata = {
   alternates: {
     canonical: "https://pdflince.com/hu/",
     languages: {
-      'es-ES': 'https://pdflince.com/',
-      'es-MX': 'https://pdflince.com/',
-      'es-CO': 'https://pdflince.com/',
-      'es-AR': 'https://pdflince.com/',
-      'es': 'https://pdflince.com/',
-      'en': 'https://pdflince.com/en/',
-      'en-US': 'https://pdflince.com/en/',
+      'es-ES': 'https://pdflince.com/es/',
+      'es-MX': 'https://pdflince.com/es/',
+      'es-CO': 'https://pdflince.com/es/',
+      'es-AR': 'https://pdflince.com/es/',
+      'es': 'https://pdflince.com/es/',
+      'en': 'https://pdflince.com/',
+      'en-US': 'https://pdflince.com/',
       'fr': 'https://pdflince.com/fr/',
       'fr-FR': 'https://pdflince.com/fr/',
       'pt': 'https://pdflince.com/pt/',
@@ -54,7 +55,7 @@ export const metadata = {
     images: [{ url: "https://pdflince.com/og-images/og-image-hu.png", width: 1409, height: 736, alt: "PDFLince - Privát és ingyenes PDF-feldolgozás" }],
     title: "PDFLince - Ingyenes és privát PDF-eszközök a böngésződben",
     description: "Egyesítsd, tömörítsd, oszd fel és konvertáld a PDF-eket szerverre feltöltés nélkül. Biztonságos és 100% privát.",
-    url: "https://pdflince.com/hu/",
+    url: "https://pdflince.com/hu",
     locale: "hu_HU",
     type: "website",
   },
@@ -65,8 +66,10 @@ export default function HuLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={LOCALE}>
       <head>
+        <title>{metadata.title}</title>
         <GoogleAnalyticsScripts />
         <SchemaOrg />
+        <BreadcrumbSchema />
       </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <LocaleProvider locale={LOCALE}>

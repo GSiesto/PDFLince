@@ -29,8 +29,8 @@ test.describe('UI Refinements', () => {
     test('should show Total Savings summary and support Clear All', async ({ page }) => {
         test.setTimeout(120_000);
 
-        // 1. Navigate to Spanish compress page (matches other working tests)
-        await page.goto('/comprimir');
+        // 1. Navigate to English compress page
+        await page.goto('/compress');
 
         // 2. Upload 2 files
         const fileInput = page.locator('input[type="file"]');
@@ -40,26 +40,26 @@ test.describe('UI Refinements', () => {
         await expect(page.getByTitle('ui-test-1.pdf')).toBeVisible();
         await expect(page.getByTitle('ui-test-2.pdf')).toBeVisible();
 
-        // 4. Verify "Limpiar todo" (Clear All) button is visible
+        // 4. Verify "Clear all" button is visible
         // Two buttons share this label (file list + results); grab the first one
-        const clearAllButton = page.getByRole('button', { name: /Limpiar todo/i }).first();
+        const clearAllButton = page.getByRole('button', { name: /Clear all/i }).first();
         await expect(clearAllButton).toBeVisible();
 
         // 5. Process 2 files — click the process button
-        const processButton = page.getByRole('button', { name: /Procesar 2 archivos/i });
+        const processButton = page.getByRole('button', { name: /Process 2 files/i });
         await processButton.click();
 
-        // 6. Wait for compression to finish — look for "Ahorro total" (Total Savings)
-        await expect(page.getByText('Ahorro total')).toBeVisible({ timeout: 60_000 });
+        // 6. Wait for compression to finish — look for "Total Savings"
+        await expect(page.getByText('Total Savings')).toBeVisible({ timeout: 60_000 });
 
         // 7. Verify Total Savings summary card elements
-        // The card shows "X archivos optimizados" 
-        await expect(page.getByText(/archivos optimizados/i)).toBeVisible();
-        // And "ahorrados en total"
-        await expect(page.getByText(/ahorrados en total/i)).toBeVisible();
+        // The card shows "X files optimized" 
+        await expect(page.getByText(/files optimized/i)).toBeVisible();
+        // And "saved in total"
+        await expect(page.getByText(/saved in total/i)).toBeVisible();
 
         // 8. Close the ProcessingStatusDialog modal (it overlays the page)
-        // Press Escape to dismiss — avoids strict mode with 2 "Cerrar" buttons
+        // Press Escape to dismiss — avoids strict mode with multiple Close buttons
         await page.keyboard.press('Escape');
         
         // Wait for the dialog to fully unmount to avoid intercepting clicks
@@ -71,6 +71,6 @@ test.describe('UI Refinements', () => {
         // 9. Verify list is empty
         await expect(page.getByTitle('ui-test-1.pdf')).not.toBeVisible();
         // Check for empty state (upload prompt)
-        await expect(page.getByText(/Haz clic para seleccionar/i)).toBeVisible();
+        await expect(page.getByText(/Click to select/i)).toBeVisible();
     });
 });

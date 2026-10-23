@@ -2,7 +2,7 @@ export const SUPPORTED_LOCALES = ["es", "pt", "de", "en", "fr", "hu", "it", "ro"
 
 export type Locale = typeof SUPPORTED_LOCALES[number];
 
-export const DEFAULT_LOCALE: Locale = "es";
+export const DEFAULT_LOCALE: Locale = "en";
 
 export const localeLabels: Record<Locale, { label: string; nativeName: string; htmlLang: string; hrefLang: string }>
   = {

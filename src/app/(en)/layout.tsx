@@ -12,26 +12,26 @@ import { WebVitalsReporter } from "../../components/analytics/WebVitalsReporter"
 import CookieBanner from "../../components/CookieBanner";
 import { SchemaOrg } from "../../components/SchemaOrg";
 import { BreadcrumbSchema } from "../../components/seo/BreadcrumbSchema";
+import { localeLabels, DEFAULT_LOCALE, isLocale } from "../../i18n/config";
 
 import { METADATA_BASE, SHARED_ICONS, SHARED_OPEN_GRAPH, SHARED_TWITTER } from "../../lib/metadata-shared";
-
-const LOCALE = "en" as const;
 
 export const metadata = {
   metadataBase: METADATA_BASE,
   title: "PDFLince - Merge, Compress, Split, and Convert PDFs Online",
   description: "Free online PDF tools to merge, compress, split, extract, and convert PDFs. 100% private, local processing in your browser.",
+  keywords: "merge pdf, compress pdf, split pdf, extract pdf pages, rotate pdf pages, reorder pdf, pdf to images, images to pdf, convert pdf, edit pdf offline",
   icons: SHARED_ICONS,
   alternates: {
-    canonical: "https://pdflince.com/en/",
+    canonical: "https://pdflince.com/",
     languages: {
-      'es-ES': 'https://pdflince.com/',
-      'es-MX': 'https://pdflince.com/',
-      'es-CO': 'https://pdflince.com/',
-      'es-AR': 'https://pdflince.com/',
-      'es': 'https://pdflince.com/',
-      'en': 'https://pdflince.com/en/',
-      'en-US': 'https://pdflince.com/en/',
+      'es-ES': 'https://pdflince.com/es/',
+      'es-MX': 'https://pdflince.com/es/',
+      'es-CO': 'https://pdflince.com/es/',
+      'es-AR': 'https://pdflince.com/es/',
+      'es': 'https://pdflince.com/es/',
+      'en': 'https://pdflince.com/',
+      'en-US': 'https://pdflince.com/',
       'fr': 'https://pdflince.com/fr/',
       'fr-FR': 'https://pdflince.com/fr/',
       'pt': 'https://pdflince.com/pt/',
@@ -55,23 +55,35 @@ export const metadata = {
     images: [{ url: "https://pdflince.com/og-images/og-image-en.png", width: 1409, height: 736, alt: "PDFLince - Private and free PDF processing" }],
     title: "PDFLince - Free and Private PDF Tools in Your Browser",
     description: "Merge, compress, split, and convert PDFs without uploading files. Secure and 100% private processing.",
-    url: "https://pdflince.com/en",
+    url: "https://pdflince.com",
     locale: "en_US",
     type: "website",
   },
   twitter: SHARED_TWITTER,
 };
 
-export default function EnLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: Promise<{ locale?: string }>;
+}) {
+  const resolvedParams = await params;
+  const requestedLocale = resolvedParams?.locale;
+  const locale = requestedLocale && isLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
+  const htmlLang = localeLabels[locale].htmlLang;
+
   return (
-    <html lang={LOCALE}>
+    <html lang={htmlLang}>
       <head>
+        <title>{metadata.title}</title>
         <GoogleAnalyticsScripts />
         <SchemaOrg />
         <BreadcrumbSchema />
       </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <LocaleProvider locale={LOCALE}>
+        <LocaleProvider locale={locale}>
           <WebVitalsReporter />
           <Suspense fallback={null}>
             <GaPageViewTracker />
